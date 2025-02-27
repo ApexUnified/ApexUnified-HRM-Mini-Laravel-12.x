@@ -16,9 +16,9 @@ class BranchSeeder extends Seeder
         if (Branch::doesntExist()) {
             Branch::create([
                 'name' => "Default Branch",
-                'address' => fake()->address(),
-                'latitude' => fake()->latitude(),
-                'longtitude' => fake()->longitude(),
+                'address' => "Default Addresss",
+                'latitude' => 24.8991789,
+                'longtitude' => 67.1874781,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
