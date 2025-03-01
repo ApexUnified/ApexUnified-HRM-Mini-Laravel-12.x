@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::table('employees', function (Blueprint $table) {
             $table->enum("gender", ["Male", "Female", "Other"])->nullable();
             $table->foreignId("position_id")->nullable()->constrained("positions")->nullOnDelete()->cascadeOnUpdate();
-            $table->date("joining_date")->nullable();
+            $table->string("joining_date")->nullable();
             $table->string("religion")->nullable();
 
             $table

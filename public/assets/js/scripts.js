@@ -209,7 +209,6 @@
             enableTime: false,
             noCalendar: false,
             dateFormat: "Y-m-d",
-
         });
 
 
@@ -221,10 +220,6 @@
             dateFormat: "Y-m-d",
 
         });
-
-
-
-
 
 
 
