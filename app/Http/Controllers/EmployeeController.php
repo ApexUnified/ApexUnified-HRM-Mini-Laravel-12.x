@@ -13,6 +13,7 @@ use App\Models\ZktecoDevice;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
@@ -163,7 +164,7 @@ class EmployeeController extends Controller implements HasMiddleware
         $validated_req['device_id'] = json_encode($device_ids, true);
 
         $this->CreateOnZktecoDevice($devices, $validated_req);
-
+        $validated_req["created_by"] = Auth::user()->name;
 
         // return $validated_req;
         $create = Employee::create($validated_req);
