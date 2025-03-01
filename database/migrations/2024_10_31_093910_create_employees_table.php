@@ -15,13 +15,12 @@ return new class extends Migration
             $table->id();
             $table->bigInteger("employee_id");
             $table->string("employee_name");
-            $table->string("father_name");
+            $table->string("parent_name");
             $table->string("employee_dob");
             $table->string("date_of_hiring");
             $table->foreignId("department_id")->constrained("departments")->cascadeOnDelete()->cascadeOnUpdate();
             $table->string("employee_schedule");
             $table->string("designation");
-            $table->timestamps();
         });
     }
 

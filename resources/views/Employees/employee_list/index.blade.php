@@ -29,9 +29,10 @@
                                                     <div class="checkmark"></div>
                                                 </label>
                                             </th>
+                                            <th>Profile</th>
                                             <th>Employee ID</th>
                                             <th>Employee Name</th>
-                                            <th>Father Name</th>
+                                            <th>Parent Name</th>
                                             <th>Employee DOB</th>
                                             <th>Employee Designation</th>
                                             <th>Date Of Hiring</th>
@@ -55,9 +56,18 @@
                                                     </label>
                                                 </td>
 
+                                                <td>
+                                                   @if(!empty($employee->profile))
+                                                   <img src="{{ asset("assets/images/employee/profile/" . $employee->profile ) }}"
+                                                   alt="" style="width:80px; height:80px; object-fit:cover; border-radius:3rem">
+                                                   @else
+                                                   <img src="{{ asset("assets/images/default-img.webp" ) }}"
+                                                   alt="" style="width:80px; height:80px; object-fit:cover; border-radius:3rem">
+                                                   @endif
+                                                </td>
                                                 <td>{{ $employee->device_user_id }}</td>
                                                 <td>{{ $employee->employee_name }}</td>
-                                                <td>{{ $employee->father_name }}</td>
+                                                <td>{{ $employee->parent_name }}</td>
                                                 <td>{{ $employee->employee_dob }}</td>
                                                 <td>{{ $employee->designation }}</td>
                                                 <td>{{ $employee->date_of_hiring }}</td>

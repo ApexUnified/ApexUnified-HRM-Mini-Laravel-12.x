@@ -205,6 +205,12 @@
             dateFormat: "Y-m-d",
 
         });
+        flatpickr("#joining_date", {
+            enableTime: false,
+            noCalendar: false,
+            dateFormat: "Y-m-d",
+
+        });
 
 
 

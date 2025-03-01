@@ -6,8 +6,7 @@
 
     <div class="main-content-inner">
         <div class="row">
-
-            <div class="col-lg-6 mt-5">
+            <div class="col-lg-12 mt-5">
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-5">
@@ -15,118 +14,475 @@
                             <a href="{{ route('employee.index') }}" class="btn btn-primary">Back To Employees</a>
                         </div>
 
-                        <form action="{{ route('employee.store') }}" method="POST">
+                        <form action="{{ route('employee.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
 
-                            <div class="form-group">
-                                <label for="employee_name" class="col-form-label">Employee Name *</label>
-                                <input class="form-control" type="text" name="employee_name" id="employee_name"
-                                    value="{{ old('employee_name') }}">
-                                @error('employee_name')
-                                    <small class="text-danger">{{ $message }}</small>
-                                @enderror
-                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="employee_name" class="col-form-label">Employee Name *</label>
+                                        <input class="form-control" type="text" name="employee_name" id="employee_name"
+                                            value="{{ old('employee_name') }}">
+                                        @error('employee_name')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                </div>
 
-
-                            <div class="form-group">
-                                <label for="father_name" class="col-form-label">Father Name *</label>
-                                <input class="form-control" type="text" name="father_name" id="father_name"
-                                    value="{{ old('father_name') }}">
-                                @error('father_name')
-                                    <small class="text-danger">{{ $message }}</small>
-                                @enderror
-                            </div>
-
-
-                            <div class="form-group">
-                                <label for="employee_dob" class="col-form-label">Employee Date of Birth *</label>
-                                <input class="form-control" type="text" name="employee_dob" id="employee_dob"
-                                    value="{{ old('employee_dob') }}">
-                                @error('employee_dob')
-                                    <small class="text-danger">{{ $message }}</small>
-                                @enderror
-                            </div>
-
-                            <div class="form-group">
-                                <label for="date_of_hiring" class="col-form-label">Date Of Hiring *</label>
-                                <input class="form-control" type="text" name="date_of_hiring" id="employee_dob"
-                                    value="{{ old('date_of_hiring') }}">
-                                @error('date_of_hiring')
-                                    <small class="text-danger">{{ $message }}</small>
-                                @enderror
-                            </div>
-
-
-                            <div class="form-group">
-                                <label for="designation" class="col-form-label">Designation *</label>
-                                <input class="form-control" type="text" name="designation" id="designation"
-                                    value="{{ old('designation') }}">
-                                @error('designation')
-                                    <small class="text-danger">{{ $message }}</small>
-                                @enderror
-                            </div>
-
-
-                            <div class="form-group">
-                                <label for="department_id" class="col-form-label">Department *</label>
-                                <select class="form-control" type="text" name="department_id" id="department_id"
-                                    style="cursor: pointer;">
-                                    <option value="" hidden>Select Department </option>
-                                    @foreach ($departments as $department)
-                                        <option value="{{ $department->id }}"
-                                            {{ old('department_id') == $department->id ? 'selected' : '' }}>
-                                            {{ $department->department_name }}</option>
-                                    @endforeach
-                                </select>
-                                @error('department_id')
-                                    <small class="text-danger">{{ $message }}</small>
-                                @enderror
-                            </div>
-
-
-                            <div class="form-group">
-                                <label for="employee_schedule" class="col-form-label">Schedule *</label>
-                                <select multiple class="form-control" type="text" name="employee_schedule[]"
-                                    id="employee_schedule" style="cursor: pointer;">
-                                    <option value="" hidden>Select Schedule </option>
-                                    @foreach ($schedules as $schedule)
-                                        <option value="{{ $schedule->id }}">{{ $schedule->name . ' ' }}
-                                            {{ $schedule->FormattedTimes['checkin'] . ' - ' . $schedule->FormattedTimes['checkout'] }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                @error('employee_schedule')
-                                    <small class="text-danger">{{ $message }}</small>
-                                @enderror
-                            </div>
-
-
-                            <div class="form-group">
-                                <label for="device_id" class="col-form-label">ZkTeco Devices *</label>
-                                <select class="form-control" type="text" name="device_id[]" id="device_id"
-                                    style="cursor: pointer;" multiple>
-                                    <option value="" hidden>Select Device </option>
-                                    @foreach ($devices as $device)
-                                        <option value="{{ $device->id }}">{{ $device->name }}</option>
-                                    @endforeach
-                                </select>
-                                @error('device_id')
-                                    <small class="text-danger">{{ $message }}</small>
-                                @enderror
-                            </div>
-
-                            <div class="form-group">
-                                <label for="device_user_id" class="col-form-label">Device User Id *</label>
-                                <input class="form-control" type="number" name="device_user_id" id="device_user_id"
-                                    value="{{ old('device_user_id') }}">
-                                @error('device_user_id')
-                                    <small class="text-danger">{{ $message }}</small>
-                                @enderror
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="parent_name" class="col-form-label">Parent Name *</label>
+                                        <input class="form-control" type="text" name="parent_name" id="parent_name"
+                                            value="{{ old('parent_name') }}">
+                                        @error('parent_name')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                </div>
                             </div>
 
 
 
-                            <button class="btn btn-primary" type="submit">Create Employee</button>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="employee_dob" class="col-form-label">Employee Date of Birth *</label>
+                                        <input class="form-control" type="text" name="employee_dob" id="employee_dob"
+                                            value="{{ old('employee_dob') }}">
+                                        @error('employee_dob')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="date_of_hiring" class="col-form-label">Date Of Hiring *</label>
+                                        <input class="form-control" type="text" name="date_of_hiring" id="employee_dob"
+                                            value="{{ old('date_of_hiring') }}">
+                                        @error('date_of_hiring')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="designation" class="col-form-label">Designation *</label>
+                                        <input class="form-control" type="text" name="designation" id="designation"
+                                            value="{{ old('designation') }}">
+                                        @error('designation')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="department_id" class="col-form-label">Department *</label>
+                                        <select class="form-control" type="text" name="department_id" id="department_id"
+                                            style="cursor: pointer;">
+                                            <option value="" hidden>Select Department </option>
+                                            @foreach ($departments as $department)
+                                                <option value="{{ $department->id }}"
+                                                    {{ old('department_id') == $department->id ? 'selected' : '' }}>
+                                                    {{ $department->department_name }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('department_id')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="device_id" class="col-form-label">ZkTeco Devices *</label>
+                                        <select class="form-control" type="text" name="device_id[]" id="device_id"
+                                            style="cursor: pointer;" multiple>
+                                            <option value="" hidden>Select Device </option>
+                                            @foreach ($devices as $device)
+                                                <option value="{{ $device->id }}" @selected(in_array($device->id, old("device_id",[]))) >{{ $device->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('device_id')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="device_user_id" class="col-form-label">Device User Id *</label>
+                                        <input class="form-control" type="number" name="device_user_id" id="device_user_id"
+                                            value="{{ old('device_user_id') }}">
+                                        @error('device_user_id')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+
+                          <div class="row">
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="employee_schedule" class="col-form-label">Schedule *</label>
+                                    <select multiple class="form-control" type="text" name="employee_schedule[]"
+                                        id="employee_schedule" style="cursor: pointer;">
+                                        <option value="" hidden>Select Schedule </option>
+                                        @foreach ($schedules as $schedule)
+                                            <option value="{{ $schedule->id }}" @selected(in_array($schedule->id,old("employee_schedule",[]))) >{{ $schedule->name . ' ' }}
+                                                {{ $schedule->FormattedTimes['checkin'] . ' - ' . $schedule->FormattedTimes['checkout'] }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('employee_schedule')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="gender" class="col-form-label">Gender *</label>
+                                    <select class="form-control" name="gender" id="gender"
+                                        style="cursor: pointer;">
+                                        <option value="" hidden>Select Gender</option>
+                                        <option value="Male" @selected(old("gender") == "Male")>  Male</option>
+                                        <option value="Female" @selected(old("gender") == "Female") >Female</option>
+                                        <option value="Other" @selected(old("gender") == "Other") >Other</option>
+                                    </select>
+                                    @error('gender')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                             </div>
+                        </div>
+
+
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="position_id" class="col-form-label">Position *</label>
+                                    <select class="form-control" name="position_id" id="position_id"
+                                        style="cursor: pointer;">
+
+                                        <option value="" hidden>Select Position</option>
+
+                                        @foreach($positions as $position)
+                                            <option value="{{ $position->id }}" @selected(old("position_id") == $position->id)> {{ $position->position_name }}</option>
+                                        @endforeach
+
+                                    </select>
+                                    @error('position_id')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="joining_date" class="col-form-label">Date Of Joining *</label>
+                                    <input type="text" class="form-control" id="joining_date" name="joining_date" value="{{ old("joining_date") }}">
+                                    @error('joining_date')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="religion" class="col-form-label">Religion *</label>
+                                    <input type="text" class="form-control" id="religion" name="religion" value="{{ old("religion") }}">
+                                    @error('religion')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="marital_status" class="col-form-label">Marital Status *</label>
+
+                                    <select name="marital_status" id="marital_status" class="form-control">
+                                        <option value="" hidden>Select Marital Status</option>
+                                        <option value="Single" @selected(old("marital_status") == "Single")>Single</option>
+                                        <option value="Married" @selected(old("marital_status") == "Married")>Married</option>
+                                        <option value="Divorced" @selected(old("marital_status") == "Divorced")>Divorced</option>
+                                        <option value="Widowed" @selected(old("marital_status") == "Widowed")>Widowed</option>
+                                        <option value="Separated" @selected(old("marital_status") == "Separated")>Separated</option>
+                                    </select>
+
+                                    @error('marital_status')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="home_address" class="col-form-label">Home Address *</label>
+                                    <textarea name="home_address" id="home_address" cols="30" rows="1" class="form-control">{{ old("home_address") }}</textarea>
+                                    @error('home_address')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="contact_number" class="col-form-label">Contact Number *</label>
+                                    <input type="number" id="contact_number" name="contact_number" class="form-control" value="{{ old("contact_number") }}">
+                                    @error('contact_number')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="email" class="col-form-label">Email *</label>
+                                    <input type="email" id="email" name="email" class="form-control" value="{{ old("email") }}">
+                                    @error('email')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="cnic_number" class="col-form-label">Cnic Number *</label>
+                                    <input type="text" id="cnic_number" name="cnic_number" class="form-control" value="{{ old("cnic_number") }}">
+                                    @error('cnic_number')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="eobi_number" class="col-form-label">Eobi Number </label>
+                                    <input type="number" id="eobi_number" name="eobi_number" class="form-control"  value="{{ old("eobi_number") }}">
+                                    @error('eobi_number')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="sessi_number" class="col-form-label">Sessi Number </label>
+                                    <input type="number" id="sessi_number" name="sessi_number" class="form-control"  value="{{ old("sessi_number") }}">
+                                    @error('sessi_number')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="blood_group" class="col-form-label">Blood Group </label>
+                                    <select name="blood_group" id="blood_group" class="form-control">
+                                        <option value="" hidden>Select Blood Group</option>
+                                        <option value="A+" @selected(old('blood_group') == "A+")>A+</option>
+                                        <option value="A-" @selected(old('blood_group') == "A-")>A-</option>
+                                        <option value="B+" @selected(old('blood_group') == "B+")>B+</option>
+                                        <option value="B-" @selected(old('blood_group') == "B-")>B-</option>
+                                        <option value="O+" @selected(old('blood_group') == "O+")>O+</option>
+                                        <option value="O-" @selected(old('blood_group') == "O-")>O-</option>
+                                        <option value="AB+" @selected(old('blood_group') == "AB+")>AB+</option>
+                                        <option value="AB-" @selected(old('blood_group') == "AB-")>AB-</option>
+                                    </select>
+                                    @error('blood_group')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="qualification" class="col-form-label">Qualification *</label>
+                                    <input name="qualification" id="qualification" value="{{ old("qualification") }}" class="form-control"/>
+                                    @error('qualification')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="emergency_contact_details" class="col-form-label">Emergency Contact Details *</label>
+                                    <textarea name="emergency_contact_details" id="emergency_contact_details" cols="30" rows="1" class="form-control">{{ old("emergency_contact_details") }}</textarea>
+                                    @error('emergency_contact_details')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="emergency_contact_number" class="col-form-label">Emergency Contact Number * </label>
+                                    <input type="number" id="emergency_contact_number" name="emergency_contact_number" class="form-control" value="{{ old("emergency_contact_number") }}">
+                                    @error('emergency_contact_number')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="remarks" class="col-form-label">Remarks </label>
+                                    <input type="text" id="remarks" name="remarks" class="form-control" value="{{ old("remarks") }}">
+                                    @error('remarks')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row my-3">
+                            <div class="col-md-12 text-center">
+                                <h4>Family Member Details</h4>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="full_name" class="col-form-label">Full Name </label>
+                                    <input type="text" id="full_name" name="family_member_details[full_name]"
+                                     class="form-control" value="{{ old("family_member_details.full_name") }}">
+                                    @error("family_member_details[full_name]")
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="relation" class="col-form-label">Relation </label>
+                                    <input type="text" id="relation" name="family_member_details[relation]"
+                                     class="form-control" value="{{ old("family_member_details.relation") }}">
+                                    @error("family_member_details[relation]")
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="age" class="col-form-label">Age </label>
+                                    <input type="number" id="age" name="family_member_details[age]"
+                                     class="form-control" value="{{ old("family_member_details.age") }}">
+                                    @error("family_member_details[age]")
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="family_member_contact_num" class="col-form-label">Contact Number </label>
+                                    <input type="number" id="family_member_contact_num" name="family_member_details[contact_number]"
+                                     class="form-control" value="{{ old("family_member_details.contact_number") }}">
+                                    @error("family_member_details[contact_number]")
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="family_member_email" class="col-form-label">Email </label>
+                                    <input type="email" id="family_member_email" name="family_member_details[email]"
+                                     class="form-control" value="{{ old("family_member_details.email") }}">
+                                    @error("family_member_details[email]")
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="family_member_address" class="col-form-label">Address </label>
+                                    <input type="text" id="family_member_address" name="family_member_details[address]"
+                                     class="form-control" value="{{ old("family_member_details.address") }}">
+                                    @error("family_member_details[address]")
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="documents" class="col-form-label">Documents</label>
+                                    <input type="file" id="documents" name="documents[]" class="form-control">
+                                    @error("documents")
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="profile" class="col-form-label">Profile</label>
+                                    <input type="file" id="profile" name="profile" class="form-control">
+                                    @error("profile")
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <button class="btn btn-primary" type="submit">Create Employee</button>
 
 
                     </div>
@@ -143,76 +499,38 @@
 
 
         <script>
+
             $(document).ready(function() {
-                $("#user_checkbox").on("change", function() {
-                    const name_label = $("#name-label");
-                    const name = $("#name");
 
-                    const email_label = $("#email-label");
-                    const email = $("#email");
+                const documentsInput = document.querySelector('[name="documents[]"]');
+                const documentsPond =  FilePond.create(documentsInput,{
+                    credits: null,
+                    allowMultiple: true,
+                    acceptedFileTypes: [
+                        'image/jpeg',
+                        'image/png',
+                        'image/jpg',
+                        'application/pdf',
+                        'application/msword',
+                        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                        'application/vnd.ms-excel',
+                        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                        ],
+                    maxFileSize: 5242880,
+                    storeAsFile: true,
+                });
 
-                    const password_label = $("#password-label");
-                    const password = $("#password");
-
-                    const password_confirmation_label = $("#password_confirmation-label");
-                    const password_confirmation = $("#password_confirmation");
-
-                    const role_label = $("#role-label");
-                    const role = $("#role");
-
-                    const name_message = $("#name-message");
-                    const email_message = $("#email-message");
-                    const password_message = $("#password-message");
-                    const password_confirmation_message = $("#password_confirmation-message");
-                    const role_message = $("#role-message");
-
-                    if ($(this).is(":checked")) {
-                        name_label.css("display", "block");
-                        name.css("display", "block");
-
-                        email_label.css("display", "block");
-                        email.css("display", "block");
-
-                        password_label.css("display", "block");
-                        password.css("display", "block");
-
-                        password_confirmation_label.css("display", "block");
-                        password_confirmation.css("display", "block");
-
-                        role_label.css("display", "block");
-                        role.css("display", "block");
-
-                        name_message.css("display", "block");
-                        email_message.css("display", "block");
-                        password_message.css("display", "block");
-                        password_confirmation_message.css("display", "block");
-                        role_message.css("display", "block");
-
-                    } else {
-                        name_label.css("display", "none");
-                        name.css("display", "none");
-
-                        email_label.css("display", "none");
-                        email.css("display", "none");
-
-                        password_label.css("display", "none");
-                        password.css("display", "none");
-
-                        password_confirmation_label.css("display", "none");
-                        password_confirmation.css("display", "none");
-
-                        role_label.css("display", "none");
-                        role.css("display", "none");
-
-
-                        name_message.css("display", "none");
-                        email_message.css("display", "none");
-                        password_message.css("display", "none");
-                        password_confirmation_message.css("display", "none");
-                        role_message.css("display", "none");
-
-                    }
-
+                const profileInput = document.querySelector('[name="profile"]');
+                FilePond.create(profileInput,{
+                    credits: null,
+                    allowMultiple: false,
+                    acceptedFileTypes: [
+                        'image/jpeg',
+                        'image/png',
+                        'image/jpg',
+                        ],
+                    maxFileSize: 5242880,
+                    storeAsFile: true,
                 });
             });
         </script>

@@ -68,4 +68,14 @@ class Employee extends Model
     {
         return $this->hasMany(Attendance::class, 'employee_id', 'id');
     }
+
+
+
+    public function casts(): array
+    {
+        return [
+            "documents" => "array",
+            "family_member_details" => "array"
+        ];
+    }
 }
