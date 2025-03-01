@@ -191,27 +191,6 @@
    ==================================*/
     // Employees
     $(document).ready(function () {
-        flatpickr("#employee_dob", {
-            enableTime: false,
-            noCalendar: false,
-            dateFormat: "Y-m-d",
-        });
-
-
-
-        flatpickr("#hiring_date", {
-            enableTime: false,
-            noCalendar: false,
-            dateFormat: "Y-m-d",
-
-        });
-        flatpickr("#joining_date", {
-            enableTime: false,
-            noCalendar: false,
-            dateFormat: "Y-m-d",
-        });
-
-
 
 
         flatpickr("#attendance_date", {
@@ -227,6 +206,7 @@
             enableTime: false,
             noCalendar: false,
             dateFormat: "Y-m-d",
+            disableMobile: true
 
         });
 
@@ -236,6 +216,7 @@
             enableTime: false,
             noCalendar: false,
             dateFormat: "Y-m-d",
+            disableMobile: true
 
         });
 
@@ -246,6 +227,7 @@
             enableTime: false,
             noCalendar: false,
             dateFormat: "Y-m-d",
+            disableMobile: true
 
         });
 
@@ -255,6 +237,7 @@
             enableTime: false,
             noCalendar: false,
             dateFormat: "Y-m-d",
+            disableMobile: true
 
         });
 
@@ -263,6 +246,7 @@
             enableTime: false,
             noCalendar: false,
             dateFormat: "Y-m-d",
+            disableMobile: true
 
         });
 
@@ -270,6 +254,7 @@
             enableTime: false,
             noCalendar: false,
             dateFormat: "Y-m-d",
+            disableMobile: true
 
         });
     });

@@ -152,3 +152,39 @@
         </div>
 
     @endsection
+
+    @section("js")
+
+
+        <script>
+            $(document).ready(function(){
+                flatpickr("#employee_dob", {
+                    enableTime: false,
+                    noCalendar: false,
+                    dateFormat: "Y-m-d",
+                    disableMobile: true
+                });
+
+
+
+                flatpickr("#hiring_date", {
+                    enableTime: false,
+                    noCalendar: false,
+                    dateFormat: "Y-m-d",
+                    disableMobile: true
+
+                });
+
+
+                flatpickr("#joining_date", {
+                    enableTime: false,
+                    noCalendar: false,
+                    dateFormat: "Y-m-d",
+                    disableMobile: true
+                });
+
+            });
+        </script>
+
+
+    @endsection
