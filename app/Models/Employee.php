@@ -75,7 +75,8 @@ class Employee extends Model
     {
         return [
             "documents" => "array",
-            "family_member_details" => "array"
+            "family_member_details" => "array",
+            "joining_date"  => "date:Y-m-d"
         ];
     }
 }
