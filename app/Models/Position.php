@@ -13,4 +13,9 @@ class Position extends Model
     {
         return $this->belongsTo(Jobnature::class, "jobnature_id", "id");
     }
+
+    public function employee()
+    {
+        return $this->hasOne(Employee::class, "position_id", "id");
+    }
 }

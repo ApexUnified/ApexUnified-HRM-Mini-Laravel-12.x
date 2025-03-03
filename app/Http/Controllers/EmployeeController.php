@@ -10,6 +10,7 @@ use App\Models\Position;
 use App\Models\Schedule;
 use App\Models\User;
 use App\Models\ZktecoDevice;
+use Flasher\Toastr\Laravel\Facade\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
@@ -27,16 +28,52 @@ class EmployeeController extends Controller implements HasMiddleware
         return [
             new Middleware("permission:Employee View", ["only" => "index"]),
             new Middleware("permission:Employee Create", ["only" => "create"]),
+            new Middleware("permission:Employee Show", ["only" => "show"]),
             new Middleware("permission:Employee Edit", ["only" => "edit"]),
             new Middleware("permission:Employee Delete", ["only" => "destroy"]),
         ];
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $employees = Employee::orderBy("created_at", "DESC")->get();
 
-        return view("Employees.employee_list.index", compact("employees"));
+        $employees = Employee::query()->orderBy("created_at", "DESC");
+
+        if (!empty($request->input("department_id"))) {
+            $employees = $employees->where("department_id", $request->input("department_id"));
+        }
+
+        if (!empty($request->input("gender"))) {
+            $employees = $employees->where("gender", $request->input("gender"));
+        }
+
+        if (!empty($request->input("position_id"))) {
+            $employees = $employees->where("position_id", $request->input("position_id"));
+        }
+
+        if (!empty($request->input("marital_status"))) {
+            $employees = $employees->where("marital_status", $request->input("marital_status"));
+        }
+
+        if (!empty($request->input("device_id"))) {
+            $employees = $employees->whereJsonContains("device_id", $request->input("device_id"));
+        }
+
+        if (!empty($request->input("blood_group"))) {
+            $employees = $employees->where("blood_group", $request->input("blood_group"));
+        }
+
+
+
+        $employees = $employees->get();
+        $departments = Department::all();
+        $positions = Position::all();
+        $devices = ZktecoDevice::all();
+
+        if ($request->hasAny(["department_id", "gender", "position_id", "marital_status", "device_id", "blood_group"]) && $employees->isEmpty()) {
+            Toastr()->info("No Results Found From Your Given Search");
+        }
+        return view("Employees.employee_list.index", compact("employees", "departments", "positions", "devices"));
     }
 
     public function create()
@@ -229,6 +266,15 @@ class EmployeeController extends Controller implements HasMiddleware
 
 
 
+    public function show(string $id)
+    {
+        $employee = Employee::find($id);
+        if (empty($employee)) {
+            Toastr()->error("Employee Not Found");
+            return back();
+        }
+        return view("Employees.employee_list.show", compact("employee"));
+    }
 
     public function edit(string $id)
     {
@@ -236,14 +282,13 @@ class EmployeeController extends Controller implements HasMiddleware
         $departments = Department::all();
         $schedules = Schedule::all();
         $devices = ZktecoDevice::all();
-        return view("Employees.employee_list.edit", compact('employee', "departments", "schedules", "devices"));
+        $positions = Position::all();
+        return view("Employees.employee_list.edit", compact('employee', "departments", "schedules", "devices", "positions"));
     }
 
 
     public function update(Request $request, string $id)
     {
-
-
         $validated_req = $request->validate([
             'employee_name' => 'required|min:3',
             'parent_name' => 'required|min:3',
@@ -254,33 +299,105 @@ class EmployeeController extends Controller implements HasMiddleware
             'device_id' => 'required|array',
             'device_user_id' => 'required|numeric',
             'designation' => 'required|min:3',
-
+            'gender' => 'required|in:Male,Female,Other',
+            'position_id' => 'required|exists:positions,id',
+            'joining_date' => 'required|date',
+            'religion' => 'required',
+            'marital_status' => 'required|in:Single,Married,Divorced,Widowed,Separated',
+            'home_address' => 'required',
+            'contact_number' => 'required|numeric',
+            'email' => 'required|email|unique:employees,email,' . $id,
+            'cnic_number' => 'required|regex:/^\d{5}-\d{7}-\d{1}$/',
+            'eobi_number' => 'nullable|numeric|digits:10',
+            'sessi_number' => 'nullable|numeric|digits:10',
+            'blood_group' => 'nullable|in:A+,A-,B+,B-,O+,O-,AB+,AB-',
+            'qualification' => 'required',
+            'emergency_contact_details' => 'required',
+            'emergency_contact_number' => 'required|numeric',
+            'family_member_details' => 'nullable',
+            'family_member_details.fullname' => 'nullable',
+            'family_member_details.relation' => 'nullable',
+            'family_member_details.age' => 'nullable|numeric',
+            'family_member_details.contact_number' => 'nullable|numeric',
+            'family_member_details.address' => 'nullable',
+            'profile' => "nullable|mimes:jpg,jpeg,png|max:5242880",
+            'documents' => 'nullable',
+            'remarks' => 'nullable',
+        ], [
+            'cnic_number.regex' => "Cnic Number Must Be Valid"
         ]);
-
-        $schedules = $request->employee_schedule;
-        $exploded_schedule = implode(",", $schedules);
-        $validated_req['employee_schedule'] = $exploded_schedule;
 
         $employee = Employee::find($id);
         if (!empty($employee)) {
 
-            $devices = ZktecoDevice::whereIn("id", $validated_req["device_id"])->get();
+            $selectedDeviceIds = $validated_req["device_id"];
+            $exists = Employee::where("device_user_id", $validated_req["device_user_id"])
+                ->where("id", "!=", $id)
+                ->where(function ($query) use ($selectedDeviceIds) {
+                    foreach ($selectedDeviceIds as $device_id) {
+                        $query->orWhereJsonContains("device_id", $device_id);
+                    }
+                })
+                ->exists();
 
-            foreach ($devices as $device) {
-                $employee_with_same_uid_and_device = Employee::where("device_user_id", $validated_req['device_user_id'])
-                    ->where("device_id", $device->id)
-                    ->where("id", "!=", $employee->id)
-                    ->first();
-
-                if ($employee_with_same_uid_and_device) {
-                    Log::info("Conflict: UID {$validated_req['device_user_id']} already exists on Device {$device->id}.");
-                    Toastr()->error("This Device User ID is already assigned to another employee.");
-                    return redirect()->back();
-                }
+            if ($exists) {
+                Toastr()->error("This Device User ID For Selected Devices Its Already Exists In The System already exists in the system Please Choose A Different Device User Id For Assigning On Employee");
+                return redirect()->back()->withInput($request->all());
             }
 
 
-            Log::info("No conflicts found. Proceeding to update or create on the ZKTeco device.");
+            $allDocs = [];
+
+            if (!empty($request->file("profile"))) {
+
+                if (!empty($employee->profile)) {
+                    File::delete(public_path('/assets/images/employee/profile/' . $employee->profile));
+                }
+
+                $profile = $request->file("profile");
+                $profileName = time() . uniqid() . '.' . $profile->getClientOriginalExtension();
+                $directory = public_path('/assets/images/employee/profile');
+
+                if (!File::exists($directory)) {
+                    File::makeDirectory($directory, 0777, true);
+                }
+
+                $profile->move($directory, $profileName);
+                $validated_req['profile'] = $profileName;
+            }
+
+
+            if (!empty($request->file("documents"))) {
+
+                if (!empty($employee->documents)) {
+                    foreach (json_decode($employee->documents) as $doc) {
+                        File::delete(public_path('/assets/images/employee/documents/' . $doc));
+                    }
+                }
+
+                $documents = $request->file("documents");
+
+                foreach ($documents as $document) {
+                    $newDocument = time() . uniqid() . '.' . $document->getClientOriginalExtension();
+
+                    $directory = public_path("/assets/images/employee/documents");
+
+                    if (!File::exists($directory)) {
+                        File::makeDirectory($directory, 0755, true);
+                    }
+                    $document->move($directory, $newDocument);
+                    $allDocs[] = $newDocument;
+                }
+                $validated_req["documents"] = json_encode($allDocs);
+            }
+
+
+
+            $schedules = $request->employee_schedule;
+            $exploded_schedule = implode(",", $schedules);
+            $validated_req['employee_schedule'] = $exploded_schedule;
+
+
 
             $employee_id = $validated_req['device_user_id'];
             $employee_name = $validated_req['employee_name'];
@@ -310,8 +427,7 @@ class EmployeeController extends Controller implements HasMiddleware
 
     public function UpdateOnZktecoDevice($devices, $employee_id, $employee_name)
     {
-        Log::info("Inside UpdateOnZktecoDevice method.");
-        $timeout = 10;
+        $timeout = 5;
         try {
             foreach ($devices as $device) {
                 $socket = stream_socket_client("tcp://{$device->ip_address}:{$device->port}", $errno, $errstr, $timeout);
@@ -320,7 +436,6 @@ class EmployeeController extends Controller implements HasMiddleware
                     $isConnected = true;
                 }
 
-                // Display connection status
                 if ($isConnected) {
 
                     $zk = new ZKTeco($device->ip_address, $device->port);

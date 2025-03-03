@@ -92,7 +92,7 @@
                                             @foreach ($departments as $department)
                                                 <option value="{{ $department->id }}"
                                                     {{ old('department_id') == $department->id ? 'selected' : '' }}>
-                                                    {{ $department->department_name }}</option>
+                                                    {{ $department->department_name }} - {{ $department->branch->name }}</option>
                                             @endforeach
                                         </select>
                                         @error('department_id')
@@ -376,6 +376,7 @@
                         </div>
 
 
+                        {{-- Family Member Details Rows --}}
                         <div class="row my-3">
                             <div class="col-md-12 text-center">
                                 <h4>Family Member Details</h4>
@@ -454,7 +455,7 @@
                                 </div>
                             </div>
                         </div>
-
+                        {{-- Family Member Details Rows --}}
 
 
                         <div class="row">
@@ -550,7 +551,7 @@
                 });
 
                 const profileInput = document.querySelector('[name="profile"]');
-                FilePond.create(profileInput,{
+                const profilePond = FilePond.create(profileInput,{
                     credits: null,
                     allowMultiple: false,
                     acceptedFileTypes: [

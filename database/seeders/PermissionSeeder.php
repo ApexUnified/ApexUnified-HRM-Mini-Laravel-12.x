@@ -25,6 +25,7 @@ class PermissionSeeder extends Seeder
             'Department Delete',
             'Employee View',
             'Employee Create',
+            'Employee Show',
             'Employee Edit',
             'Employee Delete',
             'Schedule View',

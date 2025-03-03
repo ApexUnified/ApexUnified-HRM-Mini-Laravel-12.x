@@ -539,8 +539,7 @@
     <script src="{{ asset('assets/Datatables_Assets/js/jquery.dataTables.js') }}"></script>
     <script src="{{ asset('assets/Datatables_Assets/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('assets/Datatables_Assets/js/dataTables.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('assets/Datatables_Assets/js/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('assets/Datatables_Assets/js/responsive.bootstrap.min.js') }}"></script>
+    {{-- <script src="{{ asset('assets/Datatables_Assets/js/dataTables.responsive.min.js') }}"></script> --}}
 
 
     <!-- Datatables Buttons Cdn -->

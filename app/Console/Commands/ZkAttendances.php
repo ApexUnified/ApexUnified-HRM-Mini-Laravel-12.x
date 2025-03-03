@@ -36,38 +36,35 @@ class ZkAttendances extends Command
         $devices = ZktecoDevice::all();
         $timeout = 3;
         foreach ($devices as $device) {
-        $isConnected = false;
-            $socket = @stream_socket_client("tcp://{$device->ip_address}:{$device->port}", $errno, $errstr, $timeout);
+            $isConnected = false;
+            $socket = stream_socket_client("tcp://{$device->ip_address}:{$device->port}", $errno, $errstr, $timeout);
             if ($socket) {
                 fclose($socket);
                 $isConnected = true;
             }
 
-            if($isConnected){
+            if ($isConnected) {
                 $zk = new ZKTeco($device->ip_address, $device->port);
 
                 if ($zk->connect()) {
                     // $zk->testVoice();
                     $attedances = $zk->getAttendance();
                     foreach ($attedances as $attendance) {
-    
+
                         if ($attendance['type'] == 1) {
                             // Log::info("Checkin Attendance");
                             $this->checkin($attendance, $zk);
                             $zk->clearAttendance();
                         } elseif ($attendance['type'] == 2) {
-                            // Log::info("Checkout Attendance"); 
+                            // Log::info("Checkout Attendance");
                             $this->checkout($attendance, $zk);
                             $zk->clearAttendance();
                         }
-    
                     }
                 }
-            }else{
+            } else {
                 continue;
             }
-           
-
         }
     }
 
@@ -107,13 +104,13 @@ class ZkAttendances extends Command
 
                 $attendance_checkin = Carbon::parse($chekin_time);
 
-        
+
                 if ($attendance_checkin->lt($shift_start_time)) {
                     $attendance_checkin->addDay();
                 }
 
-                $existingCheckin = Attendance::where("employee_id", $employee->id)->where("attendance_checkout", '=', null, )->where("attendance_checkin", $attendance_checkin)->first();
-                $existingCheckin_today = Attendance::where("employee_id", $employee->id)->where("attendance_checkout", '=', null, )->where("attendance_date", \Carbon\Carbon::now()->format("Y-m-d"))->first();
+                $existingCheckin = Attendance::where("employee_id", $employee->id)->where("attendance_checkout", '=', null,)->where("attendance_checkin", $attendance_checkin)->first();
+                $existingCheckin_today = Attendance::where("employee_id", $employee->id)->where("attendance_checkout", '=', null,)->where("attendance_date", \Carbon\Carbon::now()->format("Y-m-d"))->first();
 
                 if ($existingCheckin || $existingCheckin_today) {
                     // Log::info("Employee Checkin Already Exists");
@@ -130,7 +127,6 @@ class ZkAttendances extends Command
                         $attendance_status = "Early"; // Early check-in
                     }
                 }
-
             }
         }
 
@@ -138,7 +134,6 @@ class ZkAttendances extends Command
         if (!isset($attendance_status)) {
             // Log::info("Employee is Out Of Shift");
             return;
-
         }
 
         $create = Attendance::create([
@@ -152,12 +147,11 @@ class ZkAttendances extends Command
         if ($create) {
             Log::info("created Attendance " . $create);
             Log::info("attendance_created");
-               Log::info("Attendance Checkin Created Status: " .$attendance_status);
+            Log::info("Attendance Checkin Created Status: " . $attendance_status);
         } else {
             // Log::info("Error Occured While Attendance Checkin Creation Status:");
 
         }
-
     }
 
     private function checkout($attendance, $zk)
@@ -188,7 +182,7 @@ class ZkAttendances extends Command
                 $shift_start_time = $scheduled_checkin->copy()->subMinutes($schedule->shift_start_time);
                 $shift_end_time = $scheduled_checkout->copy()->addMinutes($schedule->shift_end_time);
 
-               
+
 
                 if (!$attendance_checkout->between($shift_start_time, $shift_end_time)) {
                     \Log::info('Attendance is NOT within the current schedule.');
@@ -201,19 +195,19 @@ class ZkAttendances extends Command
                 // Log::info("Checkout Time " . $attendance_checkout);
                 // Log::info("Shift End Time " . $shiftEndTime);
 
-            }else{
-               continue;
+            } else {
+                continue;
             }
         }
 
         $ExistsAttendance = Attendance::where("employee_id", $employee->id)
             ->whereNull("attendance_checkout")
             ->first();
-            // ->where("attendance_date",Carbon::now()->format("Y-m-d"))
-            // ->where(function ($query) use ($currentDate, $attendanceTime) {
-            //     $query->where("attendance_date", $currentDate)
-            //         ->orWhere("attendance_date", $attendanceTime->subDay()->format("Y-m-d"));
-            // })
+        // ->where("attendance_date",Carbon::now()->format("Y-m-d"))
+        // ->where(function ($query) use ($currentDate, $attendanceTime) {
+        //     $query->where("attendance_date", $currentDate)
+        //         ->orWhere("attendance_date", $attendanceTime->subDay()->format("Y-m-d"));
+        // })
 
         //    Multiple Shifts Seprate Checkout   Query
         // ->where(function ($query) use ($currentDate, $attendanceTime, $currentShift) {
@@ -224,7 +218,7 @@ class ZkAttendances extends Command
         //                 ->where("shift_id", $currentShift->id);
         //         });
         // })
-        
+
         if (!empty($ExistsAttendance)) {
             // Log::info(Carbon::now()->format("Y-m-d"));
 
@@ -242,11 +236,11 @@ class ZkAttendances extends Command
 
             Log::info($shiftEndTime);
             // exit();
-               Log::info("End Shift InCheckout " . $shiftEndTime);
-               if ($shiftEndTime instanceof Carbon) {
+            Log::info("End Shift InCheckout " . $shiftEndTime);
+            if ($shiftEndTime instanceof Carbon) {
                 Log::info("Yes, this is a Carbon instance._");
             } else {
-                 Log::info("No, this is not a Carbon instance." . $shiftEndTime);
+                Log::info("No, this is not a Carbon instance." . $shiftEndTime);
             }
             //    exit();
 
@@ -254,7 +248,7 @@ class ZkAttendances extends Command
 
 
 
-            if ($attendance_checkout->gt($shiftEndTime) ) {
+            if ($attendance_checkout->gt($shiftEndTime)) {
                 $attendance_checkout = 5;
                 $atttendance_hours_worked = 9999999999;
                 Log::info("Attendance Checkout Marked as Out of Shift");
@@ -267,8 +261,5 @@ class ZkAttendances extends Command
             //  Log::info("Attendance Checkout Created");
 
         }
-
-      
-
     }
 }

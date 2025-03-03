@@ -604,7 +604,7 @@
             $('.dataTables_filter input').attr('placeholder', 'Search..');
             $('.dataTables_filter input').attr('id', 'search');
             $('#Employee_table_filter label').contents().filter(function () {
-                return this.nodeType === 3; // Check for text nodes
+                return this.nodeType === 3;
             }).remove();
 
             if (employee_delete_btn) {

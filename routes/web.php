@@ -52,7 +52,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('department', DepartmentController::class)->except("show");
     Route::post("department/deletebyselection", [DepartmentController::class, 'deletebyselection']);
 
-    Route::resource('employee', EmployeeController::class)->except("show");
+    Route::resource('employee', EmployeeController::class);
     Route::post("employee/deletebyselection", [EmployeeController::class, 'deletebyselection']);
 
 
