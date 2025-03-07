@@ -115,7 +115,9 @@ class SettingController extends Controller implements HasMiddleware
         if (!empty($validated_req['time_zone'])) {
             dispatch(new QueueEnvRefresh("APP_TIMEZONE", $validated_req["time_zone"]))->delay(now()->addSecond(5));
         }
-
+        if (!empty($validated_req["company_name"])) {
+            dispatch(new QueueEnvRefresh("APP_NAME", $validated_req["company_name"]))->delay(now()->addSecond(5));
+        }
         $exists = Setting::find(1);
         if (!empty($exists)) {
             // dump("Updating");

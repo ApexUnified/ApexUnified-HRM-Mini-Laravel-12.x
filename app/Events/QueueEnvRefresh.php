@@ -19,12 +19,12 @@ class QueueEnvRefresh implements ShouldQueue
     use Dispatchable, InteractsWithSockets, SerializesModels, Queueable;
 
     protected  $key;
-    protected  $timezone;
+    protected  $value;
 
-    public function __construct($key, $timezone)
+    public function __construct($key, $value)
     {
         $this->key = $key;
-        $this->timezone = $timezone;
+        $this->value = $value;
     }
 
     public function handle()
@@ -34,7 +34,7 @@ class QueueEnvRefresh implements ShouldQueue
         if (File::exists($env)) {
             file_put_contents($env, preg_replace(
                 "/^{$this->key}=.*/m",
-                "{$this->key}={$this->timezone}",
+                "{$this->key}=" . (str_contains($this->value, ' ') ? "\"{$this->value}\"" : $this->value),
                 file_get_contents($env)
             ));
         }
