@@ -26,6 +26,7 @@
                                                 </label>
                                             </th>
                                             <th>Name</th>
+                                            <th>Employees</th>
                                             <th>Address</th>
                                             <th>Date</th>
                                             <th class="no-print">Action</th>
@@ -44,6 +45,15 @@
                                                     </label>
                                                 </td>
                                                 <td>{{ $branch->name }}</td>
+                                                <td>
+                                                    @php
+                                                        $totalEmployees = 0;
+                                                        foreach($branch->departments as $department) {
+                                                            $totalEmployees += $department->employee->count();
+                                                        }
+                                                    @endphp
+                                                    {{ $totalEmployees }}
+                                                </td>
                                                 <td>{{ $branch->address }}</td>
                                                 <td>{{ $branch->created_at->format('Y-M-d') }}</td>
                                                 <td>

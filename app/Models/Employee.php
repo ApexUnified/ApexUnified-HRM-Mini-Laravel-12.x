@@ -81,8 +81,10 @@ class Employee extends Model
     {
         return [
             "documents" => "array",
+            'cnic' => "array",
             "family_member_details" => "array",
-            "joining_date"  => "date:Y-m-d"
+            "joining_date"  => "date:Y-m-d",
+
         ];
     }
 }

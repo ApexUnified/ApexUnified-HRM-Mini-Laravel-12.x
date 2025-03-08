@@ -25,7 +25,7 @@
     }
 
     .profile-header {
-        background: linear-gradient(45deg, #4e73df, #224abe);
+        background: linear-gradient(45deg, #324aa2, #435ebe);
         color: white;
         padding: 30px;
         border-radius: 15px 15px 0 0;
@@ -41,7 +41,7 @@
 
     .section-title {
         color: #2c3e50;
-        border-bottom: 3px solid #4e73df;
+        border-bottom: 3px solid #324aa2;
         padding-bottom: 10px;
         margin-bottom: 25px;
         font-weight: 600;
@@ -68,6 +68,7 @@
     .document-item {
         display: flex;
         align-items: center;
+        justify-content: space-between;
         padding: 15px;
         background: #fff;
         border-radius: 10px;
@@ -82,7 +83,7 @@
 
     .document-item i {
         margin-right: 15px;
-        color: #4e73df;
+        color: #324aa2;
         font-size: 1.2rem;
     }
 
@@ -90,6 +91,17 @@
         background: rgba(255, 255, 255, 0.2);
         color: white;
         padding: 6px 12px;
+    }
+
+    @media print{
+        #print-btn{
+            display:none;
+        }
+
+
+        #edit-btn{
+            display:none;
+        }
     }
 </style>
 
@@ -100,140 +112,149 @@
 
 <div class="employee-container">
 
-    <div class="card">
-        <div class="profile-header">
-            <div class="row align-items-center">
-                <div class="col-md-3 text-center mb-3 mb-md-0">
-                    <img src="{{ !empty($employee->profile) ?
-                        asset("assets/images/employee/profile/" . $employee->profile)
-                        :
-                        asset("assets/images/default-img.webp")}}"
-                     alt="Employee" class="avatar">
-                </div>
-                <div class="col-md-9">
-                    <h1 class="mb-2">{{ $employee->employee_name }}  <a href="{{ route("employee.edit",$employee->id) }}" class="text-light"><i class="fa fa-edit mb-3" style="font-size:1.5rem"></i></a> </h1>
-                    <h4 class="mb-3">{{ $employee->position->position_level }} - {{ $employee->position->position_name }}</h4>
-                    <div class="d-flex">
-                        <span class="badge badge-custom">ID: {{ $employee->employee_id }}</span>
-                        <span class="badge badge-custom mx-2">Branch: {{ $employee->department->branch->name }}</span>
-                        <span class="badge badge-custom mx-2">Dept: {{ $employee->department->department_name }}</span>
+    <div id="printable_sections">
+        <div class="card">
+            <div class="profile-header">
+                <div class="row align-items-center">
+                    <div class="col-md-3 text-center mb-3 mb-md-0">
+                        <img src="{{ !empty($employee->profile) ?
+                            asset("assets/images/employee/profile/" . $employee->profile)
+                            :
+                            asset("assets/images/default-img.webp")}}"
+                         alt="Employee" class="avatar">
                     </div>
+                    <div class="col-md-9">
+                        <h1 class="mb-2">{{ $employee->employee_name }}  <a href="{{ route("employee.edit",$employee->id) }}" class="text-light" id="edit-btn"><i class="fa fa-edit mb-3" style="font-size:1.5rem"></i></a> </h1>
+                        <h4 class="mb-3">{{ $employee->position->position_level }} - {{ $employee->position->position_name }}</h4>
+                        <div class="d-flex">
+                            <span class="badge badge-custom">ID: {{ $employee->employee_id }}</span>
+                            <span class="badge badge-custom mx-2">Branch: {{ $employee->department->branch->name }}</span>
+                            <span class="badge badge-custom mx-2">Dept: {{ $employee->department->department_name }}</span>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+    
+    
+           
+            <div class="card-body">
+            <div class="d-flex justify-content-between"> 
+                <h3 class="section-title">Full Information</h3>
+                <button type="button" id="print-btn" style="height:2.4rem;" class="btn btn-sm btn-primary"><i class="fa fa-print mx-1"></i>Print</button>    
+            </div>
+    
+                <div class="info-grid">
+                    <div>
+                        <strong>Email:</strong> {{ $employee->email }}
+                    </div>
+                    <div>
+                        <strong>Phone:</strong> {{ $employee->contact_number }}
+                    </div>
+                    <div>
+                        <strong>Address:</strong> {{ $employee->home_address }}
+                    </div>
+                    <div>
+                        <strong>Join Date:</strong> {{ $employee->joining_date->format("Y-m-d") }}
+                    </div>
+    
+                </div>
+    
+    
+                <div class="info-grid mt-4">
+                    <div>
+                        <strong>Parent Name:</strong> {{ $employee->parent_name }}
+                    </div>
+                    <div>
+                        <strong>Date Of Birth:</strong> {{ $employee->employee_dob }}
+                    </div>
+                    <div>
+                        <strong>Date Of Hiring:</strong> {{ $employee->date_of_hiring }}
+                    </div>
+                    <div>
+                        <strong>Designation:</strong> {{ $employee->designation }}
+                    </div>
+    
+                </div>
+    
+    
+                <div class="info-grid mt-4">
+                    <div>
+                        <strong>Gender:</strong> {{ $employee->gender }}
+                    </div>
+                    <div>
+                        <strong>Religion:</strong> {{ $employee->religion }}
+                    </div>
+                    <div>
+                        <strong>Marital Status:</strong> {{ $employee->marital_status }}
+                    </div>
+                    <div>
+                        <strong>Blood Group:</strong> {{ $employee->blood_group ?? "-" }}
+                    </div>
+    
+                </div>
+    
+    
+                <div class="info-grid mt-4">
+                    <div>
+                        <strong>CNIC:</strong> {{ $employee->cnic_number }}
+                    </div>
+                    <div>
+                        <strong>EOBI:</strong> {{ $employee->eobi_number  ?? "-"}}
+                    </div>
+                    <div>
+                        <strong>SESSI:</strong> {{ $employee->sessi_number ?? "-" }}
+                    </div>
+                    <div>
+                        <strong>Qualification:</strong> {{ $employee->qualification }}
+                    </div>
+    
+                </div>
+    
+                @php
+                    $devices = ZktecoDevice::whereIn("id",json_decode($employee->device_id))->get();
+    
+                    $schedule_ids = explode(",",$employee->employee_schedule);
+                    $scheudles = Schedule::whereIn("id",$schedule_ids)->get();
+                @endphp
+    
+    
+                <div class="info-grid mt-4">
+                    <div>
+                        <strong>Assigned Devices:</strong> @foreach($devices as $device) <br> {{!empty($device) ? $device->name . " | " : "" }}  @endforeach
+                    </div>
+                    <div>
+                        <strong>Device User ID:</strong> {{ $employee->device_user_id }}
+                    </div>
+                    <div>
+                        <strong>Assigned Schedules:</strong> @foreach($scheudles as $schedule) <br> {{ $schedule->name . ": " }}
+                         {{ $schedule->formatted_times["checkin"] }} - {{ $schedule->formatted_times["checkout"] }} @endforeach
+                    </div>
+                    <div>
+                        {{-- <strong>Created By :</strong> {{ $employee->created_by }} --}}
+                    </div>
+    
+                </div>
+    
+    
+                <div class="info-grid mt-4">
+                    <div>
+                        <strong>Emergency Contact Details:</strong> {{ $employee->emergency_contact_details }}
+                    </div>
+                    <div>
+                        <strong>Emergency Contact Number:</strong> {{ $employee->emergency_contact_number }}
+                    </div>
+                    <div>
+                        <strong>Remarks:</strong> {{ $employee->remarks ?? "-" }}
+                    </div>
+                    <div>
+                        <strong>Created By :</strong> {{ $employee->created_by }}
+                    </div>
+    
                 </div>
             </div>
         </div>
 
-        <div class="card-body">
-            <h3 class="section-title">Full Information</h3>
-            <div class="info-grid">
-                <div>
-                    <strong>Email:</strong> {{ $employee->email }}
-                </div>
-                <div>
-                    <strong>Phone:</strong> {{ $employee->contact_number }}
-                </div>
-                <div>
-                    <strong>Address:</strong> {{ $employee->home_address }}
-                </div>
-                <div>
-                    <strong>Join Date:</strong> {{ $employee->joining_date->format("Y-m-d") }}
-                </div>
-
-            </div>
-
-
-            <div class="info-grid mt-4">
-                <div>
-                    <strong>Parent Name:</strong> {{ $employee->parent_name }}
-                </div>
-                <div>
-                    <strong>Date Of Birth:</strong> {{ $employee->employee_dob }}
-                </div>
-                <div>
-                    <strong>Date Of Hiring:</strong> {{ $employee->date_of_hiring }}
-                </div>
-                <div>
-                    <strong>Designation:</strong> {{ $employee->designation }}
-                </div>
-
-            </div>
-
-
-            <div class="info-grid mt-4">
-                <div>
-                    <strong>Gender:</strong> {{ $employee->gender }}
-                </div>
-                <div>
-                    <strong>Religion:</strong> {{ $employee->religion }}
-                </div>
-                <div>
-                    <strong>Marital Status:</strong> {{ $employee->marital_status }}
-                </div>
-                <div>
-                    <strong>Blood Group:</strong> {{ $employee->blood_group ?? "-" }}
-                </div>
-
-            </div>
-
-
-            <div class="info-grid mt-4">
-                <div>
-                    <strong>CNIC:</strong> {{ $employee->cnic_number }}
-                </div>
-                <div>
-                    <strong>EOBI:</strong> {{ $employee->eobi_number  ?? "-"}}
-                </div>
-                <div>
-                    <strong>SESSI:</strong> {{ $employee->sessi_number ?? "-" }}
-                </div>
-                <div>
-                    <strong>Qualification:</strong> {{ $employee->qualification }}
-                </div>
-
-            </div>
-
-            @php
-                $devices = ZktecoDevice::whereIn("id",json_decode($employee->device_id))->get();
-
-                $schedule_ids = explode(",",$employee->employee_schedule);
-                $scheudles = Schedule::whereIn("id",$schedule_ids)->get();
-            @endphp
-
-
-            <div class="info-grid mt-4">
-                <div>
-                    <strong>Assigned Devices:</strong> @foreach($devices as $device) <br> {{!empty($device) ? $device->name . " | " : "" }}  @endforeach
-                </div>
-                <div>
-                    <strong>Device User ID:</strong> {{ $employee->device_user_id }}
-                </div>
-                <div>
-                    <strong>Assigned Schedules:</strong> @foreach($scheudles as $schedule) <br> {{ $schedule->name . ": " }}
-                     {{ $schedule->formatted_times["checkin"] }} - {{ $schedule->formatted_times["checkout"] }} @endforeach
-                </div>
-                <div>
-                    {{-- <strong>Created By :</strong> {{ $employee->created_by }} --}}
-                </div>
-
-            </div>
-
-
-            <div class="info-grid mt-4">
-                <div>
-                    <strong>Emergency Contact Details:</strong> {{ $employee->emergency_contact_details }}
-                </div>
-                <div>
-                    <strong>Emergency Contact Number:</strong> {{ $employee->emergency_contact_number }}
-                </div>
-                <div>
-                    <strong>Remarks:</strong> {{ $employee->remarks ?? "-" }}
-                </div>
-                <div>
-                    <strong>Created By :</strong> {{ $employee->created_by }}
-                </div>
-
-            </div>
-        </div>
-    </div>
 
 
 
@@ -278,25 +299,171 @@
         </div>
 
 
+    </div>
 
-    <div class="card">
-        <div class="card-body">
-            <h3 class="section-title">Documents</h3>
-            <div class="document-list">
+ 
 
-               @foreach(json_decode($employee->documents) as $document)
-                    <div class="document-item">
-                        <i class="fa fa-file"></i>
-                        <div>
-                            <a href="{{ asset("assets/images/employee/documents/" . $document) }}" download="{{ $employee->employee_name . "_Documents" }}" target="_blank">{{ $document }}</a>
-                            <small class="d-block text-muted"></small>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="section-title">Resume</h3>
+                    <div class="document-list">
+        
+                        <div class="document-item">
+                            <div>
+                                <i class="fa fa-file"></i>
+                                @if(!empty($employee->resume))
+                                <a href="{{ asset("assets/images/employee/resume/" . $employee->resume) }}" download="{{ $employee->employee_name . "_Resume" }}" target="_blank">{{ $employee->resume }}</a>
+                                @else
+                                <p> No Resume Given </p>
+                                @endif
+                                <small class="d-block text-muted"></small>
+                            </div>
+
+                            @if (!empty($employee->resume))
+                            <a href="{{ asset("assets/images/employee/resume/" . $employee->resume) }}"  target="_blank"><i class="fa fa-eye"></i></a>
+                          @endif
                         </div>
+        
                     </div>
-               @endforeach
+                </div>
+            </div>
+        </div>
 
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="section-title">Joining Letter </h3>
+                    <div class="document-list">
+        
+                        <div class="document-item">
+                            <div>
+                                <i class="fa fa-file"></i>
+                                @if(!empty($employee->joining_letter))
+                                <a href="{{ asset("assets/images/employee/joining_letter/" . $employee->joining_letter) }}" download="{{ $employee->employee_name . "_Joining_Letter" }}" target="_blank">{{ $employee->joining_letter }}</a>
+                                @else
+                                <p> No Joining Letter Given </p>
+                                @endif
+                                <small class="d-block text-muted"></small>
+                            </div>
+
+                          @if (!empty($employee->joining_letter))
+                            <a href="{{ asset("assets/images/employee/joining_letter/" . $employee->joining_letter) }}" target="_blank"><i class="fa fa-eye"></i></a>
+                          @endif
+                        </div>
+        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="section-title">Cnic</h3>
+                    <div class="document-list">
+                    
+                        @if(!empty($employee->cnic))
+                            @foreach(json_decode($employee->cnic) as $cnic)
+                                    <div class="document-item">
+                                        <div>
+                                            <i class="fa fa-file"></i>
+                                            <a href="{{ asset("assets/images/employee/cnic/" . $cnic) }}" download="{{ $employee->employee_name . "_Cnic" }}" target="_blank">{{ $cnic }}</a>
+                                            <small class="d-block text-muted"></small>
+                                        </div>
+
+                                        <a href="{{ asset("assets/images/employee/cnic/" . $cnic) }}"  target="_blank"><i class="fa fa-eye"></i></a>
+                                    </div>
+                            @endforeach
+
+                       @else
+                                <div class="document-item">
+                                    <div>
+                                        <i class="fa fa-file"></i>
+                                        <p> No CNIC Given </p>
+                                        <small class="d-block text-muted"></small>
+                                    </div>
+                                </div>  
+                       @endif
+        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="section-title">Others</h3>
+                    <div class="document-list">
+                        @if(!empty($employee->others))
+                        
+                            @foreach(json_decode($employee->others) as $other)
+                                    <div class="document-item">
+                                        <div>
+                                            <i class="fa fa-file"></i>
+                                            <a href="{{ asset("assets/images/employee/documents/" . $other) }}" download="{{ $employee->employee_name . "_OtherDocs" }}" target="_blank">{{ $other }}</a>
+                                            <small class="d-block text-muted"></small>
+                                        </div>
+
+                                        <a href="{{ asset("assets/images/employee/documents/" . $other) }}"  target="_blank"><i class="fa fa-eye"></i></a>
+                                       
+                                    </div>
+                            @endforeach
+
+                         @else
+                                <div class="document-item">
+                                     <div>
+                                        <i class="fa fa-file"></i>
+                                        <p> No Other Docs Given </p>
+                                        <small class="d-block text-muted"></small>
+                                    </div>
+                                </div>  
+
+                        @endif
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+
+
+
+@endsection
+
+
+@section("js")
+
+<script>
+    
+
+    $(document).ready(function () {
+    $(document).on("click","#print-btn", function () {
+        var content = $("#printable_sections").clone(); 
+        
+        var originalContent = document.body.innerHTML;
+        var originalTitle = document.title; 
+
+        document.body.innerHTML = content.html();
+        document.title = "Employee Details";
+        window.print();
+
+        document.body.innerHTML = originalContent;
+        document.title = originalTitle;
+      
+    });
+});
+
+
+
+</script>
+
 
 @endsection

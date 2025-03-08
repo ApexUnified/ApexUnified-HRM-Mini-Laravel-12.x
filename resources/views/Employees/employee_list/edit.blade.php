@@ -7,8 +7,19 @@
 
 @php
     $documentPath = asset("assets/images/employee/documents/");
-    $documents = !empty($employee->documents) ? $employee->documents : "";
+    $others = !empty($employee->others) ? json_decode($employee->others) : "";
     $profile = !empty($employee->profile) ? asset('assets/images/employee/profile/'. $employee->profile) : "";
+
+    $joining_letter[] = !empty($employee->joining_letter) ? asset("assets/images/employee/joining_letter/" . $employee->joining_letter) : [];
+    $resume[] = !empty($employee->resume) ? asset("assets/images/employee/resume/" . $employee->resume) : [];
+    $cnics = [];
+    if(!empty($employee->cnic)){
+            foreach(json_decode($employee->cnic) as $cnic){
+                $cnics[] = asset("assets/images/employee/cnic/". $cnic);
+            }
+    }  
+
+    // dd($resume,$joining_letter);
 @endphp
 
 
@@ -482,23 +493,75 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- Family Member Details Rows --}}
+                        {{-- Family Member Details Rows End --}}
+
+
+
+                        <div class="row">
+                            <div class="col-md-12 my-5 text-center">
+                                <h4> Upload Documents / Profile </h4>
+                                <hr>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="joining_letter" class="col-form-label">Joining Letter</label>
+                                    <input type="file" id="joining_letter" name="joining_letter" class="form-control">
+                                    @error("joining_letter")
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+                            
+
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="resume" class="col-form-label">Resume</label>
+                                    <input type="file" id="resume" name="resume" class="form-control">
+                                    @error("resume")
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
 
 
 
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="documents" class="col-form-label">Documents</label>
-                                    <input type="file" id="documents" name="documents[]" class="form-control">
-                                    @error("documents")
+                                    <label for="cnic" class="col-form-label">Cnic</label>
+                                    <input type="file" id="cnic" name="cnic[]" class="form-control">
+                                    @error("cnic.*")
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
                             </div>
+                            
 
 
                             <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="others" class="col-form-label">Other Documents</label>
+                                    <input type="file" id="others" name="others[]" class="form-control">
+                                    @error("others.*")
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="row">
+                         
+                            <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="profile" class="col-form-label">Profile</label>
                                     <input type="file" id="profile" name="profile" class="form-control">
@@ -508,7 +571,6 @@
                                 </div>
                             </div>
                         </div>
-
 
                             <button class="btn btn-primary" type="submit">Update Employee</button>
                         </form>
@@ -526,11 +588,20 @@
 
                 const Profile = @json($profile);
                 const documentPath = @json($documentPath);
-                let documents = @json($documents);
+                let others = @json($others);
+                let joining_letter = @json($joining_letter);
+                let resume = @json($resume);
+                let cnics = @json($cnics);
 
-                if(typeof documents == "string" && documents.length > 0){
-                    documents = JSON.parse(documents);
-                }
+
+
+                // console.log("Resume:", joining_letter.flat());
+                // console.log("Is Array:", Array.isArray(joining_letter));
+                // console.log("Length:", joining_letter.length);
+                // console.log("First Element:", joining_letter[0]);
+                // console.log("Type of First Element:", typeof joining_letter[0]);
+
+                // console.log(joining_letter);
 
                 flatpickr("#employee_dob", {
                     enableTime: false,
@@ -558,8 +629,8 @@
                 });
 
 
-                const documentsInput = document.querySelector('[name="documents[]"]');
-                const documentsPond =  FilePond.create(documentsInput,{
+                const otherdocumentsInput = document.querySelector('[name="others[]"]');
+                const otherdocumentsPond =  FilePond.create(otherdocumentsInput,{
                     credits: null,
                     allowMultiple: true,
                     acceptedFileTypes: [
@@ -577,8 +648,8 @@
                 });
 
 
-                if (Array.isArray(documents) && documents.length > 0) {
-                    documentsPond.files = documents.map(doc => {
+                if (Array.isArray(others) && others.length > 0) {
+                    otherdocumentsPond.files = others.map(doc => {
                         return {
                             source: String(documentPath)+ "/" + String(doc),
                             options: {
@@ -587,6 +658,88 @@
                         };
                     });
                 }
+
+
+
+               
+                const joining_letterInput = document.querySelector('[name="joining_letter"]');
+                const joining_letterPond =  FilePond.create(joining_letterInput,{
+                    credits: null,
+                    allowMultiple: false,
+                    acceptedFileTypes: [
+                        'application/pdf',
+                        ],
+                    maxFileSize: 5242880,
+                    storeAsFile: true,
+                });
+
+
+                if (Array.isArray(joining_letter) && joining_letter.flat().length > 0) {
+                    joining_letterPond.files = joining_letter.map(letter => {
+                        return {
+                            source: String(letter),
+                            options: {
+                                type: 'remote'
+                            }
+                        };
+                    });
+                }
+
+
+
+
+                const resumeInput = document.querySelector('[name="resume"]');
+                const resumePond =  FilePond.create(resumeInput,{
+                    credits: null,
+                    allowMultiple: false,
+                    acceptedFileTypes: [
+                        'application/pdf',
+                        ],
+                    maxFileSize: 5242880,
+                    storeAsFile: true,
+                });
+
+
+
+                if (Array.isArray(resume) &&  resume.flat().length > 0 ) {
+                    resumePond.files = resume.map(res => {
+                        return {
+                            source: String(res),
+                            options: {
+                                type: 'remote'
+                            }
+                        };
+                    });
+                }
+
+
+                const cnicInput = document.querySelector('[name="cnic[]"]');
+                const cnicPond =  FilePond.create(cnicInput,{
+                    credits: null,
+                    allowMultiple: true,
+                    acceptedFileTypes: [
+                        'application/pdf',
+                        ],
+                    maxFileSize: 5242880,
+                    maxFiles: 2,
+                    storeAsFile: true,
+                });
+
+
+                if (Array.isArray(cnics) && cnics.length > 0) {
+                    cnicPond.files = cnics.map(cnic => {
+                        return {
+                            source: String(cnic),
+                            options: {
+                                type: 'remote'
+                            }
+                        };
+                    });
+                }
+
+
+
+
 
 
 

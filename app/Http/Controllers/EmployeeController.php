@@ -124,7 +124,10 @@ class EmployeeController extends Controller implements HasMiddleware
             'family_member_details.contact_number' => 'nullable|numeric',
             'family_member_details.address' => 'nullable',
             'profile' => "nullable|mimes:jpg,jpeg,png|max:5242880",
-            'documents' => 'nullable',
+            'resume' => 'nullable|mimes:pdf|max:2048',
+            'joining_letter' => 'nullable|mimes:pdf|max:2048',
+            'cnic.*' => 'nullable|mimes:pdf|max:5242880',
+            'others.*' => 'nullable',
             'remarks' => 'nullable',
         ], [
             'cnic_number.regex' => "Cnic Number Must Be Valid"
@@ -165,8 +168,8 @@ class EmployeeController extends Controller implements HasMiddleware
         }
 
 
-        if (!empty($request->file("documents"))) {
-            $documents = $request->file("documents");
+        if (!empty($request->file("others"))) {
+            $documents = $request->file("others");
 
             foreach ($documents as $document) {
                 $newDocument = time() . uniqid() . '.' . $document->getClientOriginalExtension();
@@ -179,8 +182,61 @@ class EmployeeController extends Controller implements HasMiddleware
                 $document->move($directory, $newDocument);
                 $allDocs[] = $newDocument;
             }
-            $validated_req["documents"] = json_encode($allDocs);
+            $validated_req["others"] = json_encode($allDocs);
         }
+
+
+        if (!empty($request->file("resume"))) {
+            $resume = $request->file("resume");
+            $ext = $resume->getClientOriginalExtension();
+
+            $new_resume = "Resume_" . time() . "_" . uniqid() . "." . $ext;
+            $directory = public_path('/assets/images/employee/resume');
+
+            if (!File::exists($directory)) {
+                File::makeDirectory($directory, 0777, true);
+            }
+
+            $resume->move($directory, $new_resume);
+            $validated_req['resume']  = $new_resume;
+        }
+
+
+        if (!empty($request->file("joining_letter"))) {
+            $joining_letter = $request->file("joining_letter");
+            $ext = $joining_letter->getClientOriginalExtension();
+
+            $new_joining_letter = "Joining_Letter_" . time() . "_" . uniqid() . "." . $ext;
+            $directory = public_path('/assets/images/employee/joining_letter');
+
+            if (!File::exists($directory)) {
+                File::makeDirectory($directory, 0777, true);
+            }
+
+            $joining_letter->move($directory, $new_joining_letter);
+            $validated_req['joining_letter'] = $new_joining_letter;
+        }
+
+
+        $allcnic = [];
+        if (!empty($request->file("cnic"))) {
+            $cnics = $request->file("cnic");
+
+            foreach ($cnics as $cnic) {
+                $ext = $cnic->getClientOriginalExtension();
+                $new_cnic = "Cnic_" . time() . "_" . uniqid() . "." . $ext;
+                $directory = public_path('/assets/images/employee/cnic');
+
+                if (!File::exists($directory)) {
+                    File::makeDirectory($directory, 0777, true);
+                }
+
+                $cnic->move($directory, $new_cnic);
+                $allcnic[] = $new_cnic;
+            }
+            $validated_req['cnic'] = json_encode($allcnic);
+        }
+
 
 
         // return $validated_req;
@@ -321,7 +377,10 @@ class EmployeeController extends Controller implements HasMiddleware
             'family_member_details.contact_number' => 'nullable|numeric',
             'family_member_details.address' => 'nullable',
             'profile' => "nullable|mimes:jpg,jpeg,png|max:5242880",
-            'documents' => 'nullable',
+            'resume' => 'nullable|mimes:pdf|max:2048',
+            'joining_letter' => 'nullable|mimes:pdf|max:2048',
+            'cnic.*' => 'nullable|mimes:pdf|max:5242880',
+            'others.*' => 'nullable',
             'remarks' => 'nullable',
         ], [
             'cnic_number.regex' => "Cnic Number Must Be Valid"
@@ -367,15 +426,15 @@ class EmployeeController extends Controller implements HasMiddleware
             }
 
 
-            if (!empty($request->file("documents"))) {
+            if (!empty($request->file("others"))) {
 
-                if (!empty($employee->documents)) {
-                    foreach (json_decode($employee->documents) as $doc) {
+                if (!empty($employee->others)) {
+                    foreach (json_decode($employee->others) as $doc) {
                         File::delete(public_path('/assets/images/employee/documents/' . $doc));
                     }
                 }
 
-                $documents = $request->file("documents");
+                $documents = $request->file("others");
 
                 foreach ($documents as $document) {
                     $newDocument = time() . uniqid() . '.' . $document->getClientOriginalExtension();
@@ -388,9 +447,75 @@ class EmployeeController extends Controller implements HasMiddleware
                     $document->move($directory, $newDocument);
                     $allDocs[] = $newDocument;
                 }
-                $validated_req["documents"] = json_encode($allDocs);
+                $validated_req["others"] = json_encode($allDocs);
             }
 
+            if (!empty($request->file("resume"))) {
+
+                if (!empty($employee->resume)) {
+                    File::delete(public_path('/assets/images/employee/resume/' . $employee->resume));
+                }
+
+                $resume = $request->file("resume");
+                $ext = $resume->getClientOriginalExtension();
+
+                $new_resume = "Resume_" . time() . "_" . uniqid() . "." . $ext;
+                $directory = public_path('/assets/images/employee/resume');
+
+                if (!File::exists($directory)) {
+                    File::makeDirectory($directory, 0777, true);
+                }
+
+                $resume->move($directory, $new_resume);
+                $validated_req['resume'] = $new_resume;
+            }
+
+
+            if (!empty($request->file("joining_letter"))) {
+
+                if (!empty($employee->joining_letter)) {
+                    File::delete(public_path('/assets/images/employee/joining_letter/' . $employee->joining_letter));
+                }
+                $joining_letter = $request->file("joining_letter");
+                $ext = $joining_letter->getClientOriginalExtension();
+
+                $new_joining_letter = "Joining_Letter_" . time() . "_" . uniqid() . "." . $ext;
+                $directory = public_path('/assets/images/employee/joining_letter');
+
+                if (!File::exists($directory)) {
+                    File::makeDirectory($directory, 0777, true);
+                }
+
+                $joining_letter->move($directory, $new_joining_letter);
+                $validated_req['joining_letter'] = $new_joining_letter;
+            }
+
+
+            $allcnic = [];
+            if (!empty($request->file("cnic"))) {
+
+                if (!empty($employee->cnic)) {
+
+                    foreach (json_decode($employee->cnic) as $cnic) {
+                        File::delete(public_path('/assets/images/employee/cnic/' . $cnic));
+                    }
+                }
+
+                $cnics = $request->file("cnic");
+                foreach ($cnics as $cnic) {
+                    $ext = $cnic->getClientOriginalExtension();
+                    $new_cnic = "Cnic_" . time() . "_" . uniqid() . "." . $ext;
+                    $directory = public_path('/assets/images/employee/cnic');
+
+                    if (!File::exists($directory)) {
+                        File::makeDirectory($directory, 0777, true);
+                    }
+
+                    $cnic->move($directory, $new_cnic);
+                    $allcnic[] = $new_cnic;
+                }
+                $validated_req['cnic'] = json_encode($allcnic);
+            }
 
 
             $schedules = $request->employee_schedule;
@@ -487,9 +612,26 @@ class EmployeeController extends Controller implements HasMiddleware
                 File::delete(public_path("assets/images/employee/profile/" . $employee->profile));
             }
 
-            if (!empty($employee->documents)) {
-                foreach (json_decode($employee->documents) as $document) {
-                    File::delete(public_path("assets/images/employee/documents/" . $document));
+            if (!empty($employee->others)) {
+                foreach (json_decode($employee->others) as $doc) {
+                    File::delete(public_path("assets/images/employee/documents/" . $doc));
+                }
+            }
+
+
+            if (!empty($employee->resume)) {
+                File::delete(public_path("assets/images/employee/resume/" . $employee->resume));
+            }
+
+            if (!empty($employee->joining_letter)) {
+                File::delete(public_path("assets/images/employee/joining_letter/" . $employee->joining_letter));
+            }
+
+
+
+            if (!empty($employee->cnic)) {
+                foreach (json_decode($employee->cnic) as $cnic) {
+                    File::delete(public_path("assets/images/employee/cnic/" . $cnic));
                 }
             }
 
@@ -511,9 +653,26 @@ class EmployeeController extends Controller implements HasMiddleware
                 File::delete(public_path("assets/images/employee/profile/" . $employee->profile));
             }
 
-            if (!empty($employee->documents)) {
-                foreach (json_decode($employee->documents) as $document) {
-                    File::delete(public_path("assets/images/employee/documents/" . $document));
+            if (!empty($employee->others)) {
+                foreach (json_decode($employee->others) as $doc) {
+                    File::delete(public_path("assets/images/employee/documents/" . $doc));
+                }
+            }
+
+
+            if (!empty($employee->resume)) {
+                File::delete(public_path("assets/images/employee/resume/" . $employee->resume));
+            }
+
+            if (!empty($employee->joining_letter)) {
+                File::delete(public_path("assets/images/employee/joining_letter/" . $employee->joining_letter));
+            }
+
+
+
+            if (!empty($employee->cnic)) {
+                foreach (json_decode($employee->cnic) as $cnic) {
+                    File::delete(public_path("assets/images/employee/cnic/" . $cnic));
                 }
             }
 

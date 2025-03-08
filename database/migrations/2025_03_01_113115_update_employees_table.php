@@ -59,7 +59,10 @@ return new class extends Migration
             $table->string("emergency_contact_number")->nullable();
             $table->json("family_member_details")->nullable();
             $table->string("remarks")->nullable();
-            $table->json("documents")->nullable();
+            $table->string("resume")->nullable();
+            $table->string("joining_letter")->nullable();
+            $table->json("cnic")->nullable();
+            $table->json("others")->nullable();
             $table->string("profile")->nullable();
             $table->string("created_by")->nullable();
             $table->timestamps();
@@ -74,7 +77,7 @@ return new class extends Migration
         Schema::table('employees', function (Blueprint $table) {
 
             $table
-                ->dropForeign(['position_id']);;
+                ->dropForeign(['position_id']);
 
             $table
                 ->dropColumn(
@@ -96,7 +99,10 @@ return new class extends Migration
                         "emergency_contact_number",
                         "family_member_details",
                         "remarks",
-                        "documents",
+                        "others",
+                        "resume",
+                        "joining_letter",
+                        "cnic",
                         "profile",
                         "created_by"
                     ]

@@ -455,22 +455,78 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- Family Member Details Rows --}}
+                        {{-- Family Member Details Rows End --}}
+
+
+
+
+
+
+
+                        <div class="row">
+                            <div class="col-md-12 my-5 text-center">
+                                <h4> Upload Documents / Profile </h4>
+                                <hr>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="joining_letter" class="col-form-label">Joining Letter</label>
+                                    <input type="file" id="joining_letter" name="joining_letter" class="form-control">
+                                    @error("joining_letter")
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+                            
+
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="resume" class="col-form-label">Resume</label>
+                                    <input type="file" id="resume" name="resume" class="form-control">
+                                    @error("resume")
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+
 
 
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="documents" class="col-form-label">Documents</label>
-                                    <input type="file" id="documents" name="documents[]" class="form-control">
-                                    @error("documents")
+                                    <label for="cnic" class="col-form-label">Cnic</label>
+                                    <input type="file" id="cnic" name="cnic[]" class="form-control">
+                                    @error("cnic.*")
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
                             </div>
+                            
 
 
                             <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="others" class="col-form-label">Other Documents</label>
+                                    <input type="file" id="others" name="others[]" class="form-control">
+                                    @error("others.*")
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="row">
+                         
+                            <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="profile" class="col-form-label">Profile</label>
                                     <input type="file" id="profile" name="profile" class="form-control">
@@ -480,6 +536,8 @@
                                 </div>
                             </div>
                         </div>
+
+
 
 
 
@@ -532,8 +590,8 @@
 
 
 
-                const documentsInput = document.querySelector('[name="documents[]"]');
-                const documentsPond =  FilePond.create(documentsInput,{
+                const otherdocumentsInput = document.querySelector('[name="others[]"]');
+                const otherdocumentsPond =  FilePond.create(otherdocumentsInput,{
                     credits: null,
                     allowMultiple: true,
                     acceptedFileTypes: [
@@ -547,6 +605,41 @@
                         'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
                         ],
                     maxFileSize: 5242880,
+                    storeAsFile: true,
+                });
+
+                const joining_letterInput = document.querySelector('[name="joining_letter"]');
+                const joining_letterPond =  FilePond.create(joining_letterInput,{
+                    credits: null,
+                    allowMultiple: false,
+                    acceptedFileTypes: [
+                        'application/pdf',
+                        ],
+                    maxFileSize: 5242880,
+                    storeAsFile: true,
+                });
+
+                const resumeInput = document.querySelector('[name="resume"]');
+                const resumePond =  FilePond.create(resumeInput,{
+                    credits: null,
+                    allowMultiple: false,
+                    acceptedFileTypes: [
+                        'application/pdf',
+                        ],
+                    maxFileSize: 5242880,
+                    storeAsFile: true,
+                });
+
+
+                const cnicInput = document.querySelector('[name="cnic[]"]');
+                const cnicPond =  FilePond.create(cnicInput,{
+                    credits: null,
+                    allowMultiple: true,
+                    acceptedFileTypes: [
+                        'application/pdf',
+                        ],
+                    maxFileSize: 5242880,
+                    maxFiles: 2,
                     storeAsFile: true,
                 });
 

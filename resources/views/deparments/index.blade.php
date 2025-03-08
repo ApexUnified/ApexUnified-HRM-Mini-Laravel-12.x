@@ -29,6 +29,7 @@
                                                 </label>
                                             </th>
                                             <th>Name</th>
+                                            <th>Employees</th>
                                             <th>Branch Name</th>
                                             <th>Branch Address</th>
                                             <th>Date</th>
@@ -50,6 +51,7 @@
                                                     </label>
                                                 </td>
                                                 <td>{{ $department->department_name }}</td>
+                                                <td>{{ $department->employee->count() }}</td>
                                                 <td>{{ $department->branch->name }}</td>
                                                 <td>{{ $department->branch->address }}</td>
                                                 <td>{{ $department->created_at->format('Y-M-d') }}</td>

@@ -230,15 +230,18 @@
                                                         <div class="dropdown-menu" x-placement="bottom-start"
                                                             style="position: absolute; transform:translate3d(15px, 43px, 0px); top: 0px; left: 0px; will-change: transform;">
 
-                                                            @can('Employee Edit')
-                                                                <a class="dropdown-item"
-                                                                    href="{{ route('employee.edit', $employee) }}">Edit</a>
-                                                            @endcan
 
                                                             @can("Employee Show")
                                                             <a class="dropdown-item"
                                                                 href="{{ route('employee.show', $employee) }}">Show</a>
                                                             @endcan
+
+                                                            @can('Employee Edit')
+                                                                <a class="dropdown-item"
+                                                                    href="{{ route('employee.edit', $employee) }}">Edit</a>
+                                                            @endcan
+
+                                                          
 
                                                             @can('Employee Delete')
                                                                 <form class="employee-delete-form"
