@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@use("App\Models\Setting")
 
 @section('title', 'Employee')
 
@@ -6,6 +7,7 @@
 
 
 @php
+     $setting = Setting::first();
     $documentPath = asset("assets/images/employee/documents/");
     $others = !empty($employee->others) ? json_decode($employee->others) : "";
     $profile = !empty($employee->profile) ? asset('assets/images/employee/profile/'. $employee->profile) : "";
@@ -397,6 +399,22 @@
                             </div>
 
                             <div class="row">
+
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="salary" class="col-form-label">Salary *</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">{{ $setting->currency }}</span>
+                                            <input type="number" step="0.01" class="form-control" name="salary"
+                                                id="salary" value="{{ $employee->salary }}">
+                                        </div>
+                                        @error('salary')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                </div>
+
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="remarks" class="col-form-label">Remarks </label>

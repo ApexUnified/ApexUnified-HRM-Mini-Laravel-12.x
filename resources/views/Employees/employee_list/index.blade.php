@@ -1,8 +1,15 @@
 @extends('layouts.app')
 
+@use("App\Models\Setting")
+
 @section('title', 'Employee')
 
 @section('content')
+
+
+@php
+        $setting = Setting::first();
+@endphp
 
     <div class="main-content-inner">
         <div class="row">
@@ -140,6 +147,7 @@
                                             <th>Employee Designation</th>
                                             <th>Date Of Hiring</th>
                                             <th>Employee Department</th>
+                                            <th>Employee Salary</th>
                                             <th>Employee Devices</th>
                                             <th>Employee Gender</th>
                                             <th>Employee Position</th>
@@ -189,6 +197,7 @@
                                                 <td>{{ $employee->designation }}</td>
                                                 <td>{{ $employee->date_of_hiring }}</td>
                                                 <td>{{ $employee->department->department_name }}</td>
+                                                <td>{{ $setting->currency }} {{ $employee->salary }}</td>
                                                 <td>
                                                     @php
                                                         $device_ids = json_decode($employee->device_id, true);

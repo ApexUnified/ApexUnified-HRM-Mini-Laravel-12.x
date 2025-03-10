@@ -37,6 +37,7 @@ return new class extends Migration
             $table->string("cnic_number")->nullable();
             $table->string("eobi_number")->nullable();
             $table->string("sessi_number")->nullable();
+            $table->decimal("salary")->nullable();
 
             $table
                 ->enum(
@@ -93,6 +94,7 @@ return new class extends Migration
                         "cnic_number",
                         "eobi_number",
                         "sessi_number",
+                        "salary",
                         "blood_group",
                         "qualification",
                         "emergency_contact_details",

@@ -1,6 +1,9 @@
 @extends("layouts.app")
+
 @use("App\Models\ZktecoDevice")
 @use("App\Models\Schedule")
+@use("App\Models\Setting")
+
 @section("title","Employees")
 
 
@@ -109,6 +112,11 @@
 
 
 @section("content")
+
+
+@php
+        $setting = Setting::first();
+@endphp
 
 <div class="employee-container">
 
@@ -231,7 +239,7 @@
                          {{ $schedule->formatted_times["checkin"] }} - {{ $schedule->formatted_times["checkout"] }} @endforeach
                     </div>
                     <div>
-                        {{-- <strong>Created By :</strong> {{ $employee->created_by }} --}}
+                        <strong>Salary :</strong> {{ $setting->currency }}  {{ $employee->salary }}
                     </div>
     
                 </div>
@@ -457,6 +465,8 @@
 
         document.body.innerHTML = originalContent;
         document.title = originalTitle;
+
+        location.reload();
       
     });
 });

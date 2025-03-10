@@ -1,8 +1,13 @@
 @extends('layouts.app')
-
+@use("App\Models\Setting")
 @section('title', 'Employee')
 
 @section('content')
+
+@php
+        $setting = Setting::first();
+@endphp
+
 
     <div class="main-content-inner">
         <div class="row">
@@ -138,41 +143,40 @@
 
 
                           <div class="row">
-
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="employee_schedule" class="col-form-label">Schedule *</label>
-                                    <select multiple class="form-control" type="text" name="employee_schedule[]"
-                                        id="employee_schedule" style="cursor: pointer;">
-                                        <option value="" hidden>Select Schedule </option>
-                                        @foreach ($schedules as $schedule)
-                                            <option value="{{ $schedule->id }}" @selected(in_array($schedule->id,old("employee_schedule",[]))) >{{ $schedule->name . ' ' }}
-                                                {{ $schedule->FormattedTimes['checkin'] . ' - ' . $schedule->FormattedTimes['checkout'] }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    @error('employee_schedule')
-                                        <small class="text-danger">{{ $message }}</small>
-                                    @enderror
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="employee_schedule" class="col-form-label">Schedule *</label>
+                                        <select multiple class="form-control" type="text" name="employee_schedule[]"
+                                            id="employee_schedule" style="cursor: pointer;">
+                                            <option value="" hidden>Select Schedule </option>
+                                            @foreach ($schedules as $schedule)
+                                                <option value="{{ $schedule->id }}" @selected(in_array($schedule->id,old("employee_schedule",[]))) >{{ $schedule->name . ' ' }}
+                                                    {{ $schedule->FormattedTimes['checkin'] . ' - ' . $schedule->FormattedTimes['checkout'] }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('employee_schedule')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="gender" class="col-form-label">Gender *</label>
-                                    <select class="form-control" name="gender" id="gender"
-                                        style="cursor: pointer;">
-                                        <option value="" hidden>Select Gender</option>
-                                        <option value="Male" @selected(old("gender") == "Male")>  Male</option>
-                                        <option value="Female" @selected(old("gender") == "Female") >Female</option>
-                                        <option value="Other" @selected(old("gender") == "Other") >Other</option>
-                                    </select>
-                                    @error('gender')
-                                        <small class="text-danger">{{ $message }}</small>
-                                    @enderror
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="gender" class="col-form-label">Gender *</label>
+                                        <select class="form-control" name="gender" id="gender"
+                                            style="cursor: pointer;">
+                                            <option value="" hidden>Select Gender</option>
+                                            <option value="Male" @selected(old("gender") == "Male")>  Male</option>
+                                            <option value="Female" @selected(old("gender") == "Female") >Female</option>
+                                            <option value="Other" @selected(old("gender") == "Other") >Other</option>
+                                        </select>
+                                        @error('gender')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
                                 </div>
-                             </div>
-                        </div>
+                         </div>
 
 
 
@@ -364,6 +368,21 @@
                         </div>
 
                         <div class="row">
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="salary" class="col-form-label">Salary *</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">{{ $setting->currency }}</span>
+                                        <input type="number" step="0.01" class="form-control" name="salary"
+                                            id="salary" value="{{ old('salary') }}">
+                                    </div>
+                                    @error('salary')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="remarks" class="col-form-label">Remarks </label>
@@ -374,6 +393,7 @@
                                 </div>
                             </div>
                         </div>
+
 
 
                         {{-- Family Member Details Rows --}}
