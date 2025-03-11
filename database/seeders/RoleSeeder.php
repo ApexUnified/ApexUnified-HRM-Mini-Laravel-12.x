@@ -13,6 +13,18 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        Role::updateOrCreate(["name" => "admin", "guard_name" => "web"], ["created_at" => now(), "updated_at" => now()]);
+        if (!Role::exists()) {
+            Role::create([
+                'name' => 'admin',
+                'guard_name' => 'web',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ], [
+                'name' => 'employee',
+                'guard_name' => 'web',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
     }
 }
