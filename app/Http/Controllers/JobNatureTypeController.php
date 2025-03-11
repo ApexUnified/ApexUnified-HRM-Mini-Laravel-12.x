@@ -5,9 +5,21 @@ namespace App\Http\Controllers;
 use App\Models\Jobnature;
 use App\Models\JobNatureType;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class JobNatureTypeController extends Controller
+class JobNatureTypeController extends Controller implements HasMiddleware
 {
+
+    public static function middleware(): array
+    {
+        return [
+            new Middleware("permission:Setting View", ["only" => "index"]),
+            new Middleware("permission:Setting View", ["only" => "create", "store"]),
+            new Middleware("permission:Setting View", ["only" => "edit", "update"]),
+            new Middleware("permission:Setting View", ["only" => "destroy", "deletebyselection"]),
+        ];
+    }
 
     public function index()
     {

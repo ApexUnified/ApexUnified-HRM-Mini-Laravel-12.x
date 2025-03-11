@@ -5,9 +5,21 @@ namespace App\Http\Controllers;
 use App\Models\Employee;
 use App\Models\Loan;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class LoanController extends Controller
+class LoanController extends Controller implements HasMiddleware
 {
+
+    public static function middleware(): array
+    {
+        return [
+            new Middleware("permission:Loan View", ["only" => "index"]),
+            new Middleware("permission:Loan Create", ["only" => "create", "store"]),
+            new Middleware("permission:Loan Edit", ["only" => "Edit", "update"]),
+            new Middleware("permission:Loan Delete", ["only" => "destroy", "deletebyselection"]),
+        ];
+    }
 
     public function index()
     {

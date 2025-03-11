@@ -91,10 +91,11 @@
                                                 href="{{ route('attendance.index') }}"><span>Attendances List</span></a>
                                         </li>
 
+                                        @can("Attendance Create")
                                         <li class="{{ request()->routeIs('attendance.create') ? 'active' : '' }}"><a
                                                 href="{{ route('attendance.create') }}"><span>Attendance Create</span></a>
                                         </li>
-
+                                        @endcan
                                     </ul>
                                 </li>
                             @endcan
@@ -113,9 +114,11 @@
                                                 href="{{ route('department.index') }}"><span>Departments List</span></a>
                                         </li>
 
+                                        @can("Department Create")
                                         <li class="{{ request()->routeIs('department.create') ? 'active' : '' }}"><a
                                                 href="{{ route('department.create') }}"><span>Department Create</span></a>
                                         </li>
+                                        @endcan
 
                                     </ul>
                                 </li>
@@ -138,7 +141,7 @@
                                 </li>
                             @endcan
 
-
+                            @can("Job Nature View")
                             <li>
                                 <a href="javascript:void(0)" aria-expanded="true"><i
                                         class="fa fa-briefcase"></i><span>Job
@@ -149,15 +152,18 @@
                                             href="{{ route('jobnature.index') }}"><span>Job Natures List</span></a>
                                     </li>
 
+                                    @can("Job Nature Create")
                                     <li class="{{ request()->routeIs('jobnature.create') ? 'active' : '' }}"><a
                                             href="{{ route('jobnature.create') }}"><span>Job Nature Create</span></a>
                                     </li>
+                                    @endcan
 
 
                                 </ul>
                             </li>
+                            @endcan
 
-
+                            @can("Position View")
                             <li>
                                 <a href="javascript:void(0)" aria-expanded="true">
                                     <i class="fa fa-user-md"></i>
@@ -167,15 +173,19 @@
                                     <li class="{{ request()->routeIs('position.index') ? 'active' : '' }}"><a
                                             href="{{ route('position.index') }}"><span>Positions List</span></a></li>
 
-                                    <li class="{{ request()->routeIs('position.create') ? 'active' : '' }}"><a
-                                            href="{{ route('position.create') }}"><span>Position Create</span></a>
-                                    </li>
+
+                                    @can("Position Create")
+                                        <li class="{{ request()->routeIs('position.create') ? 'active' : '' }}"><a
+                                                href="{{ route('position.create') }}"><span>Position Create</span></a>
+                                        </li>
+                                    @endcan
 
 
                                 </ul>
                             </li>
+                            @endcan
 
-
+                            @can("Allowance View")
                             <li>
                                 <a href="javascript:void(0)" aria-expanded="true">
                                     <i class="fa fa-money"></i>
@@ -186,15 +196,18 @@
                                             href="{{ route('allowance.index') }}"><span>Allowances List</span></a>
                                     </li>
 
+                                    @can("Allowance Create")
                                     <li class="{{ request()->routeIs('allowance.create') ? 'active' : '' }}"><a
                                             href="{{ route('allowance.create') }}"><span>Allowance Create</span></a>
                                     </li>
+                                    @endcan
 
 
                                 </ul>
                             </li>
+                            @endcan
 
-
+                            @can("Bonus View")
                             <li>
                                 <a href="javascript:void(0)" aria-expanded="true">
                                     <i class="fa fa-bitcoin"></i>
@@ -205,14 +218,18 @@
                                             href="{{ route('bonus.index') }}"><span>Bonuses List</span></a>
                                     </li>
 
+
+                                    @can("Bonus Create")
                                     <li class="{{ request()->routeIs('bonus.create') ? 'active' : '' }}"><a
                                             href="{{ route('bonus.create') }}"><span>Bonus Create</span></a>
                                     </li>
+                                    @endcan
 
                                 </ul>
                             </li>
+                            @endcan
 
-
+                            @can("Loan View")
                             <li>
                                 <a href="javascript:void(0)" aria-expanded="true">
                                     <i class="fa fa-credit-card"></i>
@@ -223,14 +240,17 @@
                                             href="{{ route('loan.index') }}"><span>Loans List</span></a>
                                     </li>
 
+                                    @can("Loan Create")
                                     <li class="{{ request()->routeIs('loan.create') ? 'active' : '' }}"><a
                                             href="{{ route('loan.create') }}"><span>Loan Create</span></a>
                                     </li>
+                                    @endcan
 
                                 </ul>
                             </li>
+                            @endcan
 
-
+                            @can("Deduction View")
                             <li>
                                 <a href="javascript:void(0)" aria-expanded="true">
                                     <i class="fa fa-scissors"></i>
@@ -241,13 +261,18 @@
                                             href="{{ route('deduction.index') }}"><span>Deductions List</span></a>
                                     </li>
 
+
+                                    @can("Deduction Create")
                                     <li class="{{ request()->routeIs('deduction.create') ? 'active' : '' }}"><a
                                             href="{{ route('deduction.create') }}"><span>Deduction Create</span></a>
                                     </li>
+                                    @endcan
 
                                 </ul>
                             </li>
+                            @endcan
 
+                            @can("Tax Deduction View")
                             <li>
                                 <a href="javascript:void(0)" aria-expanded="true">
                                     <i class="fa fa-file-text-o"></i>
@@ -259,15 +284,18 @@
                                                 List</span></a>
                                     </li>
 
+                                    @can("Tax Deduction Create")
                                     <li class="{{ request()->routeIs('tax-deduction.create') ? 'active' : '' }}"><a
                                             href="{{ route('tax-deduction.create') }}"><span>Tax Deduction
                                                 Create</span></a>
                                     </li>
-
+                                    @endcan
                                 </ul>
                             </li>
 
+                            @endcan
 
+                            @can("Cash Advance View")
                             <li>
                                 <a href="javascript:void(0)" aria-expanded="true">
                                     <i class="fa fa-bank"></i>
@@ -279,16 +307,18 @@
                                                 List</span></a>
                                     </li>
 
+                                    @can("Cash Advance Create")
                                     <li class="{{ request()->routeIs('cash-advance.create') ? 'active' : '' }}"><a
                                             href="{{ route('cash-advance.create') }}"><span>Cash Advance
                                                 Create</span></a>
                                     </li>
-
+                                    @endcan
                                 </ul>
                             </li>
+                            @endcan
 
 
-
+                            @can("Advance Salary View")
                             <li>
                                 <a href="javascript:void(0)" aria-expanded="true">
                                     <i class="fa fa-exchange"></i>
@@ -300,13 +330,15 @@
                                                 List</span></a>
                                     </li>
 
+                                    @can("Advance Salary Create")
                                     <li class="{{ request()->routeIs('advance-salary.create') ? 'active' : '' }}"><a
                                             href="{{ route('advance-salary.create') }}"><span>Advances Salary
                                                 Create</span></a>
                                     </li>
-
+                                    @endcan
                                 </ul>
                             </li>
+                            @endcan
 
 
 
@@ -320,9 +352,32 @@
                                                 href="{{ route('schedule.index') }}"><span>Schedules List</span></a>
                                         </li>
 
+                                        @can("Schedule Create")
                                         <li class="{{ request()->routeIs('schedule.create') ? 'active' : '' }}"><a
                                                 href="{{ route('schedule.create') }}"><span>Schedule Create</span></a>
                                         </li>
+                                        @endcan
+                                    </ul>
+                                </li>
+                            @endcan
+
+
+
+                                @can('Holiday View')
+                                <li>
+                                    <a href="javascript:void(0)" aria-expanded="true"><i
+                                            class="fa fa-umbrella"></i><span>Holidays</span></a>
+                                    <ul class="collapse">
+
+                                        <li class="{{ request()->routeIs('holiday.index') ? 'active' : '' }}"><a
+                                                href="{{ route('holiday.index') }}"><span>Holidays List</span></a>
+                                        </li>
+
+                                        @can("Holiday Create")
+                                        <li class="{{ request()->routeIs('holiday.create') ? 'active' : '' }}"><a
+                                                href="{{ route('holiday.create') }}"><span>Holiday Create</span></a>
+                                        </li>
+                                        @endcan
                                     </ul>
                                 </li>
                             @endcan
@@ -341,10 +396,13 @@
                                                 href="{{ route('zkteco_device.index') }}"><span>ZkTeco Devices
                                                     List</span></a>
                                         </li>
+
+                                        @can("Device Create")
                                         <li class="{{ request()->routeIs('zkteco_device.create') ? 'active' : '' }}"><a
                                                 href="{{ route('zkteco_device.create') }}"><span>ZkTeco Device
                                                     Create</span></a>
                                         </li>
+                                        @endcan
                                     </ul>
                                 </li>
                             @endcan
@@ -359,9 +417,11 @@
                                                 href="{{ route('user-list.index') }}"><span>Users List</span></a>
                                         </li>
 
+                                        @can("User Create")
                                         <li class="{{ request()->routeIs('user-list.create') ? 'active' : '' }}"><a
                                                 href="{{ route('user-list.create') }}"><span>User Create</span></a>
                                         </li>
+                                        @endcan
                                     </ul>
                                 </li>
                             @endcan

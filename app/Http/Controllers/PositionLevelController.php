@@ -5,10 +5,22 @@ namespace App\Http\Controllers;
 use App\Models\Position;
 use App\Models\PositionLevel;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Log;
 
-class PositionLevelController extends Controller
+class PositionLevelController extends Controller implements HasMiddleware
 {
+
+    public static function middleware(): array
+    {
+        return [
+            new Middleware("permission:Setting View", ["only" => "index"]),
+            new Middleware("permission:Setting View", ["only" => "create", "store"]),
+            new Middleware("permission:Setting View", ["only" => "edit", "update"]),
+            new Middleware("permission:Setting View", ["only" => "destroy", "deletebyselection"]),
+        ];
+    }
 
     public function index()
     {

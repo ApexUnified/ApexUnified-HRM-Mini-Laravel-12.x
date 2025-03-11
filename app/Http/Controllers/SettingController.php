@@ -186,12 +186,13 @@ class SettingController extends Controller implements HasMiddleware
     {
         $ids = $request->input("role_ids");
 
-        if (in_array(1, $ids)) {
+        if (in_array(1, $ids) || in_array(2, $ids)) {
             return response()->json([
                 'status' => false,
-                'message' => 'You cannot delete the admin role'
+                'message' => 'You cannot delete System Reserved Roles'
             ]);
         }
+
 
         $delete = Role::whereIn("id", $ids)->delete();
         if ($delete) {
@@ -210,6 +211,13 @@ class SettingController extends Controller implements HasMiddleware
     public function roleDestroy(string $id)
     {
         $role = Role::find($id);
+
+        if ($id == 1 || $id == 2) {
+            Toastr()->warning("You Cannot Delete System Reserved Roles");
+            return back();
+        }
+
+
         if (!empty($role)) {
             $delete = $role->delete();
             if ($delete) {

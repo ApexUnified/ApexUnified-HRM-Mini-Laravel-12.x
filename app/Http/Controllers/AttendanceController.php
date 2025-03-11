@@ -16,9 +16,9 @@ class AttendanceController extends Controller implements HasMiddleware
     {
         return [
             new Middleware("permission:Attendance View", ["only" => "index"]),
-            new Middleware("permission:Attendance Create", ["only" => "create"]),
-            new Middleware("permission:Attendance Edit", ["only" => "edit"]),
-            new Middleware("permission:Attendance Delete", ["only" => "destroy"]),
+            new Middleware("permission:Attendance Create", ["only" => "create", "store"]),
+            new Middleware("permission:Attendance Edit", ["only" => "edit", "update"]),
+            new Middleware("permission:Attendance Delete", ["only" => "destroy", "deletebyselection"]),
         ];
     }
 
@@ -36,7 +36,6 @@ class AttendanceController extends Controller implements HasMiddleware
         } else if (!empty($request->to)) {
             $toDate = Carbon::parse($request->to)->format("Y-m-d");
             $attendances = Attendance::whereDate("attendance_date", $toDate);
-
         }
 
         $attendances = $attendances->orderBy("created_at", "Desc")->get();
@@ -137,13 +136,13 @@ class AttendanceController extends Controller implements HasMiddleware
                     if ($attendance_checkout->lt($attendance_checkin)) {
                         $attendance_checkout->addDay();
                     }
-            
+
                     if ($attendance_checkin->lt($shift_start_time)) {
                         $attendance_checkin->addDay();
                     }
-                   
+
                     if ($attendance_checkin->between($shift_start_time, $shift_end_time)) {
-                      
+
                         // return $shift_end_time->format("H:i");
 
 
@@ -158,7 +157,7 @@ class AttendanceController extends Controller implements HasMiddleware
                             // return "Early";
                         }
                     }
-                  
+
                     // if($attendance_checkout > $shift_end_time){
                     //     return $shift_end_time->format("H:i");
                     //     $validated_req['attendance_checkout'] = 5;
@@ -204,7 +203,6 @@ class AttendanceController extends Controller implements HasMiddleware
                 'message' => "Failed to delete attendance",
             ]);
         }
-
     }
 
     public function edit(string $id)

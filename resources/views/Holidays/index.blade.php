@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Positions')
+@section('title', 'Holidays')
 
 @section('content')
 
@@ -11,14 +11,14 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-5">
-                            <h2 class="display-5">Positions</h2>
-                            @can('Position Create')
-                                <a href="{{ route('position.create') }}" class="btn btn-primary">Create Position</a>
+                            <h2 class="display-5">Holidays</h2>
+                            @can('Holiday Create')
+                                <a href="{{ route('holiday.create') }}" class="btn btn-primary">Create Holiday</a>
                             @endcan
                         </div>
                         <div class="single-table mt-5">
                             <div class="data-tables">
-                                <table id="Position_Table" class="text-center">
+                                <table id="holiday_table" class="text-center">
                                     <thead class="bg-light text-capitalize">
                                         <tr>
                                             <th class="no-print"></th>
@@ -28,34 +28,33 @@
                                                     <div class="checkmark"></div>
                                                 </label>
                                             </th>
-                                            <th>Position Name</th>
-                                            <th>Position Level</th>
-                                            <th>Job Nature Type</th>
-                                            <th>Date</th>
+                                            <th>Holiday Name</th>
+                                            <th>Holiday Date</th>
+                                            <th>Created Date</th>
 
-                                            @if(auth()->user()->can("Position Edit") || auth()->user()->can("Position Delete"))
+                                            @if(auth()->user()->can("Holiday Delete") || auth()->user()->can("Holiday Edit"))
                                             <th class="no-print">Action</th>
                                             @endif
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($positions as $position)
+                                        @foreach ($holidays as $holiday)
                                             <tr>
                                                 <td></td>
                                                 <td>
 
                                                     <label class="checkbox-container" style="margin-left: 0.5rem">
                                                         <input type="checkbox" class="each_select"
-                                                            value="{{ $position->id }}">
+                                                            value="{{ $holiday->id }}">
                                                         <div class="checkmark"></div>
                                                     </label>
                                                 </td>
-                                                <td>{{ $position->position_name }}</td>
-                                                <td>{{ $position->position_level }}</td>
-                                                <td>{{ $position->jobnature->job_nature_type }}</td>
-                                                <td>{{ $position->created_at->format('Y-M-d') }}</td>
+                                                <td>{{ $holiday->holiday_name }}</td>
+                                                <td>{{ $holiday->holiday_date }}</td>
+                                                <td>{{ $holiday->created_at->format('Y-M-d') }}</td>
 
-                                                @if(auth()->user()->can("Position Edit") || auth()->user()->can("Position Delete"))
+
+                                                @if(auth()->user()->can("Holiday Delete") || auth()->user()->can("Holiday Edit"))
                                                 <td>
                                                     <button class="btn btn-primary dropdown-toggle" type="button"
                                                         data-toggle="dropdown" aria-expanded="false">
@@ -64,23 +63,21 @@
                                                     <div class="dropdown-menu" x-placement="bottom-start"
                                                         style="position: absolute; transform:translate3d(15px, 43px, 0px); top: 0px; left: 0px; will-change: transform;">
 
-                                                        @can("Position Edit")
+                                                        @can("Holiday Edit")
                                                         <a class="dropdown-item"
-                                                            href="{{ route('position.edit', $position) }}">Edit</a>
+                                                            href="{{ route('holiday.edit', $holiday) }}">Edit</a>
+                                                        @endcan
 
-                                                        @endcan  
-
-
-                                                        @can("Position Delete")
-                                                        <form class="position-delete-form"
-                                                            action="{{ route('position.destroy', $position) }}"
+                                                        @can("Holiday Delete")
+                                                        <form class="holiday-delete-form"
+                                                            action="{{ route('holiday.destroy', $holiday) }}"
                                                             method="POST">
                                                             @csrf
                                                             @method('DELETE')
                                                             <button class="dropdown-item" type="submit">Delete</button>
                                                         </form>
                                                         @endcan
-
+                                                        
                                                     </div>
                                                 </td>
                                                 @endif
@@ -102,15 +99,14 @@
     @section('js')
 
         <script>
+            var holiday_delete_btn = @json(auth()->user()->can("Holiday Delete"));
 
-            var position_delete_btn = @json(auth()->user()->can("Position Delete")); 
-
-            $(document).on("click", ".position-delete-form", function(e) {
+            $(document).on("click", ".holiday-delete-form", function(e) {
                 let form = this;
                 e.preventDefault();
                 Swal.fire({
                     title: 'Confirmation',
-                    text: 'Do You Really Want To Delete This Position ? This Action Cannot Be Reversable',
+                    text: 'Do You Really Want To Delete This Holiday ? This Action Cannot Be Reversable',
                     icon: 'info',
                     showCancelButton: true,
                     confirmButtonColor: "#435ebe",
@@ -124,6 +120,9 @@
                     }
                 });
             });
+
+
+       
         </script>
 
     @endsection

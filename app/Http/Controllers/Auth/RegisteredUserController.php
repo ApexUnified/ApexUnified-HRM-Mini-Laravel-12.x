@@ -44,7 +44,7 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
 
         Auth::login($user);
-        $user->syncRoles(['admin']);
+        config("app.env") == "local" ? $user->syncRoles(['admin']) : $user->syncRoles(['employee']);
 
         Toastr()->success(Auth::user()->name . " Registered successfully", [], "Registration successful");
         return redirect(route('dashboard', absolute: false));

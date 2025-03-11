@@ -189,7 +189,7 @@
     /*================================
    Flat DatePicker
    ==================================*/
-    // Employees
+
     $(document).ready(function () {
 
 
@@ -200,6 +200,13 @@
 
         });
 
+
+        flatpickr("#holiday_date", {
+            enableTime: false,
+            noCalendar: false,
+            dateFormat: "Y-m-d",
+
+        });
 
 
         flatpickr("#report_from", {
@@ -771,11 +778,11 @@
                 return this.nodeType === 3; // Check for text nodes
             }).remove();
 
-            // if (department_delete_btn) {
-            //     $("#dep_delete-btn").show();
-            // } else {
-            //     $("#dep_delete-btn").hide();
-            // }
+            if (job_nature_delete_btn) {
+                $("#job_nature_delete-btn").show();
+            } else {
+                $("#job_nature_delete-btn").hide();
+            }
         }
 
 
@@ -862,12 +869,14 @@
                 return this.nodeType === 3; // Check for text nodes
             }).remove();
 
-            // if (department_delete_btn) {
-            //     $("#dep_delete-btn").show();
-            // } else {
-            //     $("#dep_delete-btn").hide();
-            // }
+            if (position_delete_btn) {
+                $("#position_delete-btn").show();
+            } else {
+                $("#position_delete-btn").hide();
+            }
         }
+
+
         if ($('#PositionLevel_Table').length) {
             $('#PositionLevel_Table').DataTable({
                 responsive: true,
@@ -1038,11 +1047,11 @@
                 return this.nodeType === 3; // Check for text nodes
             }).remove();
 
-            // if (department_delete_btn) {
-            //     $("#dep_delete-btn").show();
-            // } else {
-            //     $("#dep_delete-btn").hide();
-            // }
+            if (allowance_delete_btn) {
+                $("#allowance_delete-btn").show();
+            } else {
+                $("#allowance_delete-btn").hide();
+            }
         }
 
         if ($('#AllowanceType_Table').length) {
@@ -1300,6 +1309,12 @@
                 return this.nodeType === 3;
             }).remove();
 
+            if (bonus_delete_btn) {
+                $("#bonus_delete-btn").show();
+            } else {
+                $("#bonus_delete-btn").hide();
+            }
+
         }
 
         if ($('#Loan_Table').length) {
@@ -1384,6 +1399,12 @@
             $('#Loan_Table_filter label').contents().filter(function () {
                 return this.nodeType === 3;
             }).remove();
+
+            if (loan_delete_btn) {
+                $("#loan_delete-btn").show();
+            } else {
+                $("#loan_delete-btn").hide();
+            }
 
         }
 
@@ -1470,6 +1491,12 @@
                 return this.nodeType === 3;
             }).remove();
 
+            if (deduction_delete_btn) {
+                $("#deduction_delete-btn").show();
+            } else {
+                $("#deduction_delete-btn").hide();
+            }
+
         }
 
         if ($('#TaxDeduction_Table').length) {
@@ -1554,6 +1581,12 @@
             $('#TaxDeduction_Table_filter label').contents().filter(function () {
                 return this.nodeType === 3;
             }).remove();
+
+            if (tax_deduction_delete_btn) {
+                $("#tax_deduction_delete-btn").show();
+            } else {
+                $("#tax_deduction_delete-btn").hide();
+            }
 
         }
 
@@ -1641,6 +1674,11 @@
                 return this.nodeType === 3;
             }).remove();
 
+            if (cash_advance_delete_btn) {
+                $("#cash-advance_delete-btn").show();
+            } else {
+                $("#cash-advance_delete-btn").hide();
+            }
         }
 
         if ($('#AdvanceSalary_Table').length) {
@@ -1726,6 +1764,12 @@
                 return this.nodeType === 3;
             }).remove();
 
+            if (advance_salary_delete_btn) {
+                $("#advance-salary_delete-btn").show();
+            } else {
+                $("#advance-salary_delete-btn").hide();
+            }
+
         }
 
 
@@ -1740,7 +1784,7 @@
                     {
                         extend: 'excel',
                         text: '<i class="fa fa-file-excel-o"></i>',
-                        title: 'Schedule',
+                        title: 'Schedules',
                         className: 'btn btn-sm font-sm dt-icon',
                         exportOptions: {
                             columns: ':hidden:not(.no-print), :visible:not(.no-print)'
@@ -1748,7 +1792,7 @@
                     }, {
                         extend: 'pdf',
                         text: '<i class="fa fa-file-pdf-o"></i>',
-                        title: 'Schedule',
+                        title: 'Schedules',
                         className: 'btn btn-sm font-sm dt-icon',
                         exportOptions: {
                             columns: ':hidden:not(.no-print), :visible:not(.no-print)'
@@ -1780,7 +1824,7 @@
                                         </style>
                                     </head>
                                     <body>
-                                        <h2>Schedule</h2>
+                                        <h2>Schedules</h2>
                                         ${tableContent}
                                     </body>
                                 </html>
@@ -1818,6 +1862,99 @@
                 $("#schedule_delete-btn").show();
             } else {
                 $("#schedule_delete-btn").hide();
+            }
+        }
+
+
+        if ($('#holiday_table').length) {
+            $('#holiday_table').DataTable({
+                responsive: true,
+                columnDefs: [
+                    { orderable: false, targets: [0, 1] }
+                ],
+                dom: 'Bfrtip',
+                buttons: [
+                    {
+                        extend: 'excel',
+                        text: '<i class="fa fa-file-excel-o"></i>',
+                        title: 'Holidays',
+                        className: 'btn btn-sm font-sm dt-icon',
+                        exportOptions: {
+                            columns: ':hidden:not(.no-print), :visible:not(.no-print)'
+                        }
+                    }, {
+                        extend: 'pdf',
+                        text: '<i class="fa fa-file-pdf-o"></i>',
+                        title: 'Holidays',
+                        className: 'btn btn-sm font-sm dt-icon',
+                        exportOptions: {
+                            columns: ':hidden:not(.no-print), :visible:not(.no-print)'
+                        }
+                    }, {
+                        extend: 'print',
+                        text: '<i class="fa fa-print"></i>',
+                        className: 'btn btn-sm font-sm dt-icon',
+                        action: function () {
+
+                            let tableContent = document.getElementById('holiday_table').outerHTML;
+
+                            let printWindow = window.open('', '_blank');
+
+                            printWindow.document.write(`
+                                <html>
+                                    <head>
+                                        <title>Print Table</title>
+                                        <style>
+                                            /* Add your custom print styles here */
+                                            body { font-family: Arial, sans-serif; padding: 20px; }
+                                            h2 { text-align: center; }
+                                            table { width: 100%; border-collapse: collapse; }
+                                            th, td { padding: 8px; text-align: left; border: 1px solid #ddd; }
+                                            th { background-color: #f2f2f2; }
+                                            th:first-child, td:first-child { display: none; }
+                                            th:nth-child(2), td:nth-child(2) { display: none; }
+                                            th:last-child, td:last-child { display: none; }
+                                        </style>
+                                    </head>
+                                    <body>
+                                        <h2>Holidays</h2>
+                                        ${tableContent}
+                                    </body>
+                                </html>
+                            `);
+
+                            printWindow.document.close();
+                            printWindow.print();
+                            printWindow.onafterprint = function () {
+                                printWindow.close();
+                            };
+                        }
+                    },
+                    {
+                        text: '<i class="fa fa-trash-o"></i>',
+                        title: 'Delete',
+                        className: 'btn btn-sm font-sm dt-icon',
+                        attr: {
+                            id: "holiday_delete-btn"
+                        }
+                    },
+                ], initComplete: function () {
+                    $("#holiday_table_filter").appendTo(".dt-buttons");
+                }
+
+
+            });
+
+            $('.dataTables_filter input').attr('placeholder', 'Search..');
+            $('.dataTables_filter input').attr('id', 'search');
+            $('#holiday_table_filter label').contents().filter(function () {
+                return this.nodeType === 3; // Check for text nodes
+            }).remove();
+
+            if (holiday_delete_btn) {
+                $("#holiday_delete-btn").show();
+            } else {
+                $("#holiday_delete-btn").hide();
             }
         }
 
@@ -2616,6 +2753,85 @@
         });
 
 
+        $("#holiday_delete-btn").on("click", function () {
+
+            const selected_ids = [];
+            $(".each_select:checked").each(function () {
+                selected_ids.push($(this).val());
+            });
+
+            if (selected_ids.length < 1) {
+                Swal.fire({
+                    title: 'info',
+                    text: 'Please Select Any Holiday',
+                    icon: 'info',
+                    confirmButtonText: 'Okay',
+                    confirmButtonColor: "#435ebe",
+                });
+            } else {
+                Swal.fire({
+                    title: 'Confirmation',
+                    text: 'Do You Really Want To Delete Selected Holidays ? This Action Cannot Be Reversable',
+                    icon: 'info',
+                    showCancelButton: true,
+                    confirmButtonColor: "#435ebe",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Yes, Submit!",
+                    cancelButtonText: "Cancel",
+                    confirmButtonText: 'Okay'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: 'holiday/deletebyselection',
+                            type: 'POST',
+                            headers: {
+                                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            data: { holiday_ids: selected_ids },
+                            success: function (response) {
+                                if (response.status) {
+                                    Swal.fire({
+                                        title: 'Action Completed',
+                                        text: response.message,
+                                        icon: 'success',
+                                        confirmButtonText: 'Okay',
+                                        confirmButtonColor: "#435ebe",
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            location.reload();
+                                        }
+                                    });
+                                } else {
+                                    Swal.fire({
+                                        title: 'Error',
+                                        text: response.message,
+                                        icon: 'error',
+                                        confirmButtonText: 'Okay',
+                                        confirmButtonColor: "#435ebe",
+                                    });
+                                }
+                            },
+                            error: function (xhr, status, error) {
+                                Swal.fire({
+                                    title: 'Error',
+                                    text: xhr.responseJSON.message,
+                                    icon: 'error',
+                                    confirmButtonText: 'Okay',
+                                    confirmButtonColor: "#435ebe",
+                                });
+                            }
+                        });
+                    }
+                });
+
+
+
+            }
+
+
+        });
+
+
 
 
         $("#attendance_delete-btn").on("click", function () {
@@ -3101,6 +3317,7 @@
 
 
         });
+
         $("#position-level_delete-btn").on("click", function () {
 
             const selected_ids = [];
@@ -3260,6 +3477,7 @@
 
 
         });
+
         $("#allowance-type_delete-btn").on("click", function () {
 
             const selected_ids = [];

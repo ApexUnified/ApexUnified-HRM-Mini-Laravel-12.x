@@ -15,7 +15,11 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-5">
                             <h2 class="display-5">Allowances</h2>
+
+                            @can("Allowance Create")
                             <a href="{{ route('allowance.create') }}" class="btn btn-primary">Create Allowance</a>
+                            @endcan
+
                         </div>
                         <div class="single-table mt-5">
                             <div class="data-tables">
@@ -35,7 +39,10 @@
                                             <th>Allowance Amount</th>
                                             <th>Allowance Description</th>
                                             <th>Date</th>
+
+                                            @if(auth()->user()->can("Allowance Edit") || auth()->user()->can("Allowance Delete"))
                                             <th class="no-print">Action</th>
+                                            @endif
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -95,6 +102,8 @@
                                                 <td> {{ $setting->currency }} {{ $allowance->allowance_amount }}</td>
                                                 <td>{{ $allowance->description ?? 'No Description Given' }}</td>
                                                 <td>{{ $allowance->created_at->format('Y-M-d') }}</td>
+
+                                                @if(auth()->user()->can("Allowance Edit") || auth()->user()->can("Allowance Delete"))
                                                 <td>
                                                     <button class="btn btn-primary dropdown-toggle" type="button"
                                                         data-toggle="dropdown" aria-expanded="false">
@@ -102,9 +111,14 @@
                                                     </button>
                                                     <div class="dropdown-menu" x-placement="bottom-start"
                                                         style="position: absolute; transform:translate3d(15px, 43px, 0px); top: 0px; left: 0px; will-change: transform;">
+
+                                                        @can("Allowance Edit")
                                                         <a class="dropdown-item"
                                                             href="{{ route('allowance.edit', $allowance) }}">Edit</a>
 
+                                                        @endcan
+
+                                                        @can("Allowance Delete")
                                                         <form class="allowance-delete-form"
                                                             action="{{ route('allowance.destroy', $allowance) }}"
                                                             method="POST">
@@ -112,8 +126,10 @@
                                                             @method('DELETE')
                                                             <button class="dropdown-item" type="submit">Delete</button>
                                                         </form>
+                                                        @endcan
                                                     </div>
                                                 </td>
+                                                @endif
                                             </tr>
                                         @endforeach
 
@@ -130,13 +146,10 @@
     @endsection
 
     @section('js')
-
-        {{-- <script>
-            var job_nature_delete_btn = @json(auth()->user()->can('Department Delete'))
-        </script> --}}
-
-
+        
+        
         <script>
+            var allowance_delete_btn = @json(auth()->user()->can('Allowance Delete'));
             $(document).on("click", ".allowance-delete-form", function(e) {
                 let form = this;
                 e.preventDefault();

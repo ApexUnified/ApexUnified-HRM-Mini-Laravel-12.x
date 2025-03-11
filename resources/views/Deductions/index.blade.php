@@ -15,7 +15,11 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-5">
                             <h2 class="display-5">Deductions</h2>
+
+                            @can("Deduction Create")
                             <a href="{{ route('deduction.create') }}" class="btn btn-primary">Create Deduction</a>
+                            @endcan
+
                         </div>
                         <div class="single-table mt-5">
                             <div class="data-tables">
@@ -33,7 +37,11 @@
                                             <th>Deduction Amount</th>
                                             <th>Description</th>
                                             <th>Date</th>
+
+                                            @if(auth()->user()->can("Deduction Edit") || auth()->user()->can("Deduction Delete"))
                                             <th class="no-print">Action</th>
+                                            @endif
+
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -53,6 +61,8 @@
                                                 <td>{{ $setting->currency }} {{ $deduction->deduction_amount }}</td>
                                                 <td>{{ $deduction->description ?? 'No Description Given' }}</td>
                                                 <td>{{ $deduction->created_at->format('Y-M-d') }}</td>
+
+                                                @if(auth()->user()->can("Deduction Edit") || auth()->user()->can("Deduction Delete"))
                                                 <td>
                                                     <button class="btn btn-primary dropdown-toggle" type="button"
                                                         data-toggle="dropdown" aria-expanded="false">
@@ -60,9 +70,15 @@
                                                     </button>
                                                     <div class="dropdown-menu" x-placement="bottom-start"
                                                         style="position: absolute; transform:translate3d(15px, 43px, 0px); top: 0px; left: 0px; will-change: transform;">
+
+                                                        @can("Deduction Edit")
                                                         <a class="dropdown-item"
                                                             href="{{ route('deduction.edit', $deduction) }}">Edit</a>
 
+                                                        @endcan
+
+
+                                                        @can("Deduction Delete")
                                                         <form class="deduction-delete-form"
                                                             action="{{ route('deduction.destroy', $deduction) }}"
                                                             method="POST">
@@ -70,8 +86,11 @@
                                                             @method('DELETE')
                                                             <button class="dropdown-item" type="submit">Delete</button>
                                                         </form>
+                                                        @endcan
+
                                                     </div>
                                                 </td>
+                                                @endif
                                             </tr>
                                         @endforeach
 
@@ -89,11 +108,8 @@
 
     @section('js')
 
-        {{-- <script>
-            var job_nature_delete_btn = @json(auth()->user()->can('Department Delete'))
-        </script> --}}
-
         <script>
+            var deduction_delete_btn = @json(auth()->user()->can('Deduction Delete'));
             $(document).on("click", ".deduction-delete-form", function(e) {
                 let form = this;
                 e.preventDefault();

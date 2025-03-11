@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 
@@ -12,11 +13,11 @@ class ProfileController extends Controller
     public function userProfile(string $id)
     {
         $user = User::find($id);
-        if ($user) {
+        if ($user && $id == Auth::id()) {
             return view('user_profile.user-profile', compact('user'));
         } else {
-            Toastr()->error("User Not Found");
-            return redirect()->route('setting.index');
+            $id != Auth::id() ? Toastr()->error("You Cannot See Anybody's Profile You Can See Only Your's") : "";
+            return back();
         }
     }
 

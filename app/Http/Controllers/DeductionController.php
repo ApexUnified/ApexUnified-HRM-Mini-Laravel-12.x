@@ -4,9 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Models\Deduction;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class DeductionController extends Controller
+class DeductionController extends Controller implements HasMiddleware
 {
+
+    public static function middleware(): array
+    {
+        return [
+            new Middleware("permission:Deduction View", ["only" => "index"]),
+            new Middleware("permission:Deduction Create", ["only" => "create", "store"]),
+            new Middleware("permission:Deduction Edit", ["only" => "Edit", "update"]),
+            new Middleware("permission:Deduction Delete", ["only" => "destroy", "deletebyselection"]),
+        ];
+    }
 
     public function index()
     {

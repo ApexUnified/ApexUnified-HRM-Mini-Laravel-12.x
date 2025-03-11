@@ -11,7 +11,7 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-5">
                             <h2 class="display-5">Job Nature</h2>
-                            @can('Department Create')
+                            @can('Job Nature Create')
                                 <a href="{{ route('jobnature.create') }}" class="btn btn-primary">Create Job Nature</a>
                             @endcan
                         </div>
@@ -30,7 +30,11 @@
                                             <th>Job Nature Type</th>
                                             <th>Description</th>
                                             <th>Date</th>
+
+                                            @if(auth()->user()->can("Job Nature Edit") || auth()->user()->can("Job Nature Delete"))
                                             <th class="no-print">Action</th>
+                                            @endif
+
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -48,6 +52,8 @@
                                                 <td>{{ $jobNature->job_nature_type }}</td>
                                                 <td>{{ $jobNature->description ?? 'No Description Given' }}</td>
                                                 <td>{{ $jobNature->created_at->format('Y-M-d') }}</td>
+
+                                                @if(auth()->user()->can("Job Nature Edit") || auth()->user()->can("Job Nature Delete"))
                                                 <td>
                                                     <button class="btn btn-primary dropdown-toggle" type="button"
                                                         data-toggle="dropdown" aria-expanded="false">
@@ -55,9 +61,13 @@
                                                     </button>
                                                     <div class="dropdown-menu" x-placement="bottom-start"
                                                         style="position: absolute; transform:translate3d(15px, 43px, 0px); top: 0px; left: 0px; will-change: transform;">
+
+                                                        @can("Job Nature Edit")
                                                         <a class="dropdown-item"
                                                             href="{{ route('jobnature.edit', $jobNature) }}">Edit</a>
+                                                        @endcan
 
+                                                        @can("Job Nature Delete")
                                                         <form class="jobnature-delete-form"
                                                             action="{{ route('jobnature.destroy', $jobNature) }}"
                                                             method="POST">
@@ -65,8 +75,10 @@
                                                             @method('DELETE')
                                                             <button class="dropdown-item" type="submit">Delete</button>
                                                         </form>
+                                                        @endcan
                                                     </div>
                                                 </td>
+                                                @endif
                                             </tr>
                                         @endforeach
 
@@ -84,11 +96,8 @@
 
     @section('js')
 
-        {{-- <script>
-            var job_nature_delete_btn = @json(auth()->user()->can('Department Delete'))
-        </script> --}}
-
         <script>
+            var job_nature_delete_btn = @json(auth()->user()->can('Job Nature Delete'));
             $(document).on("click", ".jobnature-delete-form", function(e) {
                 let form = this;
                 e.preventDefault();

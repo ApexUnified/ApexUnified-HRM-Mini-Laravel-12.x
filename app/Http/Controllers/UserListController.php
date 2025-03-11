@@ -16,9 +16,9 @@ class UserListController extends Controller implements HasMiddleware
     {
         return [
             new Middleware("permission:User View", ["only" => "index"]),
-            new Middleware("permission:User Create", ["only" => "create"]),
-            new Middleware("permission:User Edit", ["only" => "edit"]),
-            new Middleware("permission:User Delete", ["only" => "destroy"]),
+            new Middleware("permission:User Create", ["only" => "create", "store"]),
+            new Middleware("permission:User Edit", ["only" => "edit", "update"]),
+            new Middleware("permission:User Delete", ["only" => "destroy", "deletebyselection"]),
         ];
     }
     public function index()

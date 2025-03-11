@@ -15,7 +15,11 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-5">
                             <h2 class="display-5">Tax Deductions</h2>
+
+                            @can("Tax Deduction Create")
                             <a href="{{ route('tax-deduction.create') }}" class="btn btn-primary">Create Tax Deduction </a>
+                            @endcan
+
                         </div>
                         <div class="single-table mt-5">
                             <div class="data-tables">
@@ -34,7 +38,12 @@
                                             <th>Tax Deduction Amount</th>
                                             <th>Tax Description</th>
                                             <th>Date</th>
+
+
+                                            @if(auth()->user()->can("Tax Deduction Edit") || auth()->user()->can("Tax Deduction Delete"))
                                             <th class="no-print">Action</th>
+                                            @endif
+
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -55,6 +64,9 @@
                                                 <td>{{ $setting->currency }} {{ $tax_deduction->tax_amount }}</td>
                                                 <td>{{ $tax_deduction->description ?? 'No Description Given' }}</td>
                                                 <td>{{ $tax_deduction->created_at->format('Y-M-d') }}</td>
+
+
+                                                @if(auth()->user()->can("Tax Deduction Edit") || auth()->user()->can("Tax Deduction Delete"))
                                                 <td>
                                                     <button class="btn btn-primary dropdown-toggle" type="button"
                                                         data-toggle="dropdown" aria-expanded="false">
@@ -62,9 +74,15 @@
                                                     </button>
                                                     <div class="dropdown-menu" x-placement="bottom-start"
                                                         style="position: absolute; transform:translate3d(15px, 43px, 0px); top: 0px; left: 0px; will-change: transform;">
+
+
+                                                        @can("Tax Deduction Edit")
                                                         <a class="dropdown-item"
                                                             href="{{ route('tax-deduction.edit', $tax_deduction) }}">Edit</a>
+                                                        @endcan
 
+
+                                                        @can("Tax Deduction Delete")
                                                         <form class="tax-deduction-delete-form"
                                                             action="{{ route('tax-deduction.destroy', $tax_deduction) }}"
                                                             method="POST">
@@ -72,8 +90,12 @@
                                                             @method('DELETE')
                                                             <button class="dropdown-item" type="submit">Delete</button>
                                                         </form>
+                                                        @endcan
+
                                                     </div>
                                                 </td>
+                                                @endif
+
                                             </tr>
                                         @endforeach
 
@@ -91,12 +113,11 @@
 
     @section('js')
 
-        {{-- <script>
-            var job_nature_delete_btn = @json(auth()->user()->can('Department Delete'))
-        </script> --}}
-
-
+     
+        
+        
         <script>
+            var tax_deduction_delete_btn = @json(auth()->user()->can('Tax Deduction Delete'));
             $(document).on("click", ".tax-deduction-delete-form", function(e) {
                 let form = this;
                 e.preventDefault();

@@ -57,7 +57,7 @@
                                                             href="{{ route('setting.permission.view', $role) }}">Change
                                                             Permissions</a>
 
-                                                        @if ($role->id == 1)
+                                                        @if ($role->id == 1 || $role->id == 2)
                                                         @else
                                                             <form class="role-delete-form"
                                                                 action="{{ route('setting.role.destroy', $role) }}"

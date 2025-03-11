@@ -14,9 +14,9 @@ class DepartmentController extends Controller implements HasMiddleware
     {
         return [
             new Middleware("permission:Department View", ["only" => "index"]),
-            new Middleware("permission:Department Create", ["only" => "create"]),
-            new Middleware("permission:Department Edit", ["only" => "edit"]),
-            new Middleware("permission:Department Delete", ["only" => "destroy"]),
+            new Middleware("permission:Department Create", ["only" => "create", "store"]),
+            new Middleware("permission:Department Edit", ["only" => "edit", "update"]),
+            new Middleware("permission:Department Delete", ["only" => "destroy", "deletebyselection"]),
         ];
     }
     public function index()

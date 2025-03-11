@@ -7,9 +7,21 @@ use App\Models\AllowanceType;
 use App\Models\Department;
 use App\Models\Position;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class AllowanceController extends Controller
+class AllowanceController extends Controller implements HasMiddleware
 {
+
+    public static function middleware(): array
+    {
+        return [
+            new Middleware("permission:Allowance View", ["only" => "index"]),
+            new Middleware("permission:Allowance Create", ["only" => "create", "store"]),
+            new Middleware("permission:Allowance Edit", ["only" => "edit", "update"]),
+            new Middleware("permission:Allowance Delete", ["only" => "destroy", "deletebyselection"]),
+        ];
+    }
 
     public function index()
     {

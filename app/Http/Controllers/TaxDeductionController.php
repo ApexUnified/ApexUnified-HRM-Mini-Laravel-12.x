@@ -4,9 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Models\TaxDeduction;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class TaxDeductionController extends Controller
+class TaxDeductionController extends Controller implements HasMiddleware
 {
+
+    public static function middleware(): array
+    {
+        return [
+            new Middleware("permission:Tax Deduction View", ["only" => "index"]),
+            new Middleware("permission:Tax Deduction Create", ["only" => "create", "store"]),
+            new Middleware("permission:Tax Deduction Edit", ["only" => "Edit", "update"]),
+            new Middleware("permission:Tax Deduction Delete", ["only" => "destroy", "deletebyselection"]),
+        ];
+    }
 
     public function index()
     {

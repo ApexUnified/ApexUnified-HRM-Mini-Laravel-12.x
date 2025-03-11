@@ -14,6 +14,7 @@ use App\Http\Controllers\DeductionController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\EmployeeScheduleController;
+use App\Http\Controllers\HolidayController;
 use App\Http\Controllers\JobNatureController;
 use App\Http\Controllers\JobNatureTypeController;
 use App\Http\Controllers\LoanController;
@@ -162,6 +163,12 @@ Route::middleware('auth')->group(function () {
     Route::post("/advance-salary/deletebyselection", [AdvanceSalaryController::class, 'deletebyselection']);
     // Advance Salary Routes
 
+
+
+    // Holiday Routes Start
+    Route::resource("/holiday", HolidayController::class)->except(["show"]);
+    Route::post("/holiday/deletebyselection", [HolidayController::class, "deletebyselection"]);
+    // Holiday Routes Start
 
 
     Route::controller(ZkTecoController::class)->group(function () {

@@ -15,7 +15,11 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-5">
                             <h2 class="display-5">Cash Advances</h2>
+
+                            @can("Cash Advance Create")
                             <a href="{{ route('cash-advance.create') }}" class="btn btn-primary">Create Cash Advance</a>
+                            @endcan
+
                         </div>
                         <div class="single-table mt-5">
                             <div class="data-tables">
@@ -35,7 +39,11 @@
                                             <th>Cash Advance Status</th>
                                             <th>Description</th>
                                             <th>Cash Advance Date</th>
+
+                                            @if(auth()->user()->can("Cash Advance Edit") || auth()->user()->can("Cash Advance Delete"))
                                             <th class="no-print">Action</th>
+                                            @endif
+
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -67,6 +75,9 @@
                                                 </td>
                                                 <td>{{ $cash_advance->description ?? 'No Description Given' }}</td>
                                                 <td>{{ $cash_advance->advance_date }}</td>
+
+
+                                                @if(auth()->user()->can("Cash Advance Edit") || auth()->user()->can("Cash Advance Delete"))
                                                 <td>
                                                     <button class="btn btn-primary dropdown-toggle" type="button"
                                                         data-toggle="dropdown" aria-expanded="false">
@@ -74,9 +85,13 @@
                                                     </button>
                                                     <div class="dropdown-menu" x-placement="bottom-start"
                                                         style="position: absolute; transform:translate3d(15px, 43px, 0px); top: 0px; left: 0px; will-change: transform;">
+
+                                                        @can("Cash Advance Edit")
                                                         <a class="dropdown-item"
                                                             href="{{ route('cash-advance.edit', $cash_advance) }}">Edit</a>
+                                                        @endcan
 
+                                                        @can("Cash Advance Delete")
                                                         <form class="cash-advance-delete-form"
                                                             action="{{ route('cash-advance.destroy', $cash_advance) }}"
                                                             method="POST">
@@ -84,8 +99,11 @@
                                                             @method('DELETE')
                                                             <button class="dropdown-item" type="submit">Delete</button>
                                                         </form>
+                                                        @endcan
+
                                                     </div>
                                                 </td>
+                                                @endif
                                             </tr>
                                         @endforeach
 
@@ -103,12 +121,8 @@
 
     @section('js')
 
-        {{-- <script>
-            var job_nature_delete_btn = @json(auth()->user()->can('Department Delete'))
-        </script> --}}
-
-
         <script>
+            var cash_advance_delete_btn = @json(auth()->user()->can('Cash Advance Delete'));
             $(document).on("click", ".cash-advance-delete-form", function(e) {
                 let form = this;
                 e.preventDefault();

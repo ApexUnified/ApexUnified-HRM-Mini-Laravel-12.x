@@ -15,7 +15,11 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-5">
                             <h2 class="display-5">Bonuses</h2>
+
+                            @can("Bonus Create")
                             <a href="{{ route('bonus.create') }}" class="btn btn-primary">Create Bonus</a>
+                            @endcan
+
                         </div>
                         <div class="single-table mt-5">
                             <div class="data-tables">
@@ -34,7 +38,10 @@
                                             <th>Bonus Description</th>
                                             <th>Bonus Amount</th>
                                             <th>Date</th>
+
+                                            @if(auth()->user()->can("Bonus Edit") || auth()->user()->can("Bonus Delete"))
                                             <th class="no-print">Action</th>
+                                            @endif
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -54,6 +61,8 @@
                                                 <td>{{ $bonus->description ?? 'No Description Given' }}</td>
                                                 <td> {{ $setting->currency }} {{ $bonus->bonus_amount }}</td>
                                                 <td>{{ $bonus->created_at->format('Y-M-d') }}</td>
+
+                                                @if(auth()->user()->can("Bonus Edit") || auth()->user()->can("Bonus Delete"))
                                                 <td>
                                                     <button class="btn btn-primary dropdown-toggle" type="button"
                                                         data-toggle="dropdown" aria-expanded="false">
@@ -61,17 +70,23 @@
                                                     </button>
                                                     <div class="dropdown-menu" x-placement="bottom-start"
                                                         style="position: absolute; transform:translate3d(15px, 43px, 0px); top: 0px; left: 0px; will-change: transform;">
+
+                                                        @can("Bonus Edit")
                                                         <a class="dropdown-item"
                                                             href="{{ route('bonus.edit', $bonus) }}">Edit</a>
+                                                        @endcan
 
+                                                        @can("Bonus Delete")
                                                         <form class="bonus-delete-form"
                                                             action="{{ route('bonus.destroy', $bonus) }}" method="POST">
                                                             @csrf
                                                             @method('DELETE')
                                                             <button class="dropdown-item" type="submit">Delete</button>
                                                         </form>
+                                                        @endcan
                                                     </div>
                                                 </td>
+                                                @endif
                                             </tr>
                                         @endforeach
 
@@ -89,12 +104,10 @@
 
     @section('js')
 
-        {{-- <script>
-            var job_nature_delete_btn = @json(auth()->user()->can('Department Delete'))
-        </script> --}}
-
-
+        
+        
         <script>
+            var bonus_delete_btn = @json(auth()->user()->can('Bonus Delete'));
             $(document).on("click", ".bonus-delete-form", function(e) {
                 let form = this;
                 e.preventDefault();

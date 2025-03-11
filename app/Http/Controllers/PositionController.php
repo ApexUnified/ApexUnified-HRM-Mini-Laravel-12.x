@@ -6,11 +6,22 @@ use App\Models\Jobnature;
 use App\Models\Position;
 use App\Models\PositionLevel;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use PDO;
 use PhpParser\Node\Expr\Empty_;
 
-class PositionController extends Controller
+class PositionController extends Controller implements HasMiddleware
 {
+    public static function middleware(): array
+    {
+        return [
+            new Middleware("permission:Position View", ["only" => "index"]),
+            new Middleware("permission:Position Create", ["only" => "create", "store"]),
+            new Middleware("permission:Position Edit", ["only" => "Edit", "update"]),
+            new Middleware("permission:Position Delete", ["only" => "destroy", "deletebyselection"]),
+        ];
+    }
 
     public function index()
     {

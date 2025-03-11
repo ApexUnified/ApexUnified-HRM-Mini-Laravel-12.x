@@ -4,9 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Models\Bonus;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class BonusController extends Controller
+class BonusController extends Controller implements HasMiddleware
 {
+
+    public static function middleware(): array
+    {
+        return [
+            new Middleware("permission:Bonus View", ["only" => "index"]),
+            new Middleware("permission:Bonus Create", ["only" => "create", "store"]),
+            new Middleware("permission:Bonus Edit", ["only" => "edit", "update"]),
+            new Middleware("permission:Bonus Delete", ["only" => "destroy", "deletebyselection"]),
+        ];
+    }
 
     public function index()
     {

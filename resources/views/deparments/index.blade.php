@@ -102,7 +102,7 @@
 @section('js')
 
     <script>
-        var department_delete_btn = @json(auth()->user()->can('Department Delete'))
+        var department_delete_btn = @json(auth()->user()->can('Department Delete'));
 
 
         $(document).on("click", ".department-delete-form", function(e) {

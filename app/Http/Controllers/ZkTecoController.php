@@ -16,9 +16,9 @@ class ZkTecoController extends Controller implements HasMiddleware
     {
         return [
             new Middleware("permission:Device View", ["only" => "index"]),
-            new Middleware("permission:Device Create", ["only" => "create"]),
-            new Middleware("permission:Device Edit", ["only" => "edit"]),
-            new Middleware("permission:Device Delete", ["only" => "destroy"]),
+            new Middleware("permission:Device Create", ["only" => "create", "store"]),
+            new Middleware("permission:Device Edit", ["only" => "edit", "update"]),
+            new Middleware("permission:Device Delete", ["only" => "destroy", "deletebyselection"]),
         ];
     }
     public function index()

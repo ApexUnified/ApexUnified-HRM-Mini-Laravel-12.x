@@ -15,7 +15,12 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-5">
                             <h2 class="display-5">Advance Salaries</h2>
+
+
+                            @can("Advance Salary Create")
                             <a href="{{ route('advance-salary.create') }}" class="btn btn-primary">Create Advance Salary</a>
+                            @endcan
+
                         </div>
                         <div class="single-table mt-5">
                             <div class="data-tables">
@@ -35,7 +40,12 @@
                                             <th>Advance Salary Status</th>
                                             <th>Description</th>
                                             <th>Advance Salary Granted Date</th>
+
+
+                                            @if(auth()->user()->can("Advance Salary Edit") || auth()->user()->can("Advance Salary Delete"))
                                             <th class="no-print">Action</th>
+                                            @endif
+
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -68,6 +78,10 @@
                                                 </td>
                                                 <td>{{ $advance_salary->description ?? 'No Description Given' }}</td>
                                                 <td>{{ $advance_salary->advance_salary_date }}</td>
+
+
+                                                @if(auth()->user()->can("Advance Salary Edit") || auth()->user()->can("Advance Salary Delete"))
+
                                                 <td>
                                                     <button class="btn btn-primary dropdown-toggle" type="button"
                                                         data-toggle="dropdown" aria-expanded="false">
@@ -75,9 +89,15 @@
                                                     </button>
                                                     <div class="dropdown-menu" x-placement="bottom-start"
                                                         style="position: absolute; transform:translate3d(15px, 43px, 0px); top: 0px; left: 0px; will-change: transform;">
+
+
+                                                        @can("Advance Salary Edit")
                                                         <a class="dropdown-item"
                                                             href="{{ route('advance-salary.edit', $advance_salary) }}">Edit</a>
 
+                                                        @endcan
+
+                                                        @can("Advance Salary Delete")
                                                         <form class="advance-salary-delete-form"
                                                             action="{{ route('advance-salary.destroy', $advance_salary) }}"
                                                             method="POST">
@@ -85,8 +105,12 @@
                                                             @method('DELETE')
                                                             <button class="dropdown-item" type="submit">Delete</button>
                                                         </form>
+                                                        @endcan
+
                                                     </div>
                                                 </td>
+
+                                                @endif
                                             </tr>
                                         @endforeach
 
@@ -104,11 +128,10 @@
 
     @section('js')
 
-        {{-- <script>
-            var job_nature_delete_btn = @json(auth()->user()->can('Department Delete'))
-        </script> --}}
 
+        
         <script>
+            var advance_salary_delete_btn = @json(auth()->user()->can('Advance Salary Delete'));
             $(document).on("click", ".advance-salary-delete-form", function(e) {
                 let form = this;
                 e.preventDefault();

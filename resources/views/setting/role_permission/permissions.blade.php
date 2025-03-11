@@ -295,6 +295,393 @@
                                 </div>
                             </div>
 
+
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="card permission-card">
+                                        <div class="card-body">
+                                            <div class="text-center mb-3">
+                                                <i class="fa fa-briefcase category-icon"></i>
+                                                <h4>Job Natures Module</h4>
+                                            </div>
+
+                                            <div class="row">
+                                                @foreach ($permissions as $permission)
+                                                    @if (str($permission->name)->startsWith('Job Nature'))
+                                                        <div class="col-md-6">
+                                                            <div class="permission-item">
+                                                                <div class="d-flex align-items-center">
+
+                                                                    <label class="checkbox-container">
+                                                                        <input id="select_all" type="checkbox"
+                                                                            name="name[]"
+                                                                            value="{{ $permission->name }}"{{ $hasPermissions->contains('name', $permission->name) ? 'checked' : '' }}>
+                                                                        <div class="checkmark"></div>
+                                                                    </label>
+
+
+                                                                    <label class="form-check-label mt-1 mx-2 mb-3">
+                                                                        {{ $permission->name }}
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    @endif
+                                                @endforeach
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <div class="card permission-card">
+                                        <div class="card-body">
+                                            <div class="text-center mb-3">
+                                                <i class="fa fa-user-md category-icon "></i>
+                                                <h4>Positions Module</h4>
+                                            </div>
+
+                                            <div class="row">
+                                                @foreach ($permissions as $permission)
+                                                    @if (str($permission->name)->startsWith('Position'))
+                                                        <div class="col-md-6">
+                                                            <div class="permission-item">
+                                                                <div class="d-flex align-items-center">
+
+                                                                    <label class="checkbox-container">
+                                                                        <input id="select_all" type="checkbox"
+                                                                            name="name[]"
+                                                                            value="{{ $permission->name }}"{{ $hasPermissions->contains('name', $permission->name) ? 'checked' : '' }}>
+                                                                        <div class="checkmark"></div>
+                                                                    </label>
+
+                                                                    <label class="form-check-label mt-1 mx-2 mb-3">
+                                                                        {{ $permission->name }}
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    @endif
+                                                @endforeach
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-lg-4">
+                                    <div class="card permission-card">
+                                        <div class="card-body">
+                                            <div class="text-center mb-3">
+                                                <i class="ti-money category-icon "></i>
+                                                <h4>Allowances Module</h4>
+                                            </div>
+
+                                            <div class="row">
+                                                @foreach ($permissions as $permission)
+                                                    @if (str($permission->name)->startsWith('Allowance'))
+                                                        <div class="col-md-6">
+                                                            <div class="permission-item">
+                                                                <div class="d-flex align-items-center">
+
+                                                                    <label class="checkbox-container">
+                                                                        <input id="select_all" type="checkbox"
+                                                                            name="name[]"
+                                                                            value="{{ $permission->name }}"{{ $hasPermissions->contains('name', $permission->name) ? 'checked' : '' }}>
+                                                                        <div class="checkmark"></div>
+                                                                    </label>
+
+                                                                    <label class="form-check-label mt-1 mx-2 mb-3">
+                                                                        {{ $permission->name }}
+                                                                    </label>
+
+
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    @endif
+                                                @endforeach
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="card permission-card">
+                                        <div class="card-body">
+                                            <div class="text-center mb-3">
+                                                <i class="fa fa-bitcoin category-icon"></i>
+                                                <h4>Bonuses Module</h4>
+                                            </div>
+
+                                            <div class="row">
+                                                @foreach ($permissions as $permission)
+                                                    @if (str($permission->name)->startsWith('Bonus'))
+                                                        <div class="col-md-6">
+                                                            <div class="permission-item">
+                                                                <div class="d-flex align-items-center">
+
+                                                                    <label class="checkbox-container">
+                                                                        <input id="select_all" type="checkbox"
+                                                                            name="name[]"
+                                                                            value="{{ $permission->name }}"{{ $hasPermissions->contains('name', $permission->name) ? 'checked' : '' }}>
+                                                                        <div class="checkmark"></div>
+                                                                    </label>
+
+
+                                                                    <label class="form-check-label mt-1 mx-2 mb-3">
+                                                                        {{ $permission->name }}
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    @endif
+                                                @endforeach
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <div class="card permission-card">
+                                        <div class="card-body">
+                                            <div class="text-center mb-3">
+                                                <i class="fa fa-credit-card category-icon "></i>
+                                                <h4>Loans Module</h4>
+                                            </div>
+
+                                            <div class="row">
+                                                @foreach ($permissions as $permission)
+                                                    @if (str($permission->name)->startsWith('Loan'))
+                                                        <div class="col-md-6">
+                                                            <div class="permission-item">
+                                                                <div class="d-flex align-items-center">
+
+                                                                    <label class="checkbox-container">
+                                                                        <input id="select_all" type="checkbox"
+                                                                            name="name[]"
+                                                                            value="{{ $permission->name }}"{{ $hasPermissions->contains('name', $permission->name) ? 'checked' : '' }}>
+                                                                        <div class="checkmark"></div>
+                                                                    </label>
+
+                                                                    <label class="form-check-label mt-1 mx-2 mb-3">
+                                                                        {{ $permission->name }}
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    @endif
+                                                @endforeach
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-lg-4">
+                                    <div class="card permission-card">
+                                        <div class="card-body">
+                                            <div class="text-center mb-3">
+                                                <i class="ti-scissors category-icon "></i>
+                                                <h4>Deductions Module</h4>
+                                            </div>
+
+                                            <div class="row">
+                                                @foreach ($permissions as $permission)
+                                                    @if (str($permission->name)->startsWith('Deduction'))
+                                                        <div class="col-md-6">
+                                                            <div class="permission-item">
+                                                                <div class="d-flex align-items-center">
+
+                                                                    <label class="checkbox-container">
+                                                                        <input id="select_all" type="checkbox"
+                                                                            name="name[]"
+                                                                            value="{{ $permission->name }}"{{ $hasPermissions->contains('name', $permission->name) ? 'checked' : '' }}>
+                                                                        <div class="checkmark"></div>
+                                                                    </label>
+
+                                                                    <label class="form-check-label mt-1 mx-2 mb-3">
+                                                                        {{ $permission->name }}
+                                                                    </label>
+
+
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    @endif
+                                                @endforeach
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="card permission-card">
+                                        <div class="card-body">
+                                            <div class="text-center mb-3">
+                                                <i class="fa fa-file-text-o category-icon"></i>
+                                                <h4>Tax Deductions Module</h4>
+                                            </div>
+
+                                            <div class="row">
+                                                @foreach ($permissions as $permission)
+                                                    @if (str($permission->name)->startsWith('Tax Deduction'))
+                                                        <div class="col-md-6">
+                                                            <div class="permission-item">
+                                                                <div class="d-flex align-items-center">
+
+                                                                    <label class="checkbox-container">
+                                                                        <input id="select_all" type="checkbox"
+                                                                            name="name[]"
+                                                                            value="{{ $permission->name }}"{{ $hasPermissions->contains('name', $permission->name) ? 'checked' : '' }}>
+                                                                        <div class="checkmark"></div>
+                                                                    </label>
+
+
+                                                                    <label class="form-check-label mt-1 mx-2 mb-3">
+                                                                        {{ $permission->name }}
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    @endif
+                                                @endforeach
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <div class="card permission-card">
+                                        <div class="card-body">
+                                            <div class="text-center mb-3">
+                                                <i class="fa fa-bank category-icon "></i>
+                                                <h4>Cash Advances Module</h4>
+                                            </div>
+
+                                            <div class="row">
+                                                @foreach ($permissions as $permission)
+                                                    @if (str($permission->name)->startsWith('Cash Advance'))
+                                                        <div class="col-md-6">
+                                                            <div class="permission-item">
+                                                                <div class="d-flex align-items-center">
+
+                                                                    <label class="checkbox-container">
+                                                                        <input id="select_all" type="checkbox"
+                                                                            name="name[]"
+                                                                            value="{{ $permission->name }}"{{ $hasPermissions->contains('name', $permission->name) ? 'checked' : '' }}>
+                                                                        <div class="checkmark"></div>
+                                                                    </label>
+
+                                                                    <label class="form-check-label mt-1 mx-2 mb-3">
+                                                                        {{ $permission->name }}
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    @endif
+                                                @endforeach
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-lg-4">
+                                    <div class="card permission-card">
+                                        <div class="card-body">
+                                            <div class="text-center mb-3">
+                                                <i class="ti-exchange category-icon "></i>
+                                                <h4>Advance Salaries Module</h4>
+                                            </div>
+
+                                            <div class="row">
+                                                @foreach ($permissions as $permission)
+                                                    @if (str($permission->name)->startsWith('Advance Salary'))
+                                                        <div class="col-md-6">
+                                                            <div class="permission-item">
+                                                                <div class="d-flex align-items-center">
+
+                                                                    <label class="checkbox-container">
+                                                                        <input id="select_all" type="checkbox"
+                                                                            name="name[]"
+                                                                            value="{{ $permission->name }}"{{ $hasPermissions->contains('name', $permission->name) ? 'checked' : '' }}>
+                                                                        <div class="checkmark"></div>
+                                                                    </label>
+
+                                                                    <label class="form-check-label mt-1 mx-2 mb-3">
+                                                                        {{ $permission->name }}
+                                                                    </label>
+
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    @endif
+                                                @endforeach
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="card permission-card">
+                                        <div class="card-body">
+                                            <div class="text-center mb-3">
+                                                <i class="fa fa-umbrella category-icon"></i>
+                                                <h4>Holidays Module</h4>
+                                            </div>
+
+                                            <div class="row">
+                                                @foreach ($permissions as $permission)
+                                                    @if (str($permission->name)->startsWith('Holiday'))
+                                                        <div class="col-md-6">
+                                                            <div class="permission-item">
+                                                                <div class="d-flex align-items-center">
+
+                                                                    <label class="checkbox-container">
+                                                                        <input id="select_all" type="checkbox"
+                                                                            name="name[]"
+                                                                            value="{{ $permission->name }}"{{ $hasPermissions->contains('name', $permission->name) ? 'checked' : '' }}>
+                                                                        <div class="checkmark"></div>
+                                                                    </label>
+
+
+                                                                    <label class="form-check-label mt-1 mx-2 mb-3">
+                                                                        {{ $permission->name }}
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    @endif
+                                                @endforeach
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            
                             <div class="row">
                                 <div class="col-lg-4">
                                     <div class="card permission-card">

@@ -5,9 +5,22 @@ namespace App\Http\Controllers;
 use App\Models\CashAdvance;
 use App\Models\Employee;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class CashAdvanceController extends Controller
+class CashAdvanceController extends Controller implements HasMiddleware
 {
+
+    public static function middleware(): array
+    {
+        return [
+            new Middleware("permission:Cash Advance View", ["only" => "index"]),
+            new Middleware("permission:Cash Advance Create", ["only" => "create", "store"]),
+            new Middleware("permission:Cash Advance Edit", ["only" => "Edit", "update"]),
+            new Middleware("permission:Cash Advance Delete", ["only" => "destroy", "deletebyselection"]),
+        ];
+    }
+
     public function index()
     {
         $cash_advances = CashAdvance::orderBy("created_at", "DESC")->get();
