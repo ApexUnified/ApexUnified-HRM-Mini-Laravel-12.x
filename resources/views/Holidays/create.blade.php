@@ -7,10 +7,10 @@
 
     <div class="main-content-inner">
         <div class="row">
-            <div class="col-lg-12 mt-5">
+            <div class="mt-5 col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center mb-5">
+                        <div class="mb-5 d-flex justify-content-between align-items-center">
                             <h2 class="display-5">Create Holiday</h2>
                             <a href="{{ route('holiday.index') }}" class="btn btn-primary">Back To Holidays</a>
                         </div>
@@ -43,10 +43,10 @@
                                     </div>
                                 </div>
 
-                               
+
                             </div>
 
-          
+
 
 
 
@@ -58,5 +58,5 @@
                 </div>
             </div>
         </div>
-
-    @endsection
+    </div>
+@endsection

@@ -1958,6 +1958,98 @@
             }
         }
 
+        if ($('#overtime_table').length) {
+            $('#overtime_table').DataTable({
+                responsive: true,
+                columnDefs: [
+                    { orderable: false, targets: [0, 1] }
+                ],
+                dom: 'Bfrtip',
+                buttons: [
+                    {
+                        extend: 'excel',
+                        text: '<i class="fa fa-file-excel-o"></i>',
+                        title: 'Overtimes',
+                        className: 'btn btn-sm font-sm dt-icon',
+                        exportOptions: {
+                            columns: ':hidden:not(.no-print), :visible:not(.no-print)'
+                        }
+                    }, {
+                        extend: 'pdf',
+                        text: '<i class="fa fa-file-pdf-o"></i>',
+                        title: 'Overtimes',
+                        className: 'btn btn-sm font-sm dt-icon',
+                        exportOptions: {
+                            columns: ':hidden:not(.no-print), :visible:not(.no-print)'
+                        }
+                    }, {
+                        extend: 'print',
+                        text: '<i class="fa fa-print"></i>',
+                        className: 'btn btn-sm font-sm dt-icon',
+                        action: function () {
+
+                            let tableContent = document.getElementById('overtime_table').outerHTML;
+
+                            let printWindow = window.open('', '_blank');
+
+                            printWindow.document.write(`
+                                <html>
+                                    <head>
+                                        <title>Print Table</title>
+                                        <style>
+                                            /* Add your custom print styles here */
+                                            body { font-family: Arial, sans-serif; padding: 20px; }
+                                            h2 { text-align: center; }
+                                            table { width: 100%; border-collapse: collapse; }
+                                            th, td { padding: 8px; text-align: left; border: 1px solid #ddd; }
+                                            th { background-color: #f2f2f2; }
+                                            th:first-child, td:first-child { display: none; }
+                                            th:nth-child(2), td:nth-child(2) { display: none; }
+                                            th:last-child, td:last-child { display: none; }
+                                        </style>
+                                    </head>
+                                    <body>
+                                        <h2>Overtimes</h2>
+                                        ${tableContent}
+                                    </body>
+                                </html>
+                            `);
+
+                            printWindow.document.close();
+                            printWindow.print();
+                            printWindow.onafterprint = function () {
+                                printWindow.close();
+                            };
+                        }
+                    },
+                    {
+                        text: '<i class="fa fa-trash-o"></i>',
+                        title: 'Delete',
+                        className: 'btn btn-sm font-sm dt-icon',
+                        attr: {
+                            id: "overtime_delete-btn"
+                        }
+                    },
+                ], initComplete: function () {
+                    $("#overtime_table_filter").appendTo(".dt-buttons");
+                }
+
+
+            });
+
+            $('.dataTables_filter input').attr('placeholder', 'Search..');
+            $('.dataTables_filter input').attr('id', 'search');
+            $('#overtime_table_filter label').contents().filter(function () {
+                return this.nodeType === 3; // Check for text nodes
+            }).remove();
+
+            if (overtime_delete_btn) {
+                $("#overtime_delete-btn").show();
+            } else {
+                $("#overtime_delete-btn").hide();
+            }
+        }
+
 
 
 
@@ -2788,6 +2880,85 @@
                                 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
                             },
                             data: { holiday_ids: selected_ids },
+                            success: function (response) {
+                                if (response.status) {
+                                    Swal.fire({
+                                        title: 'Action Completed',
+                                        text: response.message,
+                                        icon: 'success',
+                                        confirmButtonText: 'Okay',
+                                        confirmButtonColor: "#435ebe",
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            location.reload();
+                                        }
+                                    });
+                                } else {
+                                    Swal.fire({
+                                        title: 'Error',
+                                        text: response.message,
+                                        icon: 'error',
+                                        confirmButtonText: 'Okay',
+                                        confirmButtonColor: "#435ebe",
+                                    });
+                                }
+                            },
+                            error: function (xhr, status, error) {
+                                Swal.fire({
+                                    title: 'Error',
+                                    text: xhr.responseJSON.message,
+                                    icon: 'error',
+                                    confirmButtonText: 'Okay',
+                                    confirmButtonColor: "#435ebe",
+                                });
+                            }
+                        });
+                    }
+                });
+
+
+
+            }
+
+
+        });
+
+
+        $("#overtime_delete-btn").on("click", function () {
+
+            const selected_ids = [];
+            $(".each_select:checked").each(function () {
+                selected_ids.push($(this).val());
+            });
+
+            if (selected_ids.length < 1) {
+                Swal.fire({
+                    title: 'info',
+                    text: 'Please Select Any Overtime',
+                    icon: 'info',
+                    confirmButtonText: 'Okay',
+                    confirmButtonColor: "#435ebe",
+                });
+            } else {
+                Swal.fire({
+                    title: 'Confirmation',
+                    text: 'Do You Really Want To Delete Selected Overtimes ? This Action Cannot Be Reversable',
+                    icon: 'info',
+                    showCancelButton: true,
+                    confirmButtonColor: "#435ebe",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Yes, Submit!",
+                    cancelButtonText: "Cancel",
+                    confirmButtonText: 'Okay'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: 'overtime/deletebyselection',
+                            type: 'POST',
+                            headers: {
+                                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            data: { overtime_ids: selected_ids },
                             success: function (response) {
                                 if (response.status) {
                                     Swal.fire({

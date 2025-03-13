@@ -5,6 +5,7 @@ use App\Http\Controllers\AllowanceController;
 use App\Http\Controllers\AllowanceTypeController;
 use App\Http\Controllers\AttendanceCheckerController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\AttendancePayDeductionController;
 use App\Http\Controllers\BonusController;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\CashAdvanceController;
@@ -19,6 +20,8 @@ use App\Http\Controllers\JobNatureController;
 use App\Http\Controllers\JobNatureTypeController;
 use App\Http\Controllers\LoanController;
 use App\Http\Controllers\MailSettingController;
+use App\Http\Controllers\OvertimeController;
+use App\Http\Controllers\OvertimePayController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\PositionLevelController;
 use App\Http\Controllers\ProfileController;
@@ -170,6 +173,29 @@ Route::middleware('auth')->group(function () {
     Route::post("/holiday/deletebyselection", [HolidayController::class, "deletebyselection"]);
     // Holiday Routes Start
 
+
+
+    // OvertimePay Route Start
+    Route::controller(OvertimePayController::class)->group(function () {
+        Route::get("/overtime-pay", "index")->name("overtimepay.index");
+        Route::post("/overtime-pay", "storeOrUpdate")->name("overtimepay.storeOrUpdate");
+    });
+    // OvertimePay Route Start
+
+
+    // Attendance Pay Deduction Routes
+    Route::controller(AttendancePayDeductionController::class)->group(function () {
+        Route::get("/attendance-pay-deduction", "index")->name("attendancepaydeduction.index");
+        Route::post("/attendance-pay-deduction", "storeOrUpdate")->name("attendancepaydeduction.storeOrUpdate");
+    });
+    // Attendance Pay Deduction Routes
+
+
+
+    // Overtime Routes Start
+    Route::resource("/overtime", OvertimeController::class)->except(["show"]);
+    Route::post("/overtime/deletebyselection", [OvertimeController::class, "deletebyselection"]);
+    // Overtime Routes Start
 
     Route::controller(ZkTecoController::class)->group(function () {
         Route::get("zkteco-device/index", "index")->name("zkteco_device.index");

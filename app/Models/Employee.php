@@ -2,17 +2,13 @@
 
 namespace App\Models;
 
-use App\Models\Allowance;
 use App\Models\Attendance;
 use App\Models\CashAdvance;
-use App\Models\Deduction;
 use App\Models\Department;
-use App\Models\JobNature;
-use App\Models\Leave;
 use App\Models\Loan;
-use App\Models\OverTime;
-use App\Models\Payslip;
+use App\Models\Overtime;
 use App\Models\Schedule;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Employee extends Model
@@ -45,6 +41,20 @@ class Employee extends Model
 
 
 
+
+    public function overtimes()
+    {
+        return $this->hasMany(Overtime::class, "employee_id", "id");
+    }
+
+
+    public function getThisMonthOvertimeAttribute()
+    {
+        $current_month = Carbon::now()->month;
+        $overtimes = $this->overtimes()->whereMonth("created_at", $current_month)->get();
+
+        return $overtimes;
+    }
 
 
 
