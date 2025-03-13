@@ -36,7 +36,7 @@ class PollZkDevice extends Command
         // $deviceTImes = [] ;
         foreach ($devices as $device) {
             $isConnected = false;
-            $socket = @stream_socket_client("tcp://{$device->ip_address}:{$device->port}", $errno, $errstr, $timeout);
+            $socket = stream_socket_client("tcp://{$device->ip_address}:{$device->port}", $errno, $errstr, $timeout);
             if ($socket) {
                 fclose($socket);
                 $isConnected = true;
@@ -44,7 +44,7 @@ class PollZkDevice extends Command
 
             if($isConnected){
                 $zk = new ZKTeco($device->ip_address,$device->port);
-            
+
             if($zk->connect()){
                 // $deviceTImes[] = $zk->getTime();
                 $deviceEmployees = $zk->getUser();
@@ -91,7 +91,7 @@ class PollZkDevice extends Command
                 continue;
             }
 
-            
+
         }
 
         // Log::info($deviceTImes);

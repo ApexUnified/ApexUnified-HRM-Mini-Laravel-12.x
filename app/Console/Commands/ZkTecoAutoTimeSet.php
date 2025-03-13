@@ -33,7 +33,7 @@ class ZkTecoAutoTimeSet extends Command
         $timeout = 3;
         foreach ($devices as $device) {
             $isConnected = false;
-            $socket = @stream_socket_client("tcp://{$device->ip_address}:{$device->port}", $errno, $errstr, $timeout);
+            $socket = stream_socket_client("tcp://{$device->ip_address}:{$device->port}", $errno, $errstr, $timeout);
             if ($socket) {
                 fclose($socket);
                 $isConnected = true;
@@ -52,12 +52,12 @@ class ZkTecoAutoTimeSet extends Command
             } else {
                 // Log::error("Failed to connect to ZkTeco Device: ". $device->ip_address);
                 continue;
-            } 
+            }
             }else{
                 continue;
             }
 
-           
+
         }
     }
 }
