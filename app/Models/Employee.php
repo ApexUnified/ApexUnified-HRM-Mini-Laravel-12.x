@@ -86,6 +86,11 @@ class Employee extends Model
         return $this->belongsTo(Position::class, "position_id", "id");
     }
 
+    public function loanPayments()
+    {
+        return $this->hasMany(LoanPayment::class, "employee_id", "id");
+    }
+
 
     public function casts(): array
     {

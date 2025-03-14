@@ -440,6 +440,79 @@
         }
 
 
+        if ($('#loan_payment_report_table').length) {
+            $('#loan_payment_report_table').DataTable({
+                responsive: true,
+                dom: 'Bfrtip',
+
+                buttons: [
+                    {
+                        extend: 'excel',
+                        text: '<i class="fa fa-file-excel-o"></i>',
+                        title: 'Loan Payments Report',
+                        className: 'btn btn-sm font-sm dt-icon',
+                        exportOptions: {
+                            columns: ':hidden:not(.no-print), :visible:not(.no-print)'
+                        }
+                    }, {
+                        extend: 'pdf',
+                        text: '<i class="fa fa-file-pdf-o"></i>',
+                        title: 'Loan Payments Report',
+                        className: 'btn btn-sm font-sm dt-icon',
+                        exportOptions: {
+                            columns: ':hidden:not(.no-print), :visible:not(.no-print)'
+                        }
+                    }, {
+                        extend: 'print',
+                        text: '<i class="fa fa-print"></i>',
+                        className: 'btn btn-sm font-sm dt-icon',
+                        action: function () {
+                            let tableContent = document.getElementById('loan_payment_report_table').outerHTML;
+                            let printWindow = window.open('', '_blank');
+
+                            printWindow.document.write(`
+                            <html>
+                                <head>
+                                    <title>Print Table</title>
+                                    <style>
+                                        /* Add your custom print styles here */
+                                        body { font-family: Arial, sans-serif; padding: 20px; }
+                                        h2 { text-align: center; }
+                                        table { width: 100%; border-collapse: collapse; }
+                                        th, td { padding: 8px; text-align: left; border: 1px solid #ddd; }
+                                        th { background-color: #f2f2f2; }
+                                        th:last-child, td:last-child { display: none; }
+                                    </style>
+                                </head>
+                                <body>
+                                    <h2>Loan Payments Report</h2>
+                                    ${tableContent}
+                                </body>
+                            </html>
+                        `);
+
+                            printWindow.document.close();
+                            printWindow.print();
+                            printWindow.onafterprint = function () {
+                                printWindow.close();
+                            };
+                        }
+                    },
+
+                ], initComplete: function () {
+                    $("#loan_payment_report_table_filter").appendTo(".dt-buttons");
+                }
+
+
+            });
+            $('.dataTables_filter input').attr('placeholder', 'Search..');
+            $('.dataTables_filter input').attr('id', 'search');
+            $('#loan_payment_report_table_filter label').contents().filter(function () {
+                return this.nodeType === 3; // Check for text nodes
+            }).remove();
+        }
+
+
 
         if ($('#Department_table').length) {
             $('#Department_table').DataTable({

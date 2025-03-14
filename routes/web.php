@@ -235,6 +235,7 @@ Route::middleware('auth')->group(function () {
     Route::controller(ReportController::class)->group(function () {
 
         Route::get("attendance/report", "attendance_report")->name("attendance.report");
+        Route::get("loanpayment/report", "loanPayments")->name("loanpayment.report");
     });
 });
 

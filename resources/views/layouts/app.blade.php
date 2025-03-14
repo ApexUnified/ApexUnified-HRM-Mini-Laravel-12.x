@@ -461,6 +461,11 @@ $user = \App\Models\User::find($id);
                                     <li class="{{ request()->routeIs('attendance.report') ? 'active' : '' }}"><a
                                             href="{{ route('attendance.report') }}"><span>Attendances
                                                 Report</span></a></li>
+
+
+                                <li class="{{ request()->routeIs('loanpayment.report') ? 'active' : '' }}"><a
+                                    href="{{ route('loanpayment.report') }}"><span>Loan Payment Report
+                                        </span></a></li>
                                 </ul>
                             </li>
                             @endcan

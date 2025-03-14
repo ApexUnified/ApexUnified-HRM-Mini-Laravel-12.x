@@ -190,7 +190,7 @@
                                                    alt="" style="width:50px; height:50px; object-fit:cover; border-radius:3rem">
                                                    @endif
                                                 </td>
-                                                <td>{{ $employee->device_user_id }}</td>
+                                                <td>{{ $employee->employee_id }}</td>
                                                 <td>{{ $employee->employee_name }}</td>
                                                 <td>{{ $employee->parent_name }}</td>
                                                 <td>{{ $employee->employee_dob }}</td>

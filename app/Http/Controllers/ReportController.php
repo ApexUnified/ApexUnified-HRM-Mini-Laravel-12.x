@@ -8,6 +8,7 @@ use App\Models\CashAdvance;
 use App\Models\Deduction;
 use App\Models\Leave;
 use App\Models\Loan;
+use App\Models\LoanPayment;
 use App\Models\OverTime;
 use App\Models\Payslip;
 use App\Models\SalaryCalculation;
@@ -45,14 +46,37 @@ class ReportController extends Controller implements HasMiddleware
         } else if (!empty($request->to)) {
             $toDate = Carbon::parse($request->to)->format("Y-m-d");
             $attendances = Attendance::whereDate("attendance_date", $toDate);
-
         }
 
         $attendances = $attendances->orderBy("created_at", "DESC")->get();
-        if ($attendances->isEmpty()) {
-            Toastr()->error("No Attendance Found ", [], "No Result Found");
+        if ($request->hasAny(["from", "to"]) && $attendances->isEmpty()) {
+            Toastr()->info("No Attendance Found ", [], "No Result Found");
         }
-        return view("reports.attendance_report", compact("attendances"));
+        return view("Reports.AttendanceReport.index", compact("attendances"));
     }
 
+
+
+
+    public function loanPayments(Request $request)
+    {
+
+        $loanPayments = LoanPayment::query()->latest();
+
+
+        if ($request->filled("from")) {
+            $loanPayments = $loanPayments->whereDate("created_at", ">=", $request->input("from"));
+        }
+
+        if ($request->filled("to")) {
+            $loanPayments = $loanPayments->whereDate("created_at", "<=", $request->input("to"));
+        }
+
+        $loanPayments = $loanPayments->get();
+
+        if ($request->hasAny(["from", "to"]) && $loanPayments->isEmpty()) {
+            Toastr()->info("No Loans Found", [], "No Result Found");
+        }
+        return view("Reports.LoanPayments.index", compact("loanPayments"));
     }
+}

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Employee;
 use App\Models\Loan;
+use App\Models\LoanPayment;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
@@ -114,6 +115,18 @@ class LoanController extends Controller implements HasMiddleware
         $loan = Loan::find($id);
 
 
+
+        if ($loan->remeaning_loan != $validated_req["remeaning_loan"] && $validated_req["status"] != "Completed") {
+            LoanPayment::create([
+                'employee_id' => $validated_req["employee_id"],
+                'loan_type' => $validated_req["loan_type"],
+                'loan_amount' => $validated_req["loan_amount"],
+                'remeaning_loan' => $validated_req["remeaning_loan"],
+                'loan_deduction_amount' => $validated_req["loan_deduction_amount"],
+                'status' => $validated_req["status"],
+                'description' => $validated_req["description"],
+            ]);
+        }
         if ($loan->update($validated_req)) {
             Toastr()->success('Loan updated successfully');
             return redirect()->route('loan.index');

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Report')
+@section('title', 'Reports')
 
 @section('content')
 
@@ -45,7 +45,6 @@
                                 <table id="attendance_report_table" class="text-center">
                                     <thead class="bg-light text-capitalize">
                                         <tr>
-                                            <th>Employee ID</th>
                                             <th>Employee Name</th>
                                             <th>Employee Designation</th>
                                             <th>Employee Department</th>
@@ -67,7 +66,6 @@
                                             @endphp
 
                                             <tr>
-                                                <td>{{ $attendance->employee->device_user_id }}</td>
                                                 <td>{{ $attendance->employee->employee_name }}</td>
                                                 <td>{{ $attendance->employee->designation }}</td>
                                                 <td>{{ $attendance->employee->department->department_name }}</td>
