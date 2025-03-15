@@ -48,14 +48,41 @@ class Employee extends Model
     }
 
 
-    public function getThisMonthOvertimeAttribute()
+    public function getThisMonthOvertimesAttribute()
     {
         $current_month = Carbon::now()->month;
-        $overtimes = $this->overtimes()->whereMonth("created_at", $current_month)->get();
+        $overtimes = $this->overtimes()->whereMonth("created_at", $current_month)->sum("hours_worked");
 
-        return $overtimes;
+        return $overtimes != 0 ? $overtimes : null;
     }
 
+
+    public function getThisMonthTotalAttendancesAttribute()
+    {
+        $current_month = Carbon::now()->month;
+        $attendances = $this->attendance()->whereMonth("attendance_date", $current_month)->get();
+
+        return $attendances;
+    }
+
+
+
+    public function getThisMonthLateAttendancesCountAttribute()
+    {
+        $current_month = Carbon::now()->month;
+        return $this->attendance()->whereMonth("attendance_date", $current_month)
+            ->where("attendance_status", "Late")
+            ->count();
+    }
+
+
+    public function getThisMonthAbsentAttendancesCountAttribute()
+    {
+        $current_month = Carbon::now()->month;
+        return $this->attendance()->whereMonth("attendance_date", $current_month)
+            ->where("attendance_status", "Absent")
+            ->count();
+    }
 
 
     public function loan()
@@ -91,6 +118,12 @@ class Employee extends Model
         return $this->hasMany(LoanPayment::class, "employee_id", "id");
     }
 
+
+
+    public function payslips()
+    {
+        return $this->hasMany(Payslip::class, "employee_id", "id");
+    }
 
     public function casts(): array
     {

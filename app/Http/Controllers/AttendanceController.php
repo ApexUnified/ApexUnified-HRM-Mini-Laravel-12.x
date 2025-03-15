@@ -86,10 +86,10 @@ class AttendanceController extends Controller implements HasMiddleware
 
         // return $validated_req;
         if (!empty($request["leave_type"])) {
-            $validated_req['attendance_checkin'] = "Employee Is Not Present";
-            $validated_req['attendance_checkout'] = "Employee Is Not Present";
+            $validated_req['attendance_checkin'] = "Absent";
+            $validated_req['attendance_checkout'] = "Absent";
             $validated_req['hours_worked'] = 0;
-            $validated_req['attendance_status'] = "Employee Is Not Present";
+            $validated_req['attendance_status'] = "Absent";
         }
 
         // No More Needed
@@ -259,10 +259,11 @@ class AttendanceController extends Controller implements HasMiddleware
             $validated_req['attendance_checkout'] = $request->attendance_checkout;
         }
         if (!empty($request["leave_type"])) {
-            $validated_req['attendance_checkin'] = "Employee Is Not Present";
-            $validated_req['attendance_checkout'] = "Employee Is Not Present";
+
+            $validated_req['attendance_checkin'] = "Absent";
+            $validated_req['attendance_checkout'] = "Absent";
             $validated_req['hours_worked'] = 0;
-            $validated_req['attendance_status'] = "Employee Is Not Present";
+            $validated_req['attendance_status'] = "Absent";
         }
 
         if ($attendance->update($validated_req)) {

@@ -22,6 +22,7 @@ use App\Http\Controllers\LoanController;
 use App\Http\Controllers\MailSettingController;
 use App\Http\Controllers\OvertimeController;
 use App\Http\Controllers\OvertimePayController;
+use App\Http\Controllers\PayslipController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\PositionLevelController;
 use App\Http\Controllers\ProfileController;
@@ -196,6 +197,15 @@ Route::middleware('auth')->group(function () {
     Route::resource("/overtime", OvertimeController::class)->except(["show"]);
     Route::post("/overtime/deletebyselection", [OvertimeController::class, "deletebyselection"]);
     // Overtime Routes Start
+
+
+
+
+    // Payroll Routes Start
+    Route::resource("/payslip", PayslipController::class);
+    Route::post("/payslip/deletebyselection", [PayslipController::class, "deletebyselection"]);
+    // Payroll Routes End
+
 
     Route::controller(ZkTecoController::class)->group(function () {
         Route::get("zkteco-device/index", "index")->name("zkteco_device.index");

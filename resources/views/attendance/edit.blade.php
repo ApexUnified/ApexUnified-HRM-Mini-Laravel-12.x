@@ -39,7 +39,9 @@
                             </div>
 
                             @php
-                                $checkin = \Carbon\Carbon::parse($attendance->attendance_checkin)->format('H:i');
+                            if($attendance->leave_type == "Present")
+                                {$checkin = \Carbon\Carbon::parse($attendance->attendance_checkin)->format('H:i');}
+                            else {$checkin = null;}
                             @endphp
                             <div class="form-group">
                                 <label for="checkin" class="col-form-label">Check In Time *</label>

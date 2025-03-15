@@ -108,15 +108,15 @@
 
                                                 </td>
                                                 <td>
-                                                    @if ($attendance->attendance_checkin == 'Employee Is Not Present')
-                                                        <span class="badge badge-danger p-1">Employee Is Not Present</span>
+                                                    @if ($attendance->attendance_checkin == 'Absent')
+                                                        <span class="badge badge-danger p-1">{{ $attendance->attendance_checkin }}</span>
                                                     @else
                                                         {{ $attendance->FormatedTimes['checkin'] }}
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    @if ($attendance->attendance_checkout == 'Employee Is Not Present')
-                                                        <span class="badge badge-danger p-1">Employee Is Not Present</span>
+                                                    @if ($attendance->attendance_checkout == 'Absent')
+                                                        <span class="badge badge-danger p-1">{{$attendance->attendance_checkout}}</span>
                                                     @elseif ($attendance->attendance_checkout == 5)
                                                         <span class="badge badge-danger p-2 rounded">Out Of Shift</span>
                                                     @elseif ($attendance->attendance_checkout == '__________')

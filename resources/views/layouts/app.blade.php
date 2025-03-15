@@ -18,10 +18,11 @@ $user = \App\Models\User::find($id);
     <!-- Start datatable css  -->
     {{--
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css"> --}}
+
     <link rel="stylesheet" href="{{ asset('assets/Datatables_Assets/css/datatables.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/Datatables_Assets/css/responsive.jqueryui.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/jqueryui.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/flatTimepicker.css') }}">
+
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
 
     <link rel="stylesheet" href="{{ asset('assets/lib/filepond/filepond.css') }}">
@@ -39,6 +40,8 @@ $user = \App\Models\User::find($id);
     <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap-select.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/sweetalert2.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/flatTimepicker.css') }}">
+    @livewireStyles()
     @yield('css')
     <script src="{{ asset('assets/js/vendor/modernizr-2.8.3.min.js') }}"></script>
 </head>
@@ -452,6 +455,27 @@ $user = \App\Models\User::find($id);
                                         class="fa fa-user-times"></i><span>Your Profile</span></a>
                             </li>
 
+
+                            @can("Payroll View")
+                            <li>
+                                <a href="javascript:void(0)" aria-expanded="true"><i
+                                        class="fa fa-calculator"></i><span>Payroll</span></a>
+                                <ul class="collapse">
+
+                                    <li class="{{ request()->routeIs('payslip.index') ? 'active' : '' }}"><a
+                                            href="{{ route('payslip.index') }}"><span>Payslips List</span></a>
+                                    </li>
+
+                                    @can('Payroll Create')
+                                    <li class="{{ request()->routeIs('payslip.create') ? 'active' : '' }}"><a
+                                            href="{{ route('payslip.create') }}"><span>Payslip Create</span></a>
+                                    </li>
+                                    @endcan
+                                </ul>
+                            </li>
+  
+                            @endcan
+
                             @can('Reports View')
                             <li>
                                 <a href="javascript:void(0)" aria-expanded="true"><i
@@ -615,11 +639,14 @@ $user = \App\Models\User::find($id);
     <script src="{{ asset('assets/js/jqueryui.js') }}"></script>
     <script src="{{ asset('assets/js/chart.js') }}"></script>
 
+    <script src="{{ asset('assets/js/flatTimepicker.js') }}"></script>
+  
 
     <!-- bootstrap 4 js -->
     <script src="{{ asset('assets/js/popper.min.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap-select.min.js') }}"></script>
+
 
 
 
@@ -680,47 +707,21 @@ $user = \App\Models\User::find($id);
 
     <script src="{{ asset('assets/js/plugins.js') }}"></script>
     <script src="{{ asset('assets/js/scripts.js') }}"></script>
-    <script src="{{ asset('assets/js/flatTimepicker.js') }}"></script>
+
+
+    @livewireScripts()
+
     @yield('js')
-
-
-    {{-- @php
-    $employees = \App\Models\Employee::all();
-    @endphp --}}
-
-    {{-- overtime employee modal Start --}}
-
-    {{-- <div class="modal fade show" id="overtime_report_modal" style="display: none; padding-right: 17px;">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Select Employee</h5>
-                    <button type="button" class="close" data-dismiss="modal"><span>×</span></button>
-                </div>
-                <div class="modal-body">
-                    <select class="custom-select" id="overtime_employee_id">
-                        <option value="" hidden>Select Employee</option>
-                        @foreach ($employees as $employee)
-                        <option value="{{ $employee->id }}">{{ $employee->employee_name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-outline-primary" id="overtime_report_btn">Create
-                        Report</button>
-                </div>
-            </div>
-        </div>
-    </div> --}}
-
-    {{-- overtime employee modal End --}}
-
-
-
-
 
 </body>
 
+<script>
+    Livewire.on("refresh-select-picker", () => {
+     setTimeout(() => {
+         $("select").selectpicker("destroy").selectpicker();
+     }, 200);
+
+ });
+ </script>
 
 </html>

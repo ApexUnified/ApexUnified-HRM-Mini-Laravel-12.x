@@ -83,6 +83,7 @@ class OvertimeController extends Controller
 
     public function update(Request $request, string $id)
     {
+
         $validated_req = $request->validate([
             'employee_id' => 'required|exists:employees,id',
             'hours_worked' => 'required|numeric|decimal:0,2',
@@ -101,7 +102,7 @@ class OvertimeController extends Controller
         }
 
 
-        if ($overtime->update()) {
+        if ($overtime->update($validated_req)) {
             Toastr()->success("Overtime Has Been Updated Succesfully");
             return redirect()->route("overtime.index");
         } else {
