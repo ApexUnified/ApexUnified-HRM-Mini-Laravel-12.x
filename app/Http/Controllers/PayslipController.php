@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Attendance;
 use App\Models\Employee;
 use App\Models\Payslip;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class PayslipController extends Controller
@@ -58,6 +60,7 @@ class PayslipController extends Controller
 
     public function show(string $id)
     {
+
         if (empty($id)) {
             Toastr()->error("Payslip Not Found");
             return back();

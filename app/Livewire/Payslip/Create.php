@@ -120,13 +120,14 @@ class Create extends Component
         }
 
         // Late And Absent Deduction
-        $late_absent_deduction_amount = $absent_deduction - $late_deduction;
+        $late_absent_deduction_amount = $absent_deduction + $late_deduction;
 
         // This Is Total Salary After Calculation
         $final_salary = $salary
-            - ($absent_deduction + $late_deduction)
+            - $late_absent_deduction_amount
             - ($loan_deduction_amount ?? 0)
             + ($this_month_overtime_pay ?? 0);
+
 
 
         $allowances = Allowance::all();
@@ -163,11 +164,27 @@ class Create extends Component
         $this->net_salary = $final_salary;
         $this->showForm = true;
         $this->isDisabled = true;
+
+
+
+        // dump([
+        //     'base_salary' => $this->base_salary,
+        //     "allowance" => $this->allowance_amount,
+        //     'loan' => $this->loan_deduction,
+        //     'late_absent' => $this->late_absent_deduction,
+        //     'overtime' => $this->overtime_pay,
+        //     'bonus' => $this->bonus_amount,
+        //     'deduction' => $this->deduction_amount,
+        //     'tax_deduction' => $this->tax_deduction_amount,
+        //     'net_salary' => $this->net_salary,
+        // ]);
     }
 
 
     public function calculateFinalSalary()
     {
+
+        // dd($this->net_salary);
 
         $this->validate([
             'allowances_arr.*' => 'sometimes|exists:allowances,id',
@@ -184,6 +201,7 @@ class Create extends Component
 
             // Reseting The Allowance Amount Property To Be Calculated Again
             $this->allowance_amount = 0;
+
 
             $allowances = Allowance::whereIn("id", $this->allowances_arr)->sum("allowance_amount");
 
@@ -251,10 +269,10 @@ class Create extends Component
         //     'tax_deductions' => $this->tax_deductions_arr,
         //     'bonuses' => $this->bonuses_arr,
 
-        //     'allowance_sum' => $this->allowance,
-        //     'bonus_sum' => $this->bonus,
-        //     'deduction_sum' => $this->deduction,
-        //     'tax_deductions_sum' => $this->tax_deduction,
+        //     'allowance_sum' => $this->allowance_amount,
+        //     'bonus_sum' => $this->bonus_amount,
+        //     'deduction_sum' => $this->deduction_amount,
+        //     'tax_deductions_sum' => $this->tax_deduction_amount,
         // ]);
     }
 

@@ -143,7 +143,7 @@
                                 </tr>
                                 <tr>
                                     <td><strong>Allowances:</strong></td>
-                                    <td>{{ $setting->currency }}{{ number_format($allowance_amount, 2) }}</td>
+                                    <td>{{ $setting->currency }} {{ number_format($allowance_amount, 2) }}</td>
                                 </tr>
                                 <tr>
                                  

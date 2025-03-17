@@ -139,11 +139,11 @@ $setting = Setting::first();
                                                 style="position: absolute; transform:translate3d(15px, 43px, 0px); top: 0px; left: 0px; will-change: transform;">
 
 
+                                               @can("Payroll Invoice Generate")
                                                 <a class="dropdown-item"
-                                                href="{{ route('payslip.edit', $payslip) }}">Generate Payslip</a>
+                                                href="{{ route('payslip.show', $payslip) }}">Generate Invoice</a>
+                                               @endcan
 
-                                                <a class="dropdown-item"
-                                                href="{{ route('payslip.show', $payslip) }}">View</a>
 
 
                                                 @can('Payroll Edit')
