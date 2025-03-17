@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
             AllowanceTypeSeeder::class,
             JobNatureTypeSeeder::class,
             PositionLevelSeeder::class
+            // EmployeeSeeder::class
         ]);
     }
 }

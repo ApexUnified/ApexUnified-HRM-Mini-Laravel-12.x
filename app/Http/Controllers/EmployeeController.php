@@ -248,7 +248,7 @@ class EmployeeController extends Controller implements HasMiddleware
         $exploded_schedule = implode(",", $schedules);
         $validated_req['employee_schedule'] = $exploded_schedule;
 
-        $employeeId = rand(0000000000, 9999999999);
+        $employeeId = "EMP-" . rand(0000, 99999) . substr(uniqid(), -2);
         $validated_req['employee_id'] = $employeeId;
 
 

@@ -83,7 +83,7 @@
                                                     </label>
 
                                                 </td>
-                                                <td>{{ $attendance->employee->device_user_id }}</td>
+                                                <td>{{ $attendance->employee->employee_id }}</td>
                                                 <td>{{ $attendance->employee->employee_name }}</td>
                                                 <td>
 
@@ -110,6 +110,11 @@
                                                 <td>
                                                     @if ($attendance->attendance_checkin == 'Absent')
                                                         <span class="badge badge-danger p-1">{{ $attendance->attendance_checkin }}</span>
+
+                                                    @elseif ($attendance->attendance_checkin == "Holiday")
+                                                    <span class="badge badge-secondary p-2 rounded">
+                                                            Holiday 
+                                                    </span>
                                                     @else
                                                         {{ $attendance->FormatedTimes['checkin'] }}
                                                     @endif
@@ -122,6 +127,10 @@
                                                     @elseif ($attendance->attendance_checkout == '__________')
                                                         <span class="badge badge-danger p-2 rounded">Checkout Not
                                                             Found</span>
+                                                    @elseif ($attendance->attendance_checkout == "Holiday")
+                                                        <span class="badge badge-secondary p-2 rounded">
+                                                             Holiday 
+                                                        </span>
                                                     @else
                                                         {{ $attendance->FormatedTimes['checkout'] }}
                                                     @endif
@@ -133,6 +142,11 @@
                                                     @elseif ($attendance->attendance_status == 'Early')
                                                         <span class="badge badge-primary p-1">
                                                             {{ $attendance->attendance_status }}</span>
+
+                                                    @elseif ($attendance->attendance_status == "Holiday")
+                                                        <span class="badge badge-secondary p-2 rounded">
+                                                                Holiday 
+                                                        </span>
                                                     @else
                                                         <span class="badge badge-danger p-1">
                                                             {{ $attendance->attendance_status }}</span>
@@ -156,6 +170,11 @@
                                                     @elseif($attendance->leave_type == 'Emergency')
                                                         <span
                                                             class="badge badge-danger p-1">{{ $attendance->leave_type }}</span>
+
+                                                    @elseif ($attendance->leave_type == "Holiday")
+                                                        <span class="badge badge-secondary p-2 rounded">
+                                                                Holiday 
+                                                        </span>
                                                     @else
                                                         <span class="badge badge-success p-1"> Employee Is Present</span>
                                                     @endif

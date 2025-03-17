@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Console\Commands\AttendanceReportMailSender;
+use App\Console\Commands\AutoAbsentMarker;
 use App\Console\Commands\AutoCheckoutMarker;
 use App\Console\Commands\PollZkDevice;
 use App\Console\Commands\ZkAttendances;
@@ -32,7 +33,8 @@ class AppServiceProvider extends ServiceProvider
         $schedule->command(ZkAttendances::class)->everySecond();
         $schedule->command(AttendanceReportMailSender::class)->everyMinute();
         $schedule->command(ZkTecoAutoTimeSet::class)->everyMinute();
-         $schedule->command(AutoCheckoutMarker::class)->everySecond();
+        $schedule->command(AutoCheckoutMarker::class)->everySecond();
+        $schedule->command(AutoAbsentMarker::class)->everySecond();
 
         if (env('APP_PROTOCOL') === "https") {
             URL::forceScheme('https');

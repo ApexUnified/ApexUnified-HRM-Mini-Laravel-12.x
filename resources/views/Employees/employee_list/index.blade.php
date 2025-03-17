@@ -216,12 +216,12 @@
                                                     @endif
                                                 </td>
 
-                                                <td>{{ $employee->gender }}</td>
-                                                <td>{{ $employee->position->position_name }} - {{ $employee->position->position_level }}</td>
-                                                <td>{{ $employee->joining_date->format("Y-m-d") }}</td>
+                                                <td>{{ $employee->gender ?? "-" }}</td>
+                                              @if(!empty($employee->position))   <td>{{ $employee->position->position_name }} - {{ $employee->position->position_level }}</td> @else <td>-</td> @endif 
+                                                <td>{{ $employee->joining_date?->format("Y-m-d") ?? "-" }}</td>
                                                 <td>{{ $employee->religion }}</td>
-                                                <td>{{ $employee->marital_status }}</td>
-                                                <td>{{ $employee->contact_number }}</td>
+                                                <td>{{ $employee->marital_status ?? "-" }}</td>
+                                                <td>{{ $employee->contact_number  ?? "-"}}</td>
                                                 <td>{{ $employee->email }}</td>
                                                 <td>{{ $employee->cnic_number }}</td>
                                                 <td>{{ $employee->eobi_number ?? "-" }}</td>
