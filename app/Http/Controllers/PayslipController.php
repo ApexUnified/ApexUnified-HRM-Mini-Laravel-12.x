@@ -92,9 +92,7 @@ class PayslipController extends Controller
         }
 
 
-        $employees = Employee::all();
-
-        return view("Payroll.Payslip.edit", compact("payslip", "employees"));
+        return view("Payroll.Payslip.edit", compact("payslip"));
     }
 
     /**
