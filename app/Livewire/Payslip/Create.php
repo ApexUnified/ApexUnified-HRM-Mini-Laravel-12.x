@@ -7,6 +7,8 @@ use App\Models\AttendancePayDeduction;
 use App\Models\Bonus;
 use App\Models\Deduction;
 use App\Models\Employee;
+use App\Models\Loan;
+use App\Models\LoanPayment;
 use App\Models\OvertimePay;
 use App\Models\Payslip;
 use App\Models\Setting;
@@ -112,10 +114,10 @@ class Create extends Component
         $loan_deduction_amount = 0;
 
         if ($loans->isNotEmpty()) {
-            foreach ($loans->toArray() as $loan) {
+            foreach ($loans as $loan) {
 
                 //  Adding Value In $loan_deduction_amount variable
-                $loan_deduction_amount += $loan['loan_deduction_amount'];
+                $loan_deduction_amount += $loan->adjusted_deduction_amount;
             }
         }
 
@@ -302,6 +304,7 @@ class Create extends Component
 
             if ($create) {
                 $this->dispatch("payslip-created");
+                $this->deductLoanAmount();
 
                 $this->isDisabled = false;
                 $this->showForm = false;
@@ -315,6 +318,33 @@ class Create extends Component
         $this->dispatch('refresh-select-picker');
     }
 
+
+    protected function deductLoanAmount()
+    {
+        $loans = Loan::where("employee_id", $this->employeeid)->where("status", "Active")->get();
+
+        foreach ($loans as $loan) {
+
+            $loan->remeaning_loan -= $loan->adjusted_deduction_amount;
+
+            if ($loan->remeaning_loan == $loan->adjusted_deduction_amount) {
+                $loan->status = "Completed";
+            }
+
+
+            LoanPayment::create([
+                'employee_id' => $loan->employee->id,
+                'loan_type' => $loan->loan_type,
+                'loan_amount' => $loan->loan_amount,
+                'remeaning_loan' => $loan->remeaning_loan,
+                'loan_deduction_amount' => $loan->loan_deduction_amount,
+                'status' => $loan->status,
+                'description' => $loan->description,
+            ]);
+
+            $loan->save();
+        }
+    }
 
     public function resetEverything()
     {

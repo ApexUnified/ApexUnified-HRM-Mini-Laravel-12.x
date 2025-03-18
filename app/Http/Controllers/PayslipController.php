@@ -7,9 +7,22 @@ use App\Models\Employee;
 use App\Models\Payslip;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Routing\Controllers\HasMiddleware;
 
-class PayslipController extends Controller
+class PayslipController extends Controller implements HasMiddleware
 {
+
+    public static function middleware(): array
+    {
+        return [
+            new Middleware("permission:Payroll View", ["only" => "index"]),
+            new Middleware("permission:Payroll Create", ["only" => "create"]),
+            new Middleware("permission:Payroll Edit", ["only" => "edit"]),
+            new Middleware("permission:Payroll Invoice Generate", ["only" => "show"]),
+            new Middleware("permission:Payroll Delete", ["only" => "destroy", "deletebyselection"]),
+        ];
+    }
 
     public function index(Request $request)
     {

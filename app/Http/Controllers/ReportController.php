@@ -6,6 +6,7 @@ use App\Models\Allowance;
 use App\Models\Attendance;
 use App\Models\CashAdvance;
 use App\Models\Deduction;
+use App\Models\Employee;
 use App\Models\Leave;
 use App\Models\Loan;
 use App\Models\LoanPayment;
@@ -34,25 +35,32 @@ class ReportController extends Controller implements HasMiddleware
     public function attendance_report(Request $request)
     {
 
-        $attendances = Attendance::query();
+        $attendances = Attendance::query()->latest();
 
-        if (!empty($request->from) && !empty($request->to)) {
-            $fromDate = Carbon::parse($request->from)->format("Y-m-d");
-            $toDate = Carbon::parse($request->to)->endOfDay()->format("Y-m-d H:i:s");
-            $attendances = $attendances->whereBetween("attendance_date", [$fromDate, $toDate]);
-        } else if (!empty($request->from)) {
-            $fromDate = Carbon::parse($request->from)->format("Y-m-d");
-            $attendances = Attendance::whereDate("attendance_date", $fromDate);
-        } else if (!empty($request->to)) {
-            $toDate = Carbon::parse($request->to)->format("Y-m-d");
-            $attendances = Attendance::whereDate("attendance_date", $toDate);
+
+        if ($request->filled("employee_id")) {
+            $attendances = $attendances->where("employee_id", $request->input("employee_id"));
         }
 
-        $attendances = $attendances->orderBy("created_at", "DESC")->get();
+        if ($request->filled("from")) {
+            $attendances = $attendances->whereDate("attendance_date", ">=", $request->input("from"));
+        }
+
+
+
+        if ($request->filled("to")) {
+            $attendances = $attendances->whereDate("attendance_date", "<=", $request->input("to"));
+        }
+
+
+
+        $attendances = $attendances->get();
         if ($request->hasAny(["from", "to"]) && $attendances->isEmpty()) {
             Toastr()->info("No Attendance Found ", [], "No Result Found");
         }
-        return view("Reports.AttendanceReport.index", compact("attendances"));
+
+        $employees = Employee::all();
+        return view("Reports.AttendanceReport.index", compact("attendances", "employees"));
     }
 
 
@@ -61,7 +69,18 @@ class ReportController extends Controller implements HasMiddleware
     public function loanPayments(Request $request)
     {
 
+        $request->validate([
+            "employee_id" => "nullable|exists:employees,id",
+            "from" => "nullable|date|date_format:Y-m-d",
+            "to" => "nullable|date|date_format:Y-m-d",
+        ]);
+
+        // return $request->all();
         $loanPayments = LoanPayment::query()->latest();
+
+        if ($request->filled("employee_id")) {
+            $loanPayments = $loanPayments->where("employee_id", $request->input("employee_id"));
+        }
 
 
         if ($request->filled("from")) {
@@ -72,11 +91,14 @@ class ReportController extends Controller implements HasMiddleware
             $loanPayments = $loanPayments->whereDate("created_at", "<=", $request->input("to"));
         }
 
+
         $loanPayments = $loanPayments->get();
 
         if ($request->hasAny(["from", "to"]) && $loanPayments->isEmpty()) {
             Toastr()->info("No Loans Found", [], "No Result Found");
         }
-        return view("Reports.LoanPayments.index", compact("loanPayments"));
+
+        $employees = Employee::all();
+        return view("Reports.LoanPayments.index", compact("loanPayments", "employees"));
     }
 }

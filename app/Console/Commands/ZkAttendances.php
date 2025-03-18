@@ -4,6 +4,8 @@ namespace App\Console\Commands;
 
 use App\Models\Attendance;
 use App\Models\Employee;
+use App\Models\Overtime;
+use App\Models\OvertimePay;
 use App\Models\ZktecoDevice;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
@@ -248,10 +250,19 @@ class ZkAttendances extends Command
 
 
 
-            if ($attendance_checkout->gt($shiftEndTime)) {
-                $attendance_checkout = 5;
-                $atttendance_hours_worked = 9999999999;
-                Log::info("Attendance Checkout Marked as Out of Shift");
+            if ($attendance_checkout->gt($scheduled_checkout)) {
+                $difference = $scheduled_checkout->diffInHour($attendance_checkout);
+                $overtime_pay = OvertimePay::first();
+
+
+                if (!empty($overtime_pay)) {
+                    $overtime = Overtime::create([
+                        "employee_id" => $employee->id,
+                        "hours_worked" => $difference,
+                        "rate_per_hour" => $overtime_pay->overtime_pay,
+                        "total_overtime_pay" => $difference  * $overtime_pay->overtime_pay
+                    ]);
+                }
             }
 
             $ExistsAttendance->attendance_checkout = $attendance_checkout;

@@ -12,34 +12,57 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-5">
                             <h2 class="display-5">Loan Payments Report</h2>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-12 text-center align-content-center">
+                                <h3>Additional Filters</h3>
+                            </div>
+                        </div>
+                        <form action="{{ route("loanpayment.report") }}" method="GET">
+                        @csrf
+                        <div class="d-flex justify-content-end">
+                            <button type="submit" class="btn btn-primary"><i class="fa fa-filter" style="font-size: 1.2rem"></i>
+                                 Filter</button>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="employee_id">Employee</label>
+                                    <select id="employee_id" name="employee_id" class="form-control">
+                                        <option value="" hidden>Select Employee</option>
+                                        @foreach ($employees as $employee)
+                                            <option value="{{ $employee->id }}" @selected(request()->employee_id == $employee->id)>{{ $employee->employee_name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error("employee_id")
+                                        <small class="text-danger">{{$message}}</small>
+                                    @enderror
+                                </div>
+                            </div>
 
 
 
-                            <form action="{{ route('loanpayment.report') }}"
-                                class=" d-flex justify-content-center align-items-center" method="GET">
-                                <div class="d-flex align-items-center">
-                                    <label class="mr-2" for="report_from" style="font-size: 19px">From: </label>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="report_from">From</label>
                                     <input type="text" id="report_from" name="from" class="form-control mx-2"
                                         placeholder="yyyy-mm-dd" value="{{ request()->from }}">
                                 </div>
+                            </div>
 
-                                <div class="d-flex align-items-center">
-                                    <label class="mr-2" for="report_to" style="font-size: 19px">To: </label>
-                                    <input type="text" id="report_to" name="to" class="form-control"
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="report_from">To</label>
+                                    <input type="text" id="report_to" name="to" class="form-control mx-2"
                                         placeholder="yyyy-mm-dd" value="{{ request()->to }}">
                                 </div>
-
-                                <div class="d-flex align-items-center mx-2">
-                                    <button class="btn btn-primary">Search</button>
-                                </div>
-
-                            </form>
-
-
+                            </div>
                         </div>
 
-
-
+                        </form>
 
                         <div class="single-table mt-5">
                             <div class="data-tables">

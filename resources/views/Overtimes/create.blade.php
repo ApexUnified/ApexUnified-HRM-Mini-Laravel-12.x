@@ -17,6 +17,7 @@ $setting = Setting::first();
                 <div class="card-body">
                     <div class="mb-5 d-flex justify-content-between align-items-center">
                         <h2 class="display-5">Create Overtime</h2>
+                        <a href="{{ route("overtime.index") }}" class="btn btn-primary">Back To Overtimes</a>
                     </div>
 
                     <form action="{{ route('overtime.store') }}" method="POST">

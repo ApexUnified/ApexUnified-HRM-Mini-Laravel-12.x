@@ -89,7 +89,7 @@ $setting = Setting::first();
                                         <th>Pay Date</th>
 
                                         @if (auth()->user()->can('Payroll Delete') || auth()->user()->can('Payroll
-                                        Edit'))
+                                        Edit') || auth()->user()->can("Payroll Invoice Generate"))
                                         <th class="no-print">Action</th>
                                         @endif
                                     </tr>
@@ -129,7 +129,7 @@ $setting = Setting::first();
 
 
                                         @if (auth()->user()->can('Payroll Delete') || auth()->user()->can('Payroll
-                                        Edit'))
+                                        Edit') || auth()->user()->can("Payroll Invoice Generate"))
                                         <td>
                                             <button class="btn btn-primary dropdown-toggle" type="button"
                                                 data-toggle="dropdown" aria-expanded="false">

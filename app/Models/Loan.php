@@ -14,4 +14,11 @@ class Loan extends Model
     {
         return $this->belongsTo(Employee::class, "employee_id", "id");
     }
+
+
+
+    public function getAdjustedDeductionAmountAttribute()
+    {
+        return min($this->remeaning_loan, $this->loan_deduction_amount);
+    }
 }

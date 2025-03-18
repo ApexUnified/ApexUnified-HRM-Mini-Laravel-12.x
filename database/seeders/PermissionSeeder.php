@@ -82,6 +82,11 @@ class PermissionSeeder extends Seeder
             'Holiday Create',
             'Holiday Edit',
             'Holiday Delete',
+            "Payroll View",
+            "Payroll Create",
+            "Payroll Edit",
+            "Payroll Delete",
+            "Payroll Invoice Generate",
         ];
 
 

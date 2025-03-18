@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Attendance;
 use App\Models\Employee;
+use App\Models\Overtime;
+use App\Models\OvertimePay;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
@@ -158,11 +160,26 @@ class AttendanceController extends Controller implements HasMiddleware
                         }
                     }
 
-                    // if($attendance_checkout > $shift_end_time){
-                    //     return $shift_end_time->format("H:i");
-                    //     $validated_req['attendance_checkout'] = 5;
-                    // }
+                    if ($attendance_checkout->gt($scheduled_checkout)) {
 
+                        $difference = $scheduled_checkout->diffInHour($attendance_checkout);
+                        $overtime_pay = OvertimePay::first();
+
+                        if (!empty($overtime_pay)) {
+                            $overtime = Overtime::create([
+                                "employee_id" => $validated_req['employee_id'],
+                                "hours_worked" => $difference,
+                                "rate_per_hour" => $overtime_pay->overtime_pay,
+                                "total_overtime_pay" => $difference  * $overtime_pay->overtime_pay
+                            ]);
+
+                            if ($overtime) {
+                                Toastr()->success("Overtime Also Added");
+                            } else {
+                                Toastr()->error("Failed to Add Overtime");
+                            }
+                        }
+                    }
                 }
             }
 

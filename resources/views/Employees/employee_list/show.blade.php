@@ -133,7 +133,7 @@
                     </div>
                     <div class="col-md-9">
                         <h1 class="mb-2">{{ $employee->employee_name }}  <a href="{{ route("employee.edit",$employee->id) }}" class="text-light" id="edit-btn"><i class="fa fa-edit mb-3" style="font-size:1.5rem"></i></a> </h1>
-                        <h4 class="mb-3">{{ $employee->position->position_level }} - {{ $employee->position->position_name }}</h4>
+                        <h4 class="mb-3">{{ $employee->position->position_level ?? "-" }} - {{ $employee->position->position_name ?? "-" }}</h4>
                         <div class="d-flex">
                             <span class="badge badge-custom">ID: {{ $employee->employee_id }}</span>
                             <span class="badge badge-custom mx-2">Branch: {{ $employee->department->branch->name }}</span>
@@ -154,33 +154,16 @@
     
                 <div class="info-grid">
                     <div>
-                        <strong>Email:</strong> {{ $employee->email }}
+                        <strong>Email:</strong> {{ $employee->email ?? "No Email Given" }}
                     </div>
                     <div>
-                        <strong>Phone:</strong> {{ $employee->contact_number }}
+                        <strong>Phone:</strong> {{ $employee->contact_number ?? "No Contact Number Given" }}
                     </div>
                     <div>
-                        <strong>Address:</strong> {{ $employee->home_address }}
+                        <strong>Address:</strong> {{ $employee->home_address ?? "No Address Given" }}
                     </div>
                     <div>
-                        <strong>Join Date:</strong> {{ $employee->joining_date->format("Y-m-d") }}
-                    </div>
-    
-                </div>
-    
-    
-                <div class="info-grid mt-4">
-                    <div>
-                        <strong>Parent Name:</strong> {{ $employee->parent_name }}
-                    </div>
-                    <div>
-                        <strong>Date Of Birth:</strong> {{ $employee->employee_dob }}
-                    </div>
-                    <div>
-                        <strong>Date Of Hiring:</strong> {{ $employee->date_of_hiring }}
-                    </div>
-                    <div>
-                        <strong>Designation:</strong> {{ $employee->designation }}
+                        <strong>Join Date:</strong> {{ $employee->joining_date?->format("Y-m-d") ?? "No Date Given" }}
                     </div>
     
                 </div>
@@ -188,16 +171,16 @@
     
                 <div class="info-grid mt-4">
                     <div>
-                        <strong>Gender:</strong> {{ $employee->gender }}
+                        <strong>Parent Name:</strong> {{ $employee->parent_name ?? "No Parent Name Given" }}
                     </div>
                     <div>
-                        <strong>Religion:</strong> {{ $employee->religion }}
+                        <strong>Date Of Birth:</strong> {{ $employee->employee_dob ?? "No DOB Given" }}
                     </div>
                     <div>
-                        <strong>Marital Status:</strong> {{ $employee->marital_status }}
+                        <strong>Date Of Hiring:</strong> {{ $employee->date_of_hiring ?? "No Date Of Hiring Given" }}
                     </div>
                     <div>
-                        <strong>Blood Group:</strong> {{ $employee->blood_group ?? "-" }}
+                        <strong>Designation:</strong> {{ $employee->designation ?? "No Description Given" }}
                     </div>
     
                 </div>
@@ -205,16 +188,33 @@
     
                 <div class="info-grid mt-4">
                     <div>
-                        <strong>CNIC:</strong> {{ $employee->cnic_number }}
+                        <strong>Gender:</strong> {{ $employee->gender ?? "No gender Given" }}
                     </div>
                     <div>
-                        <strong>EOBI:</strong> {{ $employee->eobi_number  ?? "-"}}
+                        <strong>Religion:</strong> {{ $employee->religion ?? "No religion Given" }}
                     </div>
                     <div>
-                        <strong>SESSI:</strong> {{ $employee->sessi_number ?? "-" }}
+                        <strong>Marital Status:</strong> {{ $employee->marital_status ?? "No marital status Given" }}
                     </div>
                     <div>
-                        <strong>Qualification:</strong> {{ $employee->qualification }}
+                        <strong>Blood Group:</strong> {{ $employee->blood_group ?? "No blood_group Given" }}
+                    </div>
+    
+                </div>
+    
+    
+                <div class="info-grid mt-4">
+                    <div>
+                        <strong>CNIC:</strong> {{ $employee->cnic_number ?? "No Number Given" }}
+                    </div>
+                    <div>
+                        <strong>EOBI:</strong> {{ $employee->eobi_number  ?? "No Number Given"}}
+                    </div>
+                    <div>
+                        <strong>SESSI:</strong> {{ $employee->sessi_number ??  "No Number Given"}}
+                    </div>
+                    <div>
+                        <strong>Qualification:</strong> {{ $employee->qualification ?? "No Qualification Given" }}
                     </div>
     
                 </div>
@@ -232,11 +232,15 @@
                         <strong>Assigned Devices:</strong> @foreach($devices as $device) <br> {{!empty($device) ? $device->name . " | " : "" }}  @endforeach
                     </div>
                     <div>
-                        <strong>Device User ID:</strong> {{ $employee->device_user_id }}
+                        <strong>Device User ID:</strong> {{ $employee->device_user_id  }}
                     </div>
                     <div>
-                        <strong>Assigned Schedules:</strong> @foreach($scheudles as $schedule) <br> {{ $schedule->name . ": " }}
-                         {{ $schedule->formatted_times["checkin"] }} - {{ $schedule->formatted_times["checkout"] }} @endforeach
+                       @if($scheudles->isNotEmpty())
+                       <strong>Assigned Schedules:</strong> @foreach($scheudles as $schedule) <br> {{ $schedule->name . ": " }}
+                       {{ $schedule->formatted_times["checkin"] }} - {{ $schedule->formatted_times["checkout"] }} @endforeach
+                       @else
+                       <strong>Assigned Schedules:</strong> No Schedule Assigned
+                       @endif
                     </div>
                     <div>
                         <strong>Salary :</strong> {{ $setting->currency }}  {{ $employee->salary }}
@@ -247,13 +251,13 @@
     
                 <div class="info-grid mt-4">
                     <div>
-                        <strong>Emergency Contact Details:</strong> {{ $employee->emergency_contact_details }}
+                        <strong>Emergency Contact Details:</strong> {{ $employee->emergency_contact_details ?? "No Details Given" }}
                     </div>
                     <div>
-                        <strong>Emergency Contact Number:</strong> {{ $employee->emergency_contact_number }}
+                        <strong>Emergency Contact Number:</strong> {{ $employee->emergency_contact_number ?? "No Details Given" }}
                     </div>
                     <div>
-                        <strong>Remarks:</strong> {{ $employee->remarks ?? "-" }}
+                        <strong>Remarks:</strong> {{ $employee->remarks ?? "No Remarks Given" }}
                     </div>
                     <div>
                         <strong>Created By :</strong> {{ $employee->created_by }}

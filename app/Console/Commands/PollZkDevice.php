@@ -42,59 +42,53 @@ class PollZkDevice extends Command
                 $isConnected = true;
             }
 
-            if($isConnected){
-                $zk = new ZKTeco($device->ip_address,$device->port);
+            if ($isConnected) {
+                $zk = new ZKTeco($device->ip_address, $device->port);
 
-            if($zk->connect()){
-                // $deviceTImes[] = $zk->getTime();
-                $deviceEmployees = $zk->getUser();
-                if(!empty($deviceEmployees)){
+                if ($zk->connect()) {
+                    // $deviceTImes[] = $zk->getTime();
+                    $deviceEmployees = $zk->getUser();
+                    if (!empty($deviceEmployees)) {
                         foreach ($deviceEmployees as $key => $employeeData) {
                             if (isset($employeeData['userid'])) {
                                 $exists = Employee::where("device_user_id", $employeeData['userid'])
                                     ->first();
-                                if(!$exists){
+                                if (!$exists) {
                                     $create = Employee::create([
-                                        'employee_id' =>  rand(0000000000,9999999999),
-                                        'father_name' => "Device Created User",
+                                        'employee_id' =>  "EMP-" . rand(0000, 99999) . substr(uniqid(), -2),
+                                        'parent_name' => "Device Created User",
                                         'employee_dob' => now()->format("Y-m-d"),
                                         'date_of_hiring' => now()->format("Y-m-d"),
                                         'department_id' => 1,
-                                        'employee_schedule' => "No SChedule Assigned",
+                                        'employee_schedule' => "No Schedule Assigned",
                                         'device_id' => json_encode([$device->id]),
                                         'device_user_id' => $employeeData['userid'],
                                         'employee_name' => $employeeData['name'],
                                         'designation' => "No Designation Assigned"
                                     ]);
 
-                                    if($create){
+                                    if ($create) {
                                         // Log::info("Employee Created: ". $employeeData['name']);
                                     }
-                                }else{
+                                } else {
                                     // Log::info("Employees Are Exists");
                                 }
-
-
                             } else {
                                 // Log::warning("Missing 'userid' for employee key $key.");
                             }
                         }
 
 
-                    // Log::info($userIds);
+                        // Log::info($userIds);
 
-            }
-
-
-            }
-            }else{
+                    }
+                }
+            } else {
                 continue;
             }
-
-
         }
 
         // Log::info($deviceTImes);
 
-}
+    }
 }
