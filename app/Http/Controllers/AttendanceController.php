@@ -26,21 +26,25 @@ class AttendanceController extends Controller implements HasMiddleware
 
     public function index(Request $request)
     {
-        $attendances = Attendance::query();
+        $attendances = Attendance::query()->latest();
 
-        if (!empty($request->from) && !empty($request->to)) {
-            $fromDate = Carbon::parse($request->from)->format("Y-m-d");
-            $toDate = Carbon::parse($request->to)->endOfDay()->format("Y-m-d H:i:s");
-            $attendances = $attendances->whereBetween("attendance_date", [$fromDate, $toDate]);
-        } else if (!empty($request->from)) {
-            $fromDate = Carbon::parse($request->from)->format("Y-m-d");
-            $attendances = Attendance::whereDate("attendance_date", $fromDate);
-        } else if (!empty($request->to)) {
-            $toDate = Carbon::parse($request->to)->format("Y-m-d");
-            $attendances = Attendance::whereDate("attendance_date", $toDate);
+
+
+        if ($request->filled("from")) {
+            $attendances = $attendances->whereDate("attendance_date", ">=", $request->input("from"));
         }
 
-        $attendances = $attendances->orderBy("created_at", "Desc")->get();
+        if ($request->filled("to")) {
+            $attendances = $attendances->whereDate("attendance_date", "<=", $request->input("to"));
+        }
+
+
+        $attendances = $attendances->get();
+
+
+        if ($request->hasAny(["from", "to"]) && $attendances->isEmpty()) {
+            Toastr()->info("No Attendance Found", [], "No Results Found :(");
+        }
 
         return view("attendance.index", compact("attendances"));
     }
@@ -162,7 +166,7 @@ class AttendanceController extends Controller implements HasMiddleware
 
                     if ($attendance_checkout->gt($scheduled_checkout)) {
 
-                        $difference = $scheduled_checkout->diffInHour($attendance_checkout);
+                        $difference = $scheduled_checkout->diffInHours($attendance_checkout);
                         $overtime_pay = OvertimePay::first();
 
                         if (!empty($overtime_pay)) {

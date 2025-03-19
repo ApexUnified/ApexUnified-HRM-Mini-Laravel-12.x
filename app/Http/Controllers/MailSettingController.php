@@ -13,7 +13,8 @@ class MailSettingController extends Controller implements HasMiddleware
     public static function middleware(): array
     {
         return [
-            new Middleware("permission:Settings View", ["only" => "index"])
+            new Middleware("permission:Settings View", ["only" => "index"]),
+            new Middleware("permission:Settings View", ["only" => "store"])
         ];
     }
 

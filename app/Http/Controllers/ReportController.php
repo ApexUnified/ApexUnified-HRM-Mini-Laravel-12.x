@@ -26,10 +26,7 @@ class ReportController extends Controller implements HasMiddleware
     {
         return [
             new Middleware("permission:Reports View", ["only" => "attendance_report"]),
-            // new Middleware("permission:Reports View", ["only" => "leave_report"]),
-            // new Middleware("permission:Reports View", ["only" => "deduction_report"]),
-            // new Middleware("permission:Reports View", ["only" => "overtime_report"]),
-            // new Middleware("permission:Reports View", ["only" => "cash_advance_report"]),
+            new Middleware("permission:Reports View", ["only" => "loanPayments"]),
         ];
     }
     public function attendance_report(Request $request)

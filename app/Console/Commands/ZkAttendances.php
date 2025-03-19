@@ -255,7 +255,7 @@ class ZkAttendances extends Command
 
 
             if ($attendance_checkout->gt($scheduled_checkout)) {
-                $difference = $scheduled_checkout->diffInHour($attendance_checkout);
+                $difference = $scheduled_checkout->diffInHours($attendance_checkout);
                 $overtime_pay = OvertimePay::first();
 
 

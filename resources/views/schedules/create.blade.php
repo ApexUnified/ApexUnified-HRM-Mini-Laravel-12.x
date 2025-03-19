@@ -132,7 +132,7 @@
                                     <div class="form-group align-content-center">
                                         <label for="num_of_min_before_checkin" class="col-form-label">On Time Minutes*
                                             <small class="info-icon"
-                                                data-tooltip="Specify the number of minutes before the scheduled check-in time So It Will Take Attendance As On Time  For example, if you set it to 30 minutes, employees Attendance Will be marked as OnTime">
+                                                data-tooltip="Specify the number of minutes before the scheduled check-in time So It Will Take Attendance As On Time  For example, if you set it to 30 minutes, employees Attendance Will be marked as OnTime If You Mark Attendance Before 30 minutes Or Within 30 minutes from Actual Checkin Time">
                                                 <i class="fa fa-info"></i>
                                             </small>
                                         </label>
@@ -148,7 +148,7 @@
                                     <div class="form-group align-content-center">
                                         <label for="shift_start_time" class="col-form-label">Shift Start Time *
                                             <small class="info-icon"
-                                                data-tooltip="Specify the number of minutes before the Shift Start Time when attendance will be accepted. For example, if you set it to 30 minutes, employees can check in For This Shift Otherwise It Will Be Marked as Out Of Shift.">
+                                                data-tooltip="Specify the number of minutes before the Shift Start Time when attendance will be Start accepting Of Employees.">
                                                 <i class="fa fa-info"></i>
                                             </small>
                                         </label>
@@ -170,7 +170,7 @@
                                     <div class="form-group align-content-center">
                                         <label for="shift_end_time" class="col-form-label">Shift End Time *
                                             <small class="info-icon"
-                                                data-tooltip="Specify the number of minutes After the Checkout Time when Checkout will be accepted. For example, if you set it to 30 minutes, employees can check Out For This Shift Otherwise It Will Be Marked as Out Of Shift.">
+                                                data-tooltip="Specify the number of minutes After the Checkout Time when Shift will be End. ">
                                                 <i class="fa fa-info"></i>
                                             </small>
                                         </label>

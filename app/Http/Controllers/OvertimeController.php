@@ -6,9 +6,21 @@ use App\Models\Employee;
 use App\Models\Overtime;
 use App\Models\OvertimePay;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class OvertimeController extends Controller
+class OvertimeController extends Controller implements HasMiddleware
 {
+
+    public static function middleware(): array
+    {
+        return [
+            new Middleware("permission:Overtime View", ["only" => "index"]),
+            new Middleware("permission:Overtime Create", ["only" => "create", "store"]),
+            new Middleware("permission:Overtime Edit", ["only" => "edit", "update"]),
+            new Middleware("permission:Overtime Delete", ["only" => "destroy", "deletebyselection"]),
+        ];
+    }
 
     public function index()
     {
