@@ -714,6 +714,44 @@
                                         </div>
                                     </div>
                                 </div>
+
+
+                                <div class="col-lg-4">
+                                    <div class="card permission-card">
+                                        <div class="card-body">
+                                            <div class="text-center mb-3">
+                                                <i class="fa fa-clock-o category-icon"></i>
+                                                <h4>Overtimes Module</h4>
+                                            </div>
+
+                                            <div class="row">
+                                                @foreach ($permissions as $permission)
+                                                    @if (str($permission->name)->startsWith('Overtime'))
+                                                        <div class="col-md-6">
+                                                            <div class="permission-item">
+                                                                <div class="d-flex align-items-center">
+
+                                                                    <label class="checkbox-container">
+                                                                        <input id="select_all" type="checkbox"
+                                                                            name="name[]"
+                                                                            value="{{ $permission->name }}"{{ $hasPermissions->contains('name', $permission->name) ? 'checked' : '' }}>
+                                                                        <div class="checkmark"></div>
+                                                                    </label>
+
+
+                                                                    <label class="form-check-label mt-1 mx-2 mb-3">
+                                                                        {{ $permission->name }}
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    @endif
+                                                @endforeach
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             
                             
