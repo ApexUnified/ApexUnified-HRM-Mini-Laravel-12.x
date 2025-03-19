@@ -30,34 +30,35 @@ class ZkTecoAutoTimeSet extends Command
     public function handle()
     {
         $devices = ZktecoDevice::all();
-        $timeout = 3;
-        foreach ($devices as $device) {
-            $isConnected = false;
-            $socket = stream_socket_client("tcp://{$device->ip_address}:{$device->port}", $errno, $errstr, $timeout);
-            if ($socket) {
-                fclose($socket);
-                $isConnected = true;
-            }
-
-            if($isConnected){
-                $zk = new ZKTeco($device->ip_address, $device->port);
-            if ($zk->connect()) {
-                $device_time = $zk->getTime();
-                $current_time = Carbon::now()->format("Y-m-d H:i:s");
-
-                if ($device_time !== $current_time) {
-                    $zk->setTime($current_time);
+        if ($devices->isNotEmpty()) {
+            $timeout = 3;
+            foreach ($devices as $device) {
+                $isConnected = false;
+                $socket = stream_socket_client("tcp://{$device->ip_address}:{$device->port}", $errno, $errstr, $timeout);
+                if ($socket) {
+                    fclose($socket);
+                    $isConnected = true;
                 }
 
-            } else {
-                // Log::error("Failed to connect to ZkTeco Device: ". $device->ip_address);
-                continue;
-            }
-            }else{
-                continue;
-            }
+                if ($isConnected) {
+                    $zk = new ZKTeco($device->ip_address, $device->port);
+                    if ($zk->connect()) {
+                        $device_time = $zk->getTime();
+                        $current_time = Carbon::now()->format("Y-m-d H:i:s");
 
-
+                        if ($device_time !== $current_time) {
+                            $zk->setTime($current_time);
+                        }
+                    } else {
+                        // Log::error("Failed to connect to ZkTeco Device: ". $device->ip_address);
+                        continue;
+                    }
+                } else {
+                    continue;
+                }
+            }
+        } else {
+            // Log::info("No Device found");
         }
     }
 }

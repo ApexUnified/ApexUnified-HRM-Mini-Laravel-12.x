@@ -79,7 +79,7 @@ class AutoCheckoutMarker extends Command
                 }
             }
         } else {
-            Log::info("No Attendance Found");
+            // Log::info("No Attendance Found");
         }
     }
 }

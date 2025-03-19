@@ -34,7 +34,7 @@ class AppServiceProvider extends ServiceProvider
         $schedule->command(AttendanceReportMailSender::class)->everyMinute();
         $schedule->command(ZkTecoAutoTimeSet::class)->everyMinute();
         $schedule->command(AutoCheckoutMarker::class)->everySecond();
-        $schedule->command(AutoAbsentMarker::class)->everySecond();
+        $schedule->command(AutoAbsentMarker::class)->everyMinute();
 
         if (env('APP_PROTOCOL') === "https") {
             URL::forceScheme('https');

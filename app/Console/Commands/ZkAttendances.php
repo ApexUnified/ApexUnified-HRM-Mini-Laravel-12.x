@@ -36,37 +36,41 @@ class ZkAttendances extends Command
         // Log::info("Checking Attendances From Device");
 
         $devices = ZktecoDevice::all();
-        $timeout = 3;
-        foreach ($devices as $device) {
-            $isConnected = false;
-            $socket = stream_socket_client("tcp://{$device->ip_address}:{$device->port}", $errno, $errstr, $timeout);
-            if ($socket) {
-                fclose($socket);
-                $isConnected = true;
-            }
+        if ($devices->isNotEmpty()) {
+            $timeout = 3;
+            foreach ($devices as $device) {
+                $isConnected = false;
+                $socket = stream_socket_client("tcp://{$device->ip_address}:{$device->port}", $errno, $errstr, $timeout);
+                if ($socket) {
+                    fclose($socket);
+                    $isConnected = true;
+                }
 
-            if ($isConnected) {
-                $zk = new ZKTeco($device->ip_address, $device->port);
+                if ($isConnected) {
+                    $zk = new ZKTeco($device->ip_address, $device->port);
 
-                if ($zk->connect()) {
-                    // $zk->testVoice();
-                    $attedances = $zk->getAttendance();
-                    foreach ($attedances as $attendance) {
+                    if ($zk->connect()) {
+                        // $zk->testVoice();
+                        $attedances = $zk->getAttendance();
+                        foreach ($attedances as $attendance) {
 
-                        if ($attendance['type'] == 1) {
-                            // Log::info("Checkin Attendance");
-                            $this->checkin($attendance, $zk);
-                            $zk->clearAttendance();
-                        } elseif ($attendance['type'] == 2) {
-                            // Log::info("Checkout Attendance");
-                            $this->checkout($attendance, $zk);
-                            $zk->clearAttendance();
+                            if ($attendance['type'] == 1) {
+                                // Log::info("Checkin Attendance");
+                                $this->checkin($attendance, $zk);
+                                $zk->clearAttendance();
+                            } elseif ($attendance['type'] == 2) {
+                                // Log::info("Checkout Attendance");
+                                $this->checkout($attendance, $zk);
+                                $zk->clearAttendance();
+                            }
                         }
                     }
+                } else {
+                    continue;
                 }
-            } else {
-                continue;
             }
+        } else {
+            Log::info("No Device found");
         }
     }
 
@@ -187,7 +191,7 @@ class ZkAttendances extends Command
 
 
                 if (!$attendance_checkout->between($shift_start_time, $shift_end_time)) {
-                    \Log::info('Attendance is NOT within the current schedule.');
+                    Log::info('Attendance is NOT within the current schedule.');
                     continue;
                 }
 
@@ -236,14 +240,14 @@ class ZkAttendances extends Command
 
             $atttendance_hours_worked = $checkinTime->diffInMinutes($checkoutTime);
 
-            Log::info($shiftEndTime);
+            // Log::info($shiftEndTime);
             // exit();
-            Log::info("End Shift InCheckout " . $shiftEndTime);
-            if ($shiftEndTime instanceof Carbon) {
-                Log::info("Yes, this is a Carbon instance._");
-            } else {
-                Log::info("No, this is not a Carbon instance." . $shiftEndTime);
-            }
+            // Log::info("End Shift InCheckout " . $shiftEndTime);
+            // if ($shiftEndTime instanceof Carbon) {
+            //     // Log::info("Yes, this is a Carbon instance._");
+            // } else {
+            //     // Log::info("No, this is not a Carbon instance." . $shiftEndTime);
+            // }
             //    exit();
 
 

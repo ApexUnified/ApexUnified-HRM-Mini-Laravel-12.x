@@ -31,7 +31,7 @@ class EmployeeSeeder extends Seeder
 
 
             Employee::create([
-                'employee_id' =>  "EMP-" . rand(0000, 99999) . substr(uniqid(), -2),
+                'employee_id' =>  "EMP-" . rand(0000, 9999) . substr(uniqid(), -2),
                 'parent_name' => "Device Created User",
                 'employee_dob' => now()->format("Y-m-d"),
                 'date_of_hiring' => now()->format("Y-m-d"),

@@ -32,8 +32,9 @@ class AutoAbsentMarker extends Command
     {
 
         if (Employee::exists()) {
-            if (Carbon::now()->format("H:i") >= "23:00" && Carbon::now()->format("H:i") <= "23:59") {
-                Log::info("Marking Auto Absent");
+            $now = Carbon::now();
+            if ($now->gt(Carbon::today()->setHour(23)) && $now->lt(Carbon::today()->setHour(23)->setMinute(30))) {
+                Log::info("Scheudle Matched And Starting Marking Auto Absent");
 
                 // Logic to Mark Auto Absent Employees Here 
 
@@ -53,7 +54,6 @@ class AutoAbsentMarker extends Command
 
 
                 foreach ($absent_employees as $employee) {
-
 
                     if (!empty($holiday)) {
                         $absentData[] = [
