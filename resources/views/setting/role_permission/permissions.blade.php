@@ -489,7 +489,7 @@
                                     <div class="card permission-card">
                                         <div class="card-body">
                                             <div class="text-center mb-3">
-                                                <i class="ti-scissors category-icon "></i>
+                                                <i class="fa fa-scissors category-icon "></i>
                                                 <h4>Deductions Module</h4>
                                             </div>
 
@@ -603,7 +603,7 @@
                                     <div class="card permission-card">
                                         <div class="card-body">
                                             <div class="text-center mb-3">
-                                                <i class="ti-exchange category-icon "></i>
+                                                <i class="fa fa-exchange category-icon "></i>
                                                 <h4>Advance Salaries Module</h4>
                                             </div>
 
