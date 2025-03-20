@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 
 class PayslipController extends Controller implements HasMiddleware
 {
@@ -184,6 +185,11 @@ class PayslipController extends Controller implements HasMiddleware
         $filePath = $directory . "/" . $newPDFName;
 
         $pdf->move($directory, $newPDFName);
+
+
+        Log::info(
+            url($filePath)
+        );
 
         SendPayslipPdfJob::dispatch($validated_req["email"], $filePath);
 
