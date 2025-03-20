@@ -3,16 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Jobs\SendPayslipPdfJob;
-use App\Mail\PayslipPDFSentMail;
-use App\Models\Attendance;
 use App\Models\Employee;
 use App\Models\Payslip;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Routing\Controllers\HasMiddleware;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\File;
 
 class PayslipController extends Controller implements HasMiddleware
 {
@@ -175,7 +171,19 @@ class PayslipController extends Controller implements HasMiddleware
         ]);
 
 
-        $filePath =  storage_path("app/public/" . $request->file("pdf")->store("pdfs", "public"));
+
+        $directory = public_path("assets/pdfs");
+        if (!File::exists(public_path($directory))) {
+            File::makeDirectory(public_path($directory), 0777, true);
+        }
+
+        $pdf = $request->file("pdf");
+
+        $newPDFName = "Payslip" . time() . substr(uniqid(), -2) . ".pdf";
+
+        $filePath = $directory . "/" . $newPDFName;
+
+        $pdf->move($directory, $newPDFName);
 
         SendPayslipPdfJob::dispatch($validated_req["email"], $filePath);
 
