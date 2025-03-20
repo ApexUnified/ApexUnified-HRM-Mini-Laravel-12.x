@@ -174,7 +174,7 @@ class PayslipController extends Controller implements HasMiddleware
 
         $directory = public_path("assets/pdfs");
         if (!File::exists(public_path($directory))) {
-            File::makeDirectory(public_path($directory), 0777, true);
+            File::makeDirectory(public_path($directory), 0777, true, true);
         }
 
         $pdf = $request->file("pdf");
