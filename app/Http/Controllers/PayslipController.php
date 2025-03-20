@@ -190,6 +190,16 @@ class PayslipController extends Controller implements HasMiddleware
                 'Can Write to PDFs'   => is_writable(public_path("assets/pdfs")),
             ]
         );
+
+
+        $permisisonStatus = chmod($directory, 0777);
+
+        if ($permisisonStatus) {
+            Log::info("Permissions changed successfully!");
+        } else {
+            Log::info("Failed to change permissions!");
+        }
+
         $pdf = $request->file("pdf");
 
         $newPDFName = "Payslip" . time() . substr(uniqid(), -2) . ".pdf";
