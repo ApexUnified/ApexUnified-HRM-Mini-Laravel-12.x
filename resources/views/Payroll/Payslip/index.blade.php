@@ -107,7 +107,7 @@ $setting = Setting::first();
                                         </td>
                                         <td>
                                             @if(!empty($payslip->employee->profile))
-                                            <img src="{{ asset(" assets/images/employee/profile/" .
+                                            <img src="{{ asset("assets/images/employee/profile/" .
                                                 $payslip->employee->profile ) }}"
                                             alt="" style="width:50px; height:50px; object-fit:cover;
                                             border-radius:3rem">
