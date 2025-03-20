@@ -175,9 +175,21 @@ class PayslipController extends Controller implements HasMiddleware
 
         $directory = public_path("assets/pdfs");
         if (!File::exists($directory)) {
-            File::makeDirectory($directory, 0777, true);
+            $created = File::makeDirectory($directory, 0777, true);
+
+            Log::info($created ? "Directory Created" : "Directory  Not Created");
+        } else {
+            Log::info("Directory Already Exists");
         }
 
+
+        Log::info(
+            [
+                'Can Write to Public' => is_writable(public_path()),
+                'Can Write to Assets' => is_writable(public_path("assets")),
+                'Can Write to PDFs'   => is_writable(public_path("assets/pdfs")),
+            ]
+        );
         $pdf = $request->file("pdf");
 
         $newPDFName = "Payslip" . time() . substr(uniqid(), -2) . ".pdf";
