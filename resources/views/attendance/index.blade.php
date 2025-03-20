@@ -12,27 +12,40 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-5">
                             <h2 class="display-5">Attendances</h2>
-
-                            <form action="{{ route('attendance.index') }}" method="GET" class="d-flex">
-                                <div class="d-flex align-items-center">
-                                    <label class="mr-2" style="font-size: 19px">From:</label>
-                                    <input type="text" id="min-date" name="from" value="{{ request()->from }}"
-                                        class="flatpickr-datepicker form-control mr-2" placeholder="yyyy-mm-dd">
-                                </div>
-                                <div class="d-flex align-items-center">
-                                    <label class="mr-2" style="font-size: 19px">To:</label>
-                                    <input type="text" id="max-date" name="to" value="{{ request()->to }}"
-                                        class="flatpickr-datepicker form-control mr-2" placeholder="yyyy-mm-dd">
-                                </div>
-                                <div class="d-flex align-items-center">
-                                    <button class="btn btn-primary">Search</button>
-                                </div>
-                            </form>
-
-
                             @can('Attendance Create')
                                 <a href="{{ route('attendance.create') }}" class="btn btn-primary">Create Attendance</a>
                             @endcan
+                        </div>
+
+
+                        <div class="row mb-3">
+                            <div class="col-md-12 text-center align-content-center">
+                                <h3>Additional Filters</h3>
+                            </div>
+                        </div>
+
+
+
+                        <div class="row">
+                            <div class="col-md-12 d-flex justify-content-center">
+
+                                <form action="{{ route('attendance.index') }}" method="GET" class="d-flex">
+                                    <div class="d-flex align-items-center">
+                                        <label class="mr-2" style="font-size: 19px">From:</label>
+                                        <input type="text" id="min-date" name="from" value="{{ request()->from }}"
+                                            class="flatpickr-datepicker form-control mr-2" placeholder="yyyy-mm-dd">
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <label class="mr-2" style="font-size: 19px">To:</label>
+                                        <input type="text" id="max-date" name="to" value="{{ request()->to }}"
+                                            class="flatpickr-datepicker form-control mr-2" placeholder="yyyy-mm-dd">
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <button class="btn btn-primary">Search</button>
+                                    </div>
+                                </form>
+
+                            </div>
                         </div>
 
                         <div class="single-table mt-5">
@@ -227,11 +240,6 @@
 
         <script>
             var attendance_delete_btn = @json(auth()->user()->can('Attendance Delete'));
-            flatpickr(".flatpickr-datepicker", {
-                enableTime: false,
-                dateFormat: "Y-m-d",
-                monthSelectorType: "static"
-            });
 
             $(document).on("click", ".attendance-delete-form", function(e) {
                 let form = this;

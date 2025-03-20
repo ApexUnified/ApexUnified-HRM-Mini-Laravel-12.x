@@ -374,7 +374,7 @@
                                     <div class="card permission-card">
                                         <div class="card-body">
                                             <div class="text-center mb-3">
-                                                <i class="ti-money category-icon "></i>
+                                                <i class="fa-solid fa-money-bill-1-wave"></i>
                                                 <h4>Allowances Module</h4>
                                             </div>
 

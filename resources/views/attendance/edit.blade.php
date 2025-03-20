@@ -40,7 +40,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="attendance_date" class="col-form-label">Attendance Date *</label>
-                                        <input class="form-control" type="text" name="attendance_date" id="attendance_date"
+                                        <input class="form-control flatpickr-datepicker" type="text" name="attendance_date" id="attendance_date"
                                             value="{{ $attendance->attendance_date }}">
                                         @error('attendance_date')
                                             <small class="text-danger">{{ $message }}</small>

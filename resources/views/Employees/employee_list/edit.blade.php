@@ -70,7 +70,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="employee_dob" class="col-form-label">Employee Date of Birth *</label>
-                                        <input class="form-control" type="text" name="employee_dob" id="employee_dob"
+                                        <input class="form-control flatpickr-datepicker" type="text" name="employee_dob" id="employee_dob"
                                             value="{{ $employee->employee_dob }}">
                                         @error('employee_dob')
                                             <small class="text-danger">{{ $message }}</small>
@@ -81,7 +81,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="hiring_date" class="col-form-label">Date Of Hiring *</label>
-                                        <input class="form-control" type="text" name="date_of_hiring" id="hiring_date"
+                                        <input class="form-control flatpickr-datepicker" type="text" name="date_of_hiring" id="hiring_date"
                                             value="{{ $employee->date_of_hiring }}">
                                         @error('date_of_hiring')
                                             <small class="text-danger">{{ $message }}</small>
@@ -230,7 +230,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="joining_date" class="col-form-label">Date Of Joining *</label>
-                                        <input type="text" class="form-control" id="joining_date" name="joining_date" value="{{ $employee->joining_date }}">
+                                        <input type="text" class="form-control flatpickr-datepicker" id="joining_date" name="joining_date" value="{{ $employee->joining_date }}">
                                         @error('joining_date')
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
@@ -620,31 +620,6 @@
                 // console.log("Type of First Element:", typeof joining_letter[0]);
 
                 // console.log(joining_letter);
-
-                flatpickr("#employee_dob", {
-                    enableTime: false,
-                    noCalendar: false,
-                    dateFormat: "Y-m-d",
-                    disableMobile: true
-                });
-
-
-
-                flatpickr("#hiring_date", {
-                    enableTime: false,
-                    noCalendar: false,
-                    dateFormat: "Y-m-d",
-                    disableMobile: true
-
-                });
-
-
-                flatpickr("#joining_date", {
-                    enableTime: false,
-                    noCalendar: false,
-                    dateFormat: "Y-m-d",
-                    disableMobile: true
-                });
 
 
                 const otherdocumentsInput = document.querySelector('[name="others[]"]');

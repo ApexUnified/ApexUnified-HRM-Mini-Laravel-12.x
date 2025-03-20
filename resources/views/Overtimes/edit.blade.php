@@ -52,7 +52,7 @@ $setting = Setting::first();
                                     <div class="input-group">
                                         <span class="input-group-text">{{ $setting->currency }}</span>
                                         <input type="number" step="0.01" name="rate_per_hour" id="rate_per_hour"
-                                            class="form-control" value="{{ $overtime->rate_per_hour }}">
+                                            class="form-control" disabled value="{{ $overtime->rate_per_hour }}">
                                     </div>
 
                                     @error('rate_per_hour')

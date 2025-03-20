@@ -1,18 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends("layouts.mail")
+@use("App\Models\Setting")
+@php
+    $setting = Setting::first();
+@endphp
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
+@section("main-content")
 
-<body>
-    Dear HR, </br>
-    Please find all employee yesterday attendance report for reference and record purpose.<br>
-    Thanks & regards, </br>
-    Auto Attendance System </br>
-</body>
 
-</html>
+<div class="header">
+   Attendance Yesterdays Report Ready 
+ </div>
+
+<div class="content">
+    <p>Dear HR,</p>
+    <p>Please find all employee yesterday attendance report for reference and record purpose.</p>
+    <p>Best Regards,<br><strong>{{$setting->company_name}}</strong></p>
+</div>
+@endsection

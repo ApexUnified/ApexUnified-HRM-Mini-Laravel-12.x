@@ -35,7 +35,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="holiday_date" class="col-form-label">Holiday Date *</label>
-                                        <input type="text" name="holiday_date" id="holiday_date" class="form-control"
+                                        <input type="text" name="holiday_date" id="holiday_date" class="form-control flatpickr-datepicker"
                                             value="{{ $holiday->holiday_date }}">
                                         @error('holiday_date')
                                             <small class="text-danger">{{ $message }}</small>

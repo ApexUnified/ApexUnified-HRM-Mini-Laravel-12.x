@@ -83,7 +83,7 @@
                                         <label for="advance_salary_date" class="col-form-label">Advance Salary Granted Date
                                             *
                                         </label>
-                                        <input type="text" name="advance_salary_date" class="form-control"
+                                        <input type="text" name="advance_salary_date" class="form-control flatpickr-datepicker"
                                             id="advance_salary_date" value="{{ old('advance_salary_date') }}">
                                         @error('advance_salary_date')
                                             <small class="text-danger">{{ $message }}</small>

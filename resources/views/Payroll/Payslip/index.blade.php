@@ -52,14 +52,14 @@ $setting = Setting::first();
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="payslip_filter_start_date" class="col-form-label">Start Date</label>
-                                            <input type="text" class="form-control" name="payslip_filter_from" id="payslip_filter_start_date" value="{{ request("payslip_filter_from") ? request("payslip_filter_from") : Carbon::now()->startOfMonth()->format("Y-m-d")  }}">
+                                            <input type="text" class="form-control flatpickr-datepicker" name="payslip_filter_from" id="payslip_filter_start_date" value="{{ request("payslip_filter_from") ? request("payslip_filter_from") : Carbon::now()->startOfMonth()->format("Y-m-d")  }}">
                                         </div>
                                     </div>
 
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="payslip_filter_end_date" class="col-form-label">End Date</label>
-                                            <input type="text" class="form-control" name="payslip_filter_to" id="payslip_filter_end_date" value="{{ request("payslip_filter_to") ? request("payslip_filter_to") : Carbon::now()->format("Y-m-d")  }}">
+                                            <input type="text" class="form-control flatpickr-datepicker" name="payslip_filter_to" id="payslip_filter_end_date" value="{{ request("payslip_filter_to") ? request("payslip_filter_to") : Carbon::now()->format("Y-m-d")  }}">
                                         </div>
                                     </div>
                                 </div>
@@ -181,25 +181,6 @@ $setting = Setting::first();
 
 <script>
     var payslip_delete_btn = @json(auth()->user()->can('Payroll Delete'));
-
-
-        $("#payslip_filter_start_date").datepicker({
-            dateFormat: "yy-mm-dd",
-            changeMonth: true,
-            changeYear: true,
-        }); 
-    
-    
-        $("#payslip_filter_end_date").datepicker({
-            dateFormat: "yy-mm-dd",
-            changeMonth: true,
-            changeYear: true,
-        });
-
-
-        
-
-
 
 
         $(document).on("click", ".payslip-delete-form", function(e) {

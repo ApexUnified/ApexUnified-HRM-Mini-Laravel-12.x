@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SendPayslipPdfJob;
+use App\Mail\PayslipPDFSentMail;
 use App\Models\Attendance;
 use App\Models\Employee;
 use App\Models\Payslip;
@@ -9,6 +11,8 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
 
 class PayslipController extends Controller implements HasMiddleware
 {
@@ -158,5 +162,22 @@ class PayslipController extends Controller implements HasMiddleware
 
 
         return response()->json(["status" => true, "message" => "Payslips Has Been Deleted Succesfully"]);
+    }
+
+
+
+    public function payslipSendMail(Request $request)
+    {
+
+        $validated_req = $request->validate([
+            "email" => "required|email",
+            "pdf" => "required|mimes:pdf"
+        ]);
+
+        $filePath =  storage_path("app/public/" . $request->file("pdf")->store("pdfs", "public"));
+
+        SendPayslipPdfJob::dispatch($validated_req["email"], $filePath);
+
+        return response()->json(["status" => true, "message" => "Payslip Has Been Succesfully Send On ( {$validated_req["email"]}  )"]);
     }
 }

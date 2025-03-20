@@ -95,7 +95,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="loan_date" class="col-form-label">Loan Date *</label>
-                                        <input type="text" name="loan_date" class="form-control" id="loan_date"
+                                        <input type="text" name="loan_date" class="form-control flatpickr-datepicker" id="loan_date"
                                             value="{{ old('loan_date') }}">
                                         @error('loan_date')
                                             <small class="text-danger">{{ $message }}</small>

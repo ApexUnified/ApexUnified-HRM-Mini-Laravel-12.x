@@ -108,7 +108,7 @@
             buttons: [
                 {
                     extend: 'csv',
-                    text: '<i class="fa fa-file-excel-o"></i>',
+                    text: '<i class="fa-solid fa-file-excel fa-lg"></i>',
                     title: 'Table Data',
                     className: 'btn btn-sm font-sm btn-success',
                     exportOptions: {
@@ -116,7 +116,7 @@
                     }
                 }, {
                     extend: 'pdf',
-                    text: '<i class="fa fa-file-pdf-o"></i>',
+                    text: '<i class="fa-solid fa-file-pdf fa-lg"></i>',
                     title: 'Table Data',
                     className: 'btn btn-sm font-sm btn-danger',
                     exportOptions: {
@@ -124,7 +124,7 @@
                     }
                 }, {
                     extend: 'print',
-                    text: '<i class="fa fa-print"></i>',
+                    text: '<i class="fa fa-print fa-lg"></i>',
                     title: 'Table Data',
                     className: 'btn btn-sm font-sm btn-primary',
                     exportOptions: {
@@ -193,56 +193,63 @@
     $(document).ready(function () {
 
 
-        $("#attendance_date").datepicker({
-            dateFormat: "yy-mm-dd",
-            changeMonth: true,
-            changeYear: true,
+        flatpickr(".flatpickr-datepicker", {
+            enableTime: false,
+            dateFormat: "Y-m-d",
+            monthSelectorType: "static",
+            disableMobile: true
         });
 
-
-        $("#holiday_date").datepicker({
-            dateFormat: "yy-mm-dd",
-            changeMonth: true,
-            changeYear: true,
-        });
-
-
-        $("#report_from").datepicker({
-            dateFormat: "yy-mm-dd",
-            changeMonth: true,
-            changeYear: true,
-        });
-
-        $("#report_to").datepicker({
-            dateFormat: "yy-mm-dd",
-            changeMonth: true,
-            changeYear: true,
-        });
-
-        $("#loan_date").datepicker({
-            dateFormat: "yy-mm-dd",
-            changeMonth: true,
-            changeYear: true,
-        });
+        // $("#attendance_date").datepicker({
+        //     dateFormat: "yy-mm-dd",
+        //     changeMonth: true,
+        //     changeYear: true,
+        // });
 
 
-        $("#repayment_date").datepicker({
-            dateFormat: "yy-mm-dd",
-            changeMonth: true,
-            changeYear: true,
-        });
+        // $("#holiday_date").datepicker({
+        //     dateFormat: "yy-mm-dd",
+        //     changeMonth: true,
+        //     changeYear: true,
+        // });
 
-        $("#advance_date").datepicker({
-            dateFormat: "yy-mm-dd",
-            changeMonth: true,
-            changeYear: true,
-        });
 
-        $("#advance_salary_date").datepicker({
-            dateFormat: "yy-mm-dd",
-            changeMonth: true,
-            changeYear: true,
-        });
+        // $("#report_from").datepicker({
+        //     dateFormat: "yy-mm-dd",
+        //     changeMonth: true,
+        //     changeYear: true,
+        // });
+
+        // $("#report_to").datepicker({
+        //     dateFormat: "yy-mm-dd",
+        //     changeMonth: true,
+        //     changeYear: true,
+        // });
+
+        // $("#loan_date").datepicker({
+        //     dateFormat: "yy-mm-dd",
+        //     changeMonth: true,
+        //     changeYear: true,
+        // });
+
+
+        // $("#repayment_date").datepicker({
+        //     dateFormat: "yy-mm-dd",
+        //     changeMonth: true,
+        //     changeYear: true,
+        // });
+
+        // $("#advance_date").datepicker({
+        //     dateFormat: "yy-mm-dd",
+        //     changeMonth: true,
+        //     changeYear: true,
+        // });
+
+        // $("#advance_salary_date").datepicker({
+        //     dateFormat: "yy-mm-dd",
+        //     changeMonth: true,
+        //     changeYear: true,
+        // });
 
     });
 
@@ -265,7 +272,7 @@
                 buttons: [
                     {
                         extend: 'excel',
-                        text: '<i class="fa fa-file-excel-o"></i>',
+                        text: '<i class="fa-solid fa-file-excel fa-lg"></i>',
                         title: 'ZKTeco Devices',
                         className: 'btn btn-sm font-sm dt-icon',
                         exportOptions: {
@@ -273,7 +280,7 @@
                         }
                     }, {
                         extend: 'pdf',
-                        text: '<i class="fa fa-file-pdf-o"></i>',
+                        text: '<i class="fa-solid fa-file-pdf fa-lg"></i>',
                         title: 'ZKTeco Devices',
                         className: 'btn btn-sm font-sm dt-icon',
                         exportOptions: {
@@ -281,7 +288,7 @@
                         }
                     }, {
                         extend: 'print',
-                        text: '<i class="fa fa-print"></i>',
+                        text: '<i class="fa fa-print fa-lg"></i>',
                         className: 'btn btn-sm font-sm dt-icon',
                         action: function () {
                             let tableContent = document.getElementById('zkteco_devices_table').outerHTML;
@@ -319,7 +326,7 @@
                     },
 
                     {
-                        text: '<i class="fa fa-trash-o"></i>',
+                        text: '<i class="fa fa-trash fa-lg"></i>',
                         title: 'Delete',
                         className: 'btn btn-sm font-sm dt-icon',
                         attr: {
@@ -355,7 +362,7 @@
                 buttons: [
                     {
                         extend: 'excel',
-                        text: '<i class="fa fa-file-excel-o"></i>',
+                        text: '<i class="fa-solid fa-file-excel fa-lg"></i>',
                         title: 'Attendances Report',
                         className: 'btn btn-sm font-sm dt-icon',
                         exportOptions: {
@@ -363,7 +370,7 @@
                         }
                     }, {
                         extend: 'pdf',
-                        text: '<i class="fa fa-file-pdf-o"></i>',
+                        text: '<i class="fa-solid fa-file-pdf fa-lg"></i>',
                         title: 'Attendances Report',
                         className: 'btn btn-sm font-sm dt-icon',
                         exportOptions: {
@@ -371,7 +378,7 @@
                         }
                     }, {
                         extend: 'print',
-                        text: '<i class="fa fa-print"></i>',
+                        text: '<i class="fa fa-print fa-lg"></i>',
                         className: 'btn btn-sm font-sm dt-icon',
                         action: function () {
                             let tableContent = document.getElementById('attendance_report_table').outerHTML;
@@ -428,7 +435,7 @@
                 buttons: [
                     {
                         extend: 'excel',
-                        text: '<i class="fa fa-file-excel-o"></i>',
+                        text: '<i class="fa-solid fa-file-excel fa-lg"></i>',
                         title: 'Loan Payments Report',
                         className: 'btn btn-sm font-sm dt-icon',
                         exportOptions: {
@@ -436,7 +443,7 @@
                         }
                     }, {
                         extend: 'pdf',
-                        text: '<i class="fa fa-file-pdf-o"></i>',
+                        text: '<i class="fa-solid fa-file-pdf fa-lg"></i>',
                         title: 'Loan Payments Report',
                         className: 'btn btn-sm font-sm dt-icon',
                         exportOptions: {
@@ -444,7 +451,7 @@
                         }
                     }, {
                         extend: 'print',
-                        text: '<i class="fa fa-print"></i>',
+                        text: '<i class="fa fa-print fa-lg"></i>',
                         className: 'btn btn-sm font-sm dt-icon',
                         action: function () {
                             let tableContent = document.getElementById('loan_payment_report_table').outerHTML;
@@ -504,7 +511,7 @@
                 buttons: [
                     {
                         extend: 'excel',
-                        text: '<i class="fa fa-file-excel-o"></i>',
+                        text: '<i class="fa-solid fa-file-excel fa-lg"></i>',
                         title: 'Departments',
                         className: 'btn btn-sm font-sm dt-icon',
                         exportOptions: {
@@ -512,7 +519,7 @@
                         }
                     }, {
                         extend: 'pdf',
-                        text: '<i class="fa fa-file-pdf-o"></i>',
+                        text: '<i class="fa-solid fa-file-pdf fa-lg"></i>',
                         title: 'Departments',
                         className: 'btn btn-sm font-sm dt-icon',
                         exportOptions: {
@@ -520,7 +527,7 @@
                         }
                     }, {
                         extend: 'print',
-                        text: '<i class="fa fa-print"></i>',
+                        text: '<i class="fa fa-print fa-lg"></i>',
                         className: 'btn btn-sm font-sm dt-icon',
                         action: function () {
                             let tableContent = document.getElementById('Department_table').outerHTML;
@@ -558,7 +565,7 @@
                         }
                     },
                     {
-                        text: '<i class="fa fa-trash-o"></i>',
+                        text: '<i class="fa fa-trash fa-lg"></i>',
                         title: 'Delete',
                         className: 'btn btn-sm font-sm dt-icon',
                         attr: {
@@ -594,7 +601,7 @@
                 buttons: [
                     {
                         extend: 'excel',
-                        text: '<i class="fa fa-file-excel-o"></i>',
+                        text: '<i class="fa-solid fa-file-excel fa-lg"></i>',
                         title: 'Employees',
                         className: 'btn btn-sm font-sm dt-icon',
                         exportOptions: {
@@ -602,7 +609,7 @@
                         }
                     }, {
                         extend: 'pdf',
-                        text: '<i class="fa fa-file-pdf-o"></i>',
+                        text: '<i class="fa-solid fa-file-pdf fa-lg"></i>',
                         title: 'Employees',
                         className: 'btn btn-sm font-sm dt-icon',
                         exportOptions: {
@@ -610,7 +617,7 @@
                         }
                     }, {
                         extend: 'print',
-                        text: '<i class="fa fa-print"></i>',
+                        text: '<i class="fa fa-print fa-lg"></i>',
                         className: 'btn btn-sm font-sm dt-icon',
                         action: function () {
                             let tableContent = document.getElementById('Employee_table').outerHTML;
@@ -648,7 +655,7 @@
                         }
                     },
                     {
-                        text: '<i class="fa fa-trash-o"></i>',
+                        text: '<i class="fa fa-trash fa-lg"></i>',
                         title: 'Delete',
                         className: 'btn btn-sm font-sm dt-icon',
                         attr: {
@@ -682,7 +689,7 @@
                 buttons: [
                     {
                         extend: 'excel',
-                        text: '<i class="fa fa-file-excel-o"></i>',
+                        text: '<i class="fa-solid fa-file-excel fa-lg"></i>',
                         title: 'Employee Schedule',
                         className: 'btn btn-sm font-sm dt-icon',
                         exportOptions: {
@@ -690,7 +697,7 @@
                         }
                     }, {
                         extend: 'pdf',
-                        text: '<i class="fa fa-file-pdf-o"></i>',
+                        text: '<i class="fa-solid fa-file-pdf fa-lg"></i>',
                         title: 'Employee Schedule',
                         className: 'btn btn-sm font-sm dt-icon',
                         exportOptions: {
@@ -698,7 +705,7 @@
                         }
                     }, {
                         extend: 'print',
-                        text: '<i class="fa fa-print"></i>',
+                        text: '<i class="fa fa-print fa-lg"></i>',
                         className: 'btn btn-sm font-sm dt-icon',
                         action: function () {
                             let tableContent = document.getElementById('Employee_Schedule_table').outerHTML;
@@ -758,7 +765,7 @@
                 buttons: [
                     {
                         extend: 'excel',
-                        text: '<i class="fa fa-file-excel-o"></i>',
+                        text: '<i class="fa-solid fa-file-excel fa-lg"></i>',
                         title: 'Job Natures',
                         className: 'btn btn-sm font-sm dt-icon',
                         exportOptions: {
@@ -766,7 +773,7 @@
                         }
                     }, {
                         extend: 'pdf',
-                        text: '<i class="fa fa-file-pdf-o"></i>',
+                        text: '<i class="fa-solid fa-file-pdf fa-lg"></i>',
                         title: 'Job Natures',
                         className: 'btn btn-sm font-sm dt-icon',
                         exportOptions: {
@@ -774,7 +781,7 @@
                         }
                     }, {
                         extend: 'print',
-                        text: '<i class="fa fa-print"></i>',
+                        text: '<i class="fa fa-print fa-lg"></i>',
                         className: 'btn btn-sm font-sm dt-icon',
                         action: function () {
                             let tableContent = document.getElementById('Jobnature_Table').outerHTML;
@@ -812,7 +819,7 @@
                         }
                     },
                     {
-                        text: '<i class="fa fa-trash-o"></i>',
+                        text: '<i class="fa fa-trash fa-lg"></i>',
                         title: 'Delete',
                         className: 'btn btn-sm font-sm dt-icon',
                         attr: {
@@ -849,7 +856,7 @@
                 buttons: [
                     {
                         extend: 'excel',
-                        text: '<i class="fa fa-file-excel-o"></i>',
+                        text: '<i class="fa-solid fa-file-excel fa-lg"></i>',
                         title: 'Positions',
                         className: 'btn btn-sm font-sm dt-icon',
                         exportOptions: {
@@ -857,7 +864,7 @@
                         }
                     }, {
                         extend: 'pdf',
-                        text: '<i class="fa fa-file-pdf-o"></i>',
+                        text: '<i class="fa-solid fa-file-pdf fa-lg"></i>',
                         title: 'Positions',
                         className: 'btn btn-sm font-sm dt-icon',
                         exportOptions: {
@@ -865,7 +872,7 @@
                         }
                     }, {
                         extend: 'print',
-                        text: '<i class="fa fa-print"></i>',
+                        text: '<i class="fa fa-print fa-lg"></i>',
                         className: 'btn btn-sm font-sm dt-icon',
                         action: function () {
                             let tableContent = document.getElementById('Position_Table').outerHTML;
@@ -903,7 +910,7 @@
                         }
                     },
                     {
-                        text: '<i class="fa fa-trash-o"></i>',
+                        text: '<i class="fa fa-trash fa-lg"></i>',
                         title: 'Delete',
                         className: 'btn btn-sm font-sm dt-icon',
                         attr: {
@@ -940,7 +947,7 @@
                 buttons: [
                     {
                         extend: 'excel',
-                        text: '<i class="fa fa-file-excel-o"></i>',
+                        text: '<i class="fa-solid fa-file-excel fa-lg"></i>',
                         title: 'Position Levels',
                         className: 'btn btn-sm font-sm dt-icon',
                         exportOptions: {
@@ -948,7 +955,7 @@
                         }
                     }, {
                         extend: 'pdf',
-                        text: '<i class="fa fa-file-pdf-o"></i>',
+                        text: '<i class="fa-solid fa-file-pdf fa-lg"></i>',
                         title: 'Position Levels',
                         className: 'btn btn-sm font-sm dt-icon',
                         exportOptions: {
@@ -956,7 +963,7 @@
                         }
                     }, {
                         extend: 'print',
-                        text: '<i class="fa fa-print"></i>',
+                        text: '<i class="fa fa-print fa-lg"></i>',
                         className: 'btn btn-sm font-sm dt-icon',
                         action: function () {
                             let tableContent = document.getElementById('PositionLevel_Table').outerHTML;
@@ -994,7 +1001,7 @@
                         }
                     },
                     {
-                        text: '<i class="fa fa-trash-o"></i>',
+                        text: '<i class="fa fa-trash fa-lg"></i>',
                         title: 'Delete',
                         className: 'btn btn-sm font-sm dt-icon',
                         attr: {
@@ -1027,7 +1034,7 @@
                 buttons: [
                     {
                         extend: 'excel',
-                        text: '<i class="fa fa-file-excel-o"></i>',
+                        text: '<i class="fa-solid fa-file-excel fa-lg"></i>',
                         title: 'Allowances',
                         className: 'btn btn-sm font-sm dt-icon',
                         exportOptions: {
@@ -1035,7 +1042,7 @@
                         }
                     }, {
                         extend: 'pdf',
-                        text: '<i class="fa fa-file-pdf-o"></i>',
+                        text: '<i class="fa-solid fa-file-pdf fa-lg"></i>',
                         title: 'Allowances',
                         className: 'btn btn-sm font-sm dt-icon',
                         exportOptions: {
@@ -1043,7 +1050,7 @@
                         }
                     }, {
                         extend: 'print',
-                        text: '<i class="fa fa-print"></i>',
+                        text: '<i class="fa fa-print fa-lg"></i>',
                         className: 'btn btn-sm font-sm dt-icon',
                         action: function () {
                             let tableContent = document.getElementById('Allowance_Table').outerHTML;
@@ -1081,7 +1088,7 @@
                         }
                     },
                     {
-                        text: '<i class="fa fa-trash-o"></i>',
+                        text: '<i class="fa fa-trash fa-lg"></i>',
                         title: 'Delete',
                         className: 'btn btn-sm font-sm dt-icon',
                         attr: {
@@ -1117,7 +1124,7 @@
                 buttons: [
                     {
                         extend: 'excel',
-                        text: '<i class="fa fa-file-excel-o"></i>',
+                        text: '<i class="fa-solid fa-file-excel fa-lg"></i>',
                         title: 'Allowance Types',
                         className: 'btn btn-sm font-sm dt-icon',
                         exportOptions: {
@@ -1125,7 +1132,7 @@
                         }
                     }, {
                         extend: 'pdf',
-                        text: '<i class="fa fa-file-pdf-o"></i>',
+                        text: '<i class="fa-solid fa-file-pdf fa-lg"></i>',
                         title: 'Allowance Types',
                         className: 'btn btn-sm font-sm dt-icon',
                         exportOptions: {
@@ -1133,7 +1140,7 @@
                         }
                     }, {
                         extend: 'print',
-                        text: '<i class="fa fa-print"></i>',
+                        text: '<i class="fa fa-print fa-lg"></i>',
                         className: 'btn btn-sm font-sm dt-icon',
                         action: function () {
                             let tableContent = document.getElementById('AllowanceType_Table').outerHTML;
@@ -1171,7 +1178,7 @@
                         }
                     },
                     {
-                        text: '<i class="fa fa-trash-o"></i>',
+                        text: '<i class="fa fa-trash fa-lg"></i>',
                         title: 'Delete',
                         className: 'btn btn-sm font-sm dt-icon',
                         attr: {
@@ -1204,7 +1211,7 @@
                 buttons: [
                     {
                         extend: 'excel',
-                        text: '<i class="fa fa-file-excel-o"></i>',
+                        text: '<i class="fa-solid fa-file-excel fa-lg"></i>',
                         title: 'Currencies',
                         className: 'btn btn-sm font-sm dt-icon',
                         exportOptions: {
@@ -1212,7 +1219,7 @@
                         }
                     }, {
                         extend: 'pdf',
-                        text: '<i class="fa fa-file-pdf-o"></i>',
+                        text: '<i class="fa-solid fa-file-pdf fa-lg"></i>',
                         title: 'Currencies',
                         className: 'btn btn-sm font-sm dt-icon',
                         exportOptions: {
@@ -1220,7 +1227,7 @@
                         }
                     }, {
                         extend: 'print',
-                        text: '<i class="fa fa-print"></i>',
+                        text: '<i class="fa fa-print fa-lg"></i>',
                         className: 'btn btn-sm font-sm dt-icon',
                         action: function () {
                             let tableContent = document.getElementById('Currency_Table').outerHTML;
@@ -1258,7 +1265,7 @@
                         }
                     },
                     {
-                        text: '<i class="fa fa-trash-o"></i>',
+                        text: '<i class="fa fa-trash fa-lg"></i>',
                         title: 'Delete',
                         className: 'btn btn-sm font-sm dt-icon',
                         attr: {
@@ -1289,7 +1296,7 @@
                 buttons: [
                     {
                         extend: 'excel',
-                        text: '<i class="fa fa-file-excel-o"></i>',
+                        text: '<i class="fa-solid fa-file-excel fa-lg"></i>',
                         title: 'Bonuses',
                         className: 'btn btn-sm font-sm dt-icon',
                         exportOptions: {
@@ -1297,7 +1304,7 @@
                         }
                     }, {
                         extend: 'pdf',
-                        text: '<i class="fa fa-file-pdf-o"></i>',
+                        text: '<i class="fa-solid fa-file-pdf fa-lg"></i>',
                         title: 'Bonuses',
                         className: 'btn btn-sm font-sm dt-icon',
                         exportOptions: {
@@ -1305,7 +1312,7 @@
                         }
                     }, {
                         extend: 'print',
-                        text: '<i class="fa fa-print"></i>',
+                        text: '<i class="fa fa-print fa-lg"></i>',
                         className: 'btn btn-sm font-sm dt-icon',
                         action: function () {
                             let tableContent = document.getElementById('Bonus_Table').outerHTML;
@@ -1343,7 +1350,7 @@
                         }
                     },
                     {
-                        text: '<i class="fa fa-trash-o"></i>',
+                        text: '<i class="fa fa-trash fa-lg"></i>',
                         title: 'Delete',
                         className: 'btn btn-sm font-sm dt-icon',
                         attr: {
@@ -1380,7 +1387,7 @@
                 buttons: [
                     {
                         extend: 'excel',
-                        text: '<i class="fa fa-file-excel-o"></i>',
+                        text: '<i class="fa-solid fa-file-excel fa-lg"></i>',
                         title: 'Loans',
                         className: 'btn btn-sm font-sm dt-icon',
                         exportOptions: {
@@ -1388,7 +1395,7 @@
                         }
                     }, {
                         extend: 'pdf',
-                        text: '<i class="fa fa-file-pdf-o"></i>',
+                        text: '<i class="fa-solid fa-file-pdf fa-lg"></i>',
                         title: 'Loans',
                         className: 'btn btn-sm font-sm dt-icon',
                         exportOptions: {
@@ -1396,7 +1403,7 @@
                         }
                     }, {
                         extend: 'print',
-                        text: '<i class="fa fa-print"></i>',
+                        text: '<i class="fa fa-print fa-lg"></i>',
                         className: 'btn btn-sm font-sm dt-icon',
                         action: function () {
                             let tableContent = document.getElementById('Loan_Table').outerHTML;
@@ -1434,7 +1441,7 @@
                         }
                     },
                     {
-                        text: '<i class="fa fa-trash-o"></i>',
+                        text: '<i class="fa fa-trash fa-lg"></i>',
                         title: 'Delete',
                         className: 'btn btn-sm font-sm dt-icon',
                         attr: {
@@ -1471,7 +1478,7 @@
                 buttons: [
                     {
                         extend: 'excel',
-                        text: '<i class="fa fa-file-excel-o"></i>',
+                        text: '<i class="fa-solid fa-file-excel fa-lg"></i>',
                         title: 'Deductions',
                         className: 'btn btn-sm font-sm dt-icon',
                         exportOptions: {
@@ -1479,7 +1486,7 @@
                         }
                     }, {
                         extend: 'pdf',
-                        text: '<i class="fa fa-file-pdf-o"></i>',
+                        text: '<i class="fa-solid fa-file-pdf fa-lg"></i>',
                         title: 'Deductions',
                         className: 'btn btn-sm font-sm dt-icon',
                         exportOptions: {
@@ -1487,7 +1494,7 @@
                         }
                     }, {
                         extend: 'print',
-                        text: '<i class="fa fa-print"></i>',
+                        text: '<i class="fa fa-print fa-lg"></i>',
                         className: 'btn btn-sm font-sm dt-icon',
                         action: function () {
                             let tableContent = document.getElementById('Deduction_Table').outerHTML;
@@ -1525,7 +1532,7 @@
                         }
                     },
                     {
-                        text: '<i class="fa fa-trash-o"></i>',
+                        text: '<i class="fa fa-trash fa-lg"></i>',
                         title: 'Delete',
                         className: 'btn btn-sm font-sm dt-icon',
                         attr: {
@@ -1562,7 +1569,7 @@
                 buttons: [
                     {
                         extend: 'excel',
-                        text: '<i class="fa fa-file-excel-o"></i>',
+                        text: '<i class="fa-solid fa-file-excel fa-lg"></i>',
                         title: 'Tax Deductions',
                         className: 'btn btn-sm font-sm dt-icon',
                         exportOptions: {
@@ -1570,7 +1577,7 @@
                         }
                     }, {
                         extend: 'pdf',
-                        text: '<i class="fa fa-file-pdf-o"></i>',
+                        text: '<i class="fa-solid fa-file-pdf fa-lg"></i>',
                         title: 'Tax Deductions',
                         className: 'btn btn-sm font-sm dt-icon',
                         exportOptions: {
@@ -1578,7 +1585,7 @@
                         }
                     }, {
                         extend: 'print',
-                        text: '<i class="fa fa-print"></i>',
+                        text: '<i class="fa fa-print fa-lg"></i>',
                         className: 'btn btn-sm font-sm dt-icon',
                         action: function () {
                             let tableContent = document.getElementById('TaxDeduction_Table').outerHTML;
@@ -1616,7 +1623,7 @@
                         }
                     },
                     {
-                        text: '<i class="fa fa-trash-o"></i>',
+                        text: '<i class="fa fa-trash fa-lg"></i>',
                         title: 'Delete',
                         className: 'btn btn-sm font-sm dt-icon',
                         attr: {
@@ -1654,7 +1661,7 @@
                 buttons: [
                     {
                         extend: 'excel',
-                        text: '<i class="fa fa-file-excel-o"></i>',
+                        text: '<i class="fa-solid fa-file-excel fa-lg"></i>',
                         title: 'Cash Advances',
                         className: 'btn btn-sm font-sm dt-icon',
                         exportOptions: {
@@ -1662,7 +1669,7 @@
                         }
                     }, {
                         extend: 'pdf',
-                        text: '<i class="fa fa-file-pdf-o"></i>',
+                        text: '<i class="fa-solid fa-file-pdf fa-lg"></i>',
                         title: 'Cash Advances',
                         className: 'btn btn-sm font-sm dt-icon',
                         exportOptions: {
@@ -1670,7 +1677,7 @@
                         }
                     }, {
                         extend: 'print',
-                        text: '<i class="fa fa-print"></i>',
+                        text: '<i class="fa fa-print fa-lg"></i>',
                         className: 'btn btn-sm font-sm dt-icon',
                         action: function () {
                             let tableContent = document.getElementById('CashAdvance_Table').outerHTML;
@@ -1708,7 +1715,7 @@
                         }
                     },
                     {
-                        text: '<i class="fa fa-trash-o"></i>',
+                        text: '<i class="fa fa-trash fa-lg"></i>',
                         title: 'Delete',
                         className: 'btn btn-sm font-sm dt-icon',
                         attr: {
@@ -1744,7 +1751,7 @@
                 buttons: [
                     {
                         extend: 'excel',
-                        text: '<i class="fa fa-file-excel-o"></i>',
+                        text: '<i class="fa-solid fa-file-excel fa-lg"></i>',
                         title: 'Advance Salaries',
                         className: 'btn btn-sm font-sm dt-icon',
                         exportOptions: {
@@ -1752,7 +1759,7 @@
                         }
                     }, {
                         extend: 'pdf',
-                        text: '<i class="fa fa-file-pdf-o"></i>',
+                        text: '<i class="fa-solid fa-file-pdf fa-lg"></i>',
                         title: 'Advance Salaries',
                         className: 'btn btn-sm font-sm dt-icon',
                         exportOptions: {
@@ -1760,7 +1767,7 @@
                         }
                     }, {
                         extend: 'print',
-                        text: '<i class="fa fa-print"></i>',
+                        text: '<i class="fa fa-print fa-lg"></i>',
                         className: 'btn btn-sm font-sm dt-icon',
                         action: function () {
                             let tableContent = document.getElementById('AdvanceSalary_Table').outerHTML;
@@ -1798,7 +1805,7 @@
                         }
                     },
                     {
-                        text: '<i class="fa fa-trash-o"></i>',
+                        text: '<i class="fa fa-trash fa-lg"></i>',
                         title: 'Delete',
                         className: 'btn btn-sm font-sm dt-icon',
                         attr: {
@@ -1836,7 +1843,7 @@
                 buttons: [
                     {
                         extend: 'excel',
-                        text: '<i class="fa fa-file-excel-o"></i>',
+                        text: '<i class="fa-solid fa-file-excel fa-lg"></i>',
                         title: 'Schedules',
                         className: 'btn btn-sm font-sm dt-icon',
                         exportOptions: {
@@ -1844,7 +1851,7 @@
                         }
                     }, {
                         extend: 'pdf',
-                        text: '<i class="fa fa-file-pdf-o"></i>',
+                        text: '<i class="fa-solid fa-file-pdf fa-lg"></i>',
                         title: 'Schedules',
                         className: 'btn btn-sm font-sm dt-icon',
                         exportOptions: {
@@ -1852,7 +1859,7 @@
                         }
                     }, {
                         extend: 'print',
-                        text: '<i class="fa fa-print"></i>',
+                        text: '<i class="fa fa-print fa-lg"></i>',
                         className: 'btn btn-sm font-sm dt-icon',
                         action: function () {
 
@@ -1891,7 +1898,7 @@
                         }
                     },
                     {
-                        text: '<i class="fa fa-trash-o"></i>',
+                        text: '<i class="fa fa-trash fa-lg"></i>',
                         title: 'Delete',
                         className: 'btn btn-sm font-sm dt-icon',
                         attr: {
@@ -1929,7 +1936,7 @@
                 buttons: [
                     {
                         extend: 'excel',
-                        text: '<i class="fa fa-file-excel-o"></i>',
+                        text: '<i class="fa-solid fa-file-excel fa-lg"></i>',
                         title: 'Holidays',
                         className: 'btn btn-sm font-sm dt-icon',
                         exportOptions: {
@@ -1937,7 +1944,7 @@
                         }
                     }, {
                         extend: 'pdf',
-                        text: '<i class="fa fa-file-pdf-o"></i>',
+                        text: '<i class="fa-solid fa-file-pdf fa-lg"></i>',
                         title: 'Holidays',
                         className: 'btn btn-sm font-sm dt-icon',
                         exportOptions: {
@@ -1945,7 +1952,7 @@
                         }
                     }, {
                         extend: 'print',
-                        text: '<i class="fa fa-print"></i>',
+                        text: '<i class="fa fa-print fa-lg"></i>',
                         className: 'btn btn-sm font-sm dt-icon',
                         action: function () {
 
@@ -1984,7 +1991,7 @@
                         }
                     },
                     {
-                        text: '<i class="fa fa-trash-o"></i>',
+                        text: '<i class="fa fa-trash fa-lg"></i>',
                         title: 'Delete',
                         className: 'btn btn-sm font-sm dt-icon',
                         attr: {
@@ -2021,7 +2028,7 @@
                 buttons: [
                     {
                         extend: 'excel',
-                        text: '<i class="fa fa-file-excel-o"></i>',
+                        text: '<i class="fa-solid fa-file-excel fa-lg"></i>',
                         title: 'Overtimes',
                         className: 'btn btn-sm font-sm dt-icon',
                         exportOptions: {
@@ -2029,7 +2036,7 @@
                         }
                     }, {
                         extend: 'pdf',
-                        text: '<i class="fa fa-file-pdf-o"></i>',
+                        text: '<i class="fa-solid fa-file-pdf fa-lg"></i>',
                         title: 'Overtimes',
                         className: 'btn btn-sm font-sm dt-icon',
                         exportOptions: {
@@ -2037,7 +2044,7 @@
                         }
                     }, {
                         extend: 'print',
-                        text: '<i class="fa fa-print"></i>',
+                        text: '<i class="fa fa-print fa-lg"></i>',
                         className: 'btn btn-sm font-sm dt-icon',
                         action: function () {
 
@@ -2076,7 +2083,7 @@
                         }
                     },
                     {
-                        text: '<i class="fa fa-trash-o"></i>',
+                        text: '<i class="fa fa-trash fa-lg"></i>',
                         title: 'Delete',
                         className: 'btn btn-sm font-sm dt-icon',
                         attr: {
@@ -2120,7 +2127,7 @@
                 buttons: [
                     {
                         extend: 'excel',
-                        text: '<i class="fa fa-file-excel-o"></i>',
+                        text: '<i class="fa-solid fa-file-excel fa-lg"></i>',
                         title: 'Attendance',
                         className: 'btn btn-sm font-sm dt-icon',
                         exportOptions: {
@@ -2128,7 +2135,7 @@
                         }
                     }, {
                         extend: 'pdf',
-                        text: '<i class="fa fa-file-pdf-o"></i>',
+                        text: '<i class="fa-solid fa-file-pdf fa-lg"></i>',
                         title: 'Attendance',
                         className: 'btn btn-sm font-sm dt-icon',
                         exportOptions: {
@@ -2136,7 +2143,7 @@
                         }
                     }, {
                         extend: 'print',
-                        text: '<i class="fa fa-print"></i>',
+                        text: '<i class="fa fa-print fa-lg"></i>',
                         className: 'btn btn-sm font-sm dt-icon',
                         action: function () {
                             let tableContent = document.getElementById('attendance_table').outerHTML;
@@ -2173,7 +2180,7 @@
                         }
                     },
                     {
-                        text: '<i class="fa fa-trash-o"></i>',
+                        text: '<i class="fa fa-trash fa-lg"></i>',
                         title: 'Delete',
                         className: 'btn btn-sm font-sm dt-icon',
                         attr: {
@@ -2211,7 +2218,7 @@
                 buttons: [
                     {
                         extend: 'excel',
-                        text: '<i class="fa fa-file-excel-o"></i>',
+                        text: '<i class="fa-solid fa-file-excel fa-lg"></i>',
                         title: 'User List',
                         className: 'btn btn-sm font-sm dt-icon',
                         exportOptions: {
@@ -2219,7 +2226,7 @@
                         }
                     }, {
                         extend: 'pdf',
-                        text: '<i class="fa fa-file-pdf-o"></i>',
+                        text: '<i class="fa-solid fa-file-pdf fa-lg"></i>',
                         title: 'User List',
                         className: 'btn btn-sm font-sm dt-icon',
                         exportOptions: {
@@ -2227,7 +2234,7 @@
                         }
                     }, {
                         extend: 'print',
-                        text: '<i class="fa fa-print"></i>',
+                        text: '<i class="fa fa-print fa-lg"></i>',
                         className: 'btn btn-sm font-sm dt-icon',
                         action: function () {
                             let tableContent = document.getElementById('user-list_table').outerHTML;
@@ -2265,7 +2272,7 @@
                         }
                     },
                     {
-                        text: '<i class="fa fa-trash-o"></i>',
+                        text: '<i class="fa fa-trash fa-lg"></i>',
                         title: 'Delete',
                         className: 'btn btn-sm font-sm dt-icon',
                         attr: {
@@ -2305,7 +2312,7 @@
                 buttons: [
                     {
                         extend: 'excel',
-                        text: '<i class="fa fa-file-excel-o"></i>',
+                        text: '<i class="fa-solid fa-file-excel fa-lg"></i>',
                         title: 'Role',
                         className: 'btn btn-sm font-sm dt-icon',
                         exportOptions: {
@@ -2313,7 +2320,7 @@
                         }
                     }, {
                         extend: 'pdf',
-                        text: '<i class="fa fa-file-pdf-o"></i>',
+                        text: '<i class="fa-solid fa-file-pdf fa-lg"></i>',
                         title: 'Role',
                         className: 'btn btn-sm font-sm dt-icon',
                         exportOptions: {
@@ -2321,7 +2328,7 @@
                         }
                     }, {
                         extend: 'print',
-                        text: '<i class="fa fa-print"></i>',
+                        text: '<i class="fa fa-print fa-lg"></i>',
                         className: 'btn btn-sm font-sm dt-icon',
                         action: function () {
                             let tableContent = document.getElementById('role_table').outerHTML;
@@ -2359,7 +2366,7 @@
                         }
                     },
                     {
-                        text: '<i class="fa fa-trash-o"></i>',
+                        text: '<i class="fa fa-trash fa-lg"></i>',
                         title: 'Delete',
                         className: 'btn btn-sm font-sm dt-icon',
                         attr: {
@@ -2395,7 +2402,7 @@
                 buttons: [
                     {
                         extend: 'excel',
-                        text: '<i class="fa fa-file-excel-o"></i>',
+                        text: '<i class="fa-solid fa-file-excel fa-lg"></i>',
                         title: 'Branch',
                         className: 'btn btn-sm font-sm dt-icon',
                         exportOptions: {
@@ -2403,7 +2410,7 @@
                         }
                     }, {
                         extend: 'pdf',
-                        text: '<i class="fa fa-file-pdf-o"></i>',
+                        text: '<i class="fa-solid fa-file-pdf fa-lg"></i>',
                         title: 'Branch',
                         className: 'btn btn-sm font-sm dt-icon',
                         exportOptions: {
@@ -2411,7 +2418,7 @@
                         }
                     }, {
                         extend: 'print',
-                        text: '<i class="fa fa-print"></i>',
+                        text: '<i class="fa fa-print fa-lg"></i>',
                         className: 'btn btn-sm font-sm dt-icon',
                         action: function () {
                             let tableContent = document.getElementById('Branch_Table').outerHTML;
@@ -2449,7 +2456,7 @@
                         }
                     },
                     {
-                        text: '<i class="fa fa-trash-o"></i>',
+                        text: '<i class="fa fa-trash fa-lg"></i>',
                         title: 'Delete',
                         className: 'btn btn-sm font-sm dt-icon',
                         attr: {
@@ -2480,7 +2487,7 @@
                 buttons: [
                     {
                         extend: 'excel',
-                        text: '<i class="fa fa-file-excel-o"></i>',
+                        text: '<i class="fa-solid fa-file-excel fa-lg"></i>',
                         title: 'Job Nature Types',
                         className: 'btn btn-sm font-sm dt-icon',
                         exportOptions: {
@@ -2488,7 +2495,7 @@
                         }
                     }, {
                         extend: 'pdf',
-                        text: '<i class="fa fa-file-pdf-o"></i>',
+                        text: '<i class="fa-solid fa-file-pdf fa-lg"></i>',
                         title: 'Job Nature Types',
                         className: 'btn btn-sm font-sm dt-icon',
                         exportOptions: {
@@ -2496,7 +2503,7 @@
                         }
                     }, {
                         extend: 'print',
-                        text: '<i class="fa fa-print"></i>',
+                        text: '<i class="fa fa-print fa-lg"></i>',
                         className: 'btn btn-sm font-sm dt-icon',
                         action: function () {
                             let tableContent = document.getElementById('JobNatureType_Table').outerHTML;
@@ -2534,7 +2541,7 @@
                         }
                     },
                     {
-                        text: '<i class="fa fa-trash-o"></i>',
+                        text: '<i class="fa fa-trash fa-lg"></i>',
                         title: 'Delete',
                         className: 'btn btn-sm font-sm dt-icon',
                         attr: {
@@ -2567,7 +2574,7 @@
                 buttons: [
                     {
                         extend: 'excel',
-                        text: '<i class="fa fa-file-excel-o"></i>',
+                        text: '<i class="fa-solid fa-file-excel fa-lg"></i>',
                         title: 'Paylsips',
                         className: 'btn btn-sm font-sm dt-icon',
                         exportOptions: {
@@ -2575,7 +2582,7 @@
                         }
                     }, {
                         extend: 'pdf',
-                        text: '<i class="fa fa-file-pdf-o"></i>',
+                        text: '<i class="fa-solid fa-file-pdf fa-lg"></i>',
                         title: 'Paylsips',
                         className: 'btn btn-sm font-sm dt-icon',
                         exportOptions: {
@@ -2583,7 +2590,7 @@
                         }
                     }, {
                         extend: 'print',
-                        text: '<i class="fa fa-print"></i>',
+                        text: '<i class="fa fa-print fa-lg"></i>',
                         className: 'btn btn-sm font-sm dt-icon',
                         action: function () {
                             let tableContent = document.getElementById('payslip_table').outerHTML;
@@ -2620,7 +2627,7 @@
                         }
                     },
                     {
-                        text: '<i class="fa fa-trash-o"></i>',
+                        text: '<i class="fa fa-trash fa-lg"></i>',
                         title: 'Delete',
                         className: 'btn btn-sm font-sm dt-icon',
                         attr: {

@@ -187,7 +187,7 @@ $user = \App\Models\User::find($id);
                             @can('Allowance View')
                             <li>
                                 <a href="javascript:void(0)" aria-expanded="true">
-                                    <i class="fa fa-money"></i>
+                                    <i class="fa-solid fa-money-bill-1-wave"></i>
                                     <span>Allowances</span></a>
                                 <ul class="collapse">
 
@@ -274,7 +274,7 @@ $user = \App\Models\User::find($id);
                             @can('Tax Deduction View')
                             <li>
                                 <a href="javascript:void(0)" aria-expanded="true">
-                                    <i class="fa fa-file-text-o"></i>
+                                    <i class="fa-solid fa-square-minus"></i>
                                     <span>Tax Deductions</span></a>
                                 <ul class="collapse">
 
@@ -384,8 +384,9 @@ $user = \App\Models\User::find($id);
 
                             @can('Overtime View')
                             <li>
-                                <a href="javascript:void(0)" aria-expanded="true"><i
-                                        class="fa fa-clock-o"></i><span>Overtimes</span></a>
+                                <a href="javascript:void(0)" aria-expanded="true">
+                                    <i class="fa-solid fa-clock"></i>
+                                        <span>Overtimes</span></a>
                                 <ul class="collapse">
 
                                     <li class="{{ request()->routeIs('overtime.index') ? 'active' : '' }}"><a
@@ -577,7 +578,7 @@ $user = \App\Models\User::find($id);
 
                     </div>
                     <!-- profile info & task notification -->
-                    <div class="clearfix col-md-6 col-sm-4 ">
+                    <div class="clearfix col-md-6 col-sm-4 d-flex justify-content-end">
                         <ul class="notification-area pull-right d-flex align-items-center">
                             <li id="full-view"><i class="ti-fullscreen text-secondary"></i></li>
                             <li id="full-view-exit"><i class="ti-zoom-out text-secondary"></i></li>

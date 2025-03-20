@@ -47,12 +47,12 @@ class OvertimeController extends Controller implements HasMiddleware
         $validated_req = $request->validate([
             'employee_id' => 'required|exists:employees,id',
             'hours_worked' => 'required|numeric|decimal:0,2',
-            'rate_per_hour' => 'required|numeric|decimal:0,2',
         ]);
 
+        $overtime_pay = OvertimePay::first()->overtime_pay;
 
-        $validated_req["total_overtime_pay"] = $validated_req["rate_per_hour"] * $validated_req["hours_worked"];
-
+        $validated_req["total_overtime_pay"] = $overtime_pay * $validated_req["hours_worked"];
+        $validated_req["rate_per_hour"] = $overtime_pay;
 
         if (Overtime::create($validated_req)) {
             Toastr()->success("Overtime Has Been Added Succesfully");
@@ -99,11 +99,11 @@ class OvertimeController extends Controller implements HasMiddleware
         $validated_req = $request->validate([
             'employee_id' => 'required|exists:employees,id',
             'hours_worked' => 'required|numeric|decimal:0,2',
-            'rate_per_hour' => 'required|numeric|decimal:0,2',
         ]);
 
 
-        $validated_req["total_overtime_pay"] = $validated_req['rate_per_hour'] * $validated_req["hours_worked"];
+        $overtime_pay = OvertimePay::first()->overtime_pay;
+        $validated_req["total_overtime_pay"] = $overtime_pay * $validated_req["hours_worked"];
 
 
         $overtime = Overtime::find($id);

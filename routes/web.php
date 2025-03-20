@@ -204,6 +204,7 @@ Route::middleware('auth')->group(function () {
     // Payroll Routes Start
     Route::resource("/payslip", PayslipController::class);
     Route::post("/payslip/deletebyselection", [PayslipController::class, "deletebyselection"]);
+    Route::post("/send-payslip-via-mail", [PayslipController::class, "payslipSendMail"]);
     // Payroll Routes End
 
 

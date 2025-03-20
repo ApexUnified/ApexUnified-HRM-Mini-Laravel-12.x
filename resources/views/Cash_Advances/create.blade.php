@@ -79,7 +79,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="advance_date" class="col-form-label">Cash Advance Date * </label>
-                                        <input type="text" name="advance_date" class="form-control" id="advance_date"
+                                        <input type="text" name="advance_date" class="form-control flatpickr-datepicker" id="advance_date"
                                             value="{{ old('advance_date') }}">
                                         @error('advance_date')
                                             <small class="text-danger">{{ $message }}</small>

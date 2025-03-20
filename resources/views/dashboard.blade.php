@@ -143,7 +143,7 @@
         });
 
         // Doughnut Chart
-        var ctx = document.getElementById('myDoughnutChart').getContext('2d');
+        // var ctx = document.getElementById('myDoughnutChart').getContext('2d');
     </script>
 
 @endsection

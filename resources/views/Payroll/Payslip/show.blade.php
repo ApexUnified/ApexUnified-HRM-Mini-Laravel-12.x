@@ -30,8 +30,8 @@
         }
 
     </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="{{ asset("assets/js/spdf.js") }}"></script>
+    <script src="{{ asset("assets/js/htmlcanvas.js") }}"></script>
     
 @endsection
 
@@ -59,8 +59,13 @@ $setting = Setting::first();
 
                     <div class="d-flex justify-content-center">
                         <button class="btn btn-sm btn-primary" id="download-pdf">
-                            <i class="fa fa-file-pdf-o" style="font-size: 25px"></i>
+                            <i class="fa-solid fa-file-lines"></i>
                             Download PDF
+                        </button>
+
+                        <button class="btn btn-sm btn-primary mx-3" id="send-mail">
+                            <i class="fa fa-envelope"></i>
+                            Send Mail
                         </button>
                     </div>
                     <div class="invoice-container">
@@ -154,6 +159,7 @@ $setting = Setting::first();
     <script>
             $(document).ready(function(){
                 var employee_name = @json($payslip->employee->employee_name);
+                var employee_email = @json($payslip->employee->email);
 
                 $(document).on("click","#download-pdf",function(){
                     const { jsPDF } = window.jspdf;
@@ -172,7 +178,79 @@ $setting = Setting::first();
                         pdf.save(`${employee_name } Payroll_Invoice.pdf`);
                     });
                 });
+
+
+
+                $(document).on("click","#send-mail",function() {
+                    console.log("Mail Sending");
+
+
+                    const { jsPDF } = window.jspdf;
+                    var invoice = document.querySelector(".invoice-container");
+
+                    html2canvas(invoice, { scale: 1 }).then(canvas => { // Reduce scale to reduce size
+                        var imgData = canvas.toDataURL("image/jpeg", 1); // Convert to JPEG with 70% quality
+                        var pdf = new jsPDF("p", "mm", "a4");
+
+                        var imgWidth = 210;
+                        var imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+                        pdf.addImage(imgData, "JPEG", 0, 10, imgWidth, imgHeight);
+                        
+                        // Compress PDF before sending
+                        var pdfBlob = pdf.output("blob");
+
+                        var formData = new FormData();
+                        formData.append("pdf", pdfBlob, "invoice.pdf");
+                        formData.append("email", employee_email);
+
+
+
+                    $.ajax({
+                        url: "/send-payslip-via-mail",
+                        method: "POST",
+                        headers: {
+                            "X-CSRF-TOKEN": $("meta[name='csrf-token']").attr("content")
+                        },
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function(response){
+                            if(response.status)
+                            {
+                                Swal.fire({
+                                    title: 'Action Completed',
+                                    text: response.message,
+                                    icon: 'success',
+                                    confirmButtonText: 'Okay',
+                                    confirmButtonColor: "#435ebe",
+                                });
+                            }else{
+                                Swal.fire({
+                                    title: 'Error',
+                                    text: response.message,
+                                    icon: 'error',
+                                    confirmButtonText: 'Okay',
+                                    confirmButtonColor: "#435ebe",
+                                });
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            Swal.fire({
+                                    title: 'Error',
+                                    text: xhr.responseJSON.message,
+                                    icon: 'error',
+                                    confirmButtonText: 'Okay',
+                                    confirmButtonColor: "#435ebe",
+                                });
+                        }
+                    });
+                });
+
+
             });
+
+        });
     </script>
 
 @endsection

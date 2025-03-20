@@ -47,7 +47,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="report_from">From</label>
-                                    <input type="text" id="report_from" name="from" class="form-control mx-2"
+                                    <input type="text" id="report_from" name="from" class="form-control mx-2 flatpickr-datepicker"
                                         placeholder="yyyy-mm-dd" value="{{ request()->from }}">
                                 </div>
                             </div>
@@ -56,7 +56,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="report_from">To</label>
-                                    <input type="text" id="report_to" name="to" class="form-control mx-2"
+                                    <input type="text" id="report_to" name="to" class="form-control mx-2 flatpickr-datepicker" 
                                         placeholder="yyyy-mm-dd" value="{{ request()->to }}">
                                 </div>
                             </div>
@@ -187,3 +187,4 @@
         </div>
 
     @endsection
+
