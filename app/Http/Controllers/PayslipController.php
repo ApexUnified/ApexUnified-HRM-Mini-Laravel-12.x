@@ -203,7 +203,7 @@ class PayslipController extends Controller implements HasMiddleware
             url($filePath)
         );
 
-        SendPayslipPdfJob::dispatch($validated_req["email"], $filePath);
+        SendPayslipPdfJob::dispatch($validated_req["email"], $filePath)->delay(now()->addSeconds(5));
 
         // info(SendPayslipPdfJob::dispatch($validated_req["email"], $filePath));
 
