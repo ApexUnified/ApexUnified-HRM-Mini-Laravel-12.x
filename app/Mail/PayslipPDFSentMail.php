@@ -22,11 +22,6 @@ class PayslipPDFSentMail extends Mailable
             ->attach($this->file_path, [
                 'as' => 'payslip.pdf',
                 'mime' => 'application/pdf',
-            ])
-            ->withSwiftMessage(function ($message) {
-                if (file_exists($this->file_path)) {
-                    unlink($this->file_path);
-                }
-            });
+            ]);
     }
 }

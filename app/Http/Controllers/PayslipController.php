@@ -174,9 +174,12 @@ class PayslipController extends Controller implements HasMiddleware
             "pdf" => "required|mimes:pdf"
         ]);
 
+
         $filePath =  storage_path("app/public/" . $request->file("pdf")->store("pdfs", "public"));
 
         SendPayslipPdfJob::dispatch($validated_req["email"], $filePath);
+
+        // info(SendPayslipPdfJob::dispatch($validated_req["email"], $filePath));
 
         return response()->json(["status" => true, "message" => "Payslip Has Been Succesfully Send On ( {$validated_req["email"]}  )"]);
     }

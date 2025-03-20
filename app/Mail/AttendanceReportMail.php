@@ -3,10 +3,7 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
-use Illuminate\Mail\Mailables\Content;
-use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
 class AttendanceReportMail extends Mailable
@@ -24,10 +21,11 @@ class AttendanceReportMail extends Mailable
      */
     public function build()
     {
-        return $this->view('mail.AttendanceReport') 
+
+        return $this->view('mail.AttendanceReport')
             ->subject('Attendance Report')
             ->attach($this->file_path, [
-                'as' => 'attendance_report.csv', 
+                'as' => 'attendance_report.csv',
                 'mime' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
             ]);
     }
