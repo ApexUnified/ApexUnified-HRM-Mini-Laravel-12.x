@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Console\Commands\AttendanceReportMailSender;
 use App\Console\Commands\AutoAbsentMarker;
 use App\Console\Commands\AutoCheckoutMarker;
+use App\Console\Commands\ClearPayslipPdfFiles;
 use App\Console\Commands\PollZkDevice;
 use App\Console\Commands\ZkAttendances;
 use App\Console\Commands\ZkTecoAutoTimeSet;
@@ -29,12 +30,13 @@ class AppServiceProvider extends ServiceProvider
     public function boot(Schedule $schedule): void
     {
 
-        $schedule->command(PollZkDevice::class)->everyMinute();
-        $schedule->command(ZkAttendances::class)->everySecond();
-        $schedule->command(AttendanceReportMailSender::class)->everyMinute();
-        $schedule->command(ZkTecoAutoTimeSet::class)->everyMinute();
-        $schedule->command(AutoCheckoutMarker::class)->everySecond();
-        $schedule->command(AutoAbsentMarker::class)->everyMinute();
+        // $schedule->command(PollZkDevice::class)->everyMinute();
+        // $schedule->command(ZkAttendances::class)->everySecond();
+        // $schedule->command(AttendanceReportMailSender::class)->everyMinute();
+        // $schedule->command(ZkTecoAutoTimeSet::class)->everyMinute();
+        // $schedule->command(AutoCheckoutMarker::class)->everySecond();
+        // $schedule->command(AutoAbsentMarker::class)->everyMinute();
+        $schedule->command(ClearPayslipPdfFiles::class)->everySecond();
 
         if (env('APP_PROTOCOL') === "https") {
             URL::forceScheme('https');
