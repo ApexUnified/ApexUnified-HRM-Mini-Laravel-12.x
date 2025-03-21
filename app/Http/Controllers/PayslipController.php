@@ -190,8 +190,6 @@ class PayslipController extends Controller implements HasMiddleware
 
         $pdf->move($directory, $newPDFName);
 
-        $url = url("assets/pdfs/$newPDFName");
-        info("PDF URL: " . $url);
         SendPayslipPdfJob::dispatch($validated_req["email"], $newPDFName);
 
         return response()->json(["status" => true, "message" => "Payslip Has Been Succesfully Send On ( {$validated_req["email"]}  )"]);
