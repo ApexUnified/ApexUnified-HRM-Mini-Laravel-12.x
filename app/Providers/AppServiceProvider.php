@@ -30,12 +30,12 @@ class AppServiceProvider extends ServiceProvider
     public function boot(Schedule $schedule): void
     {
 
-        // $schedule->command(PollZkDevice::class)->everyMinute();
-        // $schedule->command(ZkAttendances::class)->everySecond();
-        // $schedule->command(AttendanceReportMailSender::class)->everyMinute();
-        // $schedule->command(ZkTecoAutoTimeSet::class)->everyMinute();
-        // $schedule->command(AutoCheckoutMarker::class)->everySecond();
-        // $schedule->command(AutoAbsentMarker::class)->everyMinute();
+        $schedule->command(PollZkDevice::class)->everyMinute();
+        $schedule->command(ZkAttendances::class)->everySecond();
+        $schedule->command(AttendanceReportMailSender::class)->everyMinute();
+        $schedule->command(ZkTecoAutoTimeSet::class)->everyMinute();
+        $schedule->command(AutoCheckoutMarker::class)->everySecond();
+        $schedule->command(AutoAbsentMarker::class)->everyMinute();
         $schedule->command(ClearPayslipPdfFiles::class)->everySecond();
 
         if (env('APP_PROTOCOL') === "https") {

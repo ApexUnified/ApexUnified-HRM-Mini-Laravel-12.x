@@ -26,7 +26,7 @@ class ClearPayslipPdfFiles extends Command
      */
     public function handle()
     {
-        $path = public_path("assets/pdfs");
+        $path = config("app.env") == "local" ? public_path("assets/pdfs") : url("assets/pdfs");
         info($path);
         if (File::exists($path)) {
             File::cleanDirectory($path);
