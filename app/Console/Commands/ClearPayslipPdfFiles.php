@@ -26,13 +26,14 @@ class ClearPayslipPdfFiles extends Command
      */
     public function handle()
     {
-        $path = config("app.env") == "local" ? public_path("assets/pdfs") : url("assets/pdfs");
+        $path =  public_path("assets/pdfs");
         info($path);
         if (File::exists($path)) {
             File::cleanDirectory($path);
             info("All files in '$path' have been deleted.");
         } else {
-            info("Directory '$path' does not exist.");
+            $created =   File::makeDirectory($path, 0777, true, true);
+            info("Directory '$path' does not exist." . "And" . $created ? "Directory Created" : "Directory Not Created");
         }
     }
 }
