@@ -186,8 +186,6 @@ class PayslipController extends Controller implements HasMiddleware
 
         $newPDFName = "Payslip_" . time() . substr(uniqid(), -2) . ".pdf";
 
-        $filePath = $directory . "/" . $newPDFName;
-
         $pdf->move($directory, $newPDFName);
 
         SendPayslipPdfJob::dispatch($validated_req["email"], $newPDFName);

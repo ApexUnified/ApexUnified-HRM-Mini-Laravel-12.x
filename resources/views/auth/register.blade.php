@@ -15,8 +15,12 @@
                 <form action="{{ route('register') }}" method="POST">
                     @csrf
                     <div class="login-form-head">
-                        <img src="{{ asset('assets/images/logo/' . $setting->auth_logo) }}" alt=""
-                            style="width: 100px;border-radius:2rem;" class="mb-3">
+                        
+                        <a href="{{ route("login") }}">
+                            <img src="{{ !empty($setting->auth_logo) ? asset('assets/images/logo/' . $setting->auth_logo) : asset('assets/images/Auth_logo.png') }}" alt=""
+                        style="width: 100px;border-radius:2rem;" class="mb-3">
+                        </a>
+
                         <h4>Sign up</h4>
                         <p>Hello there, Sign up and Join with Us</p>
                     </div>

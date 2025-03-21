@@ -17,10 +17,10 @@ class SettingSeeder extends Seeder
             Setting::create(
                 [
                     "system_title" => "ApexUnified HRM Mini",
-                    "system_logo" =>  "SystemLogo.png",
+                    "system_logo" =>  null,
                     "currency" =>     "Rs",
-                    "favicon" =>      "Favicon.png",
-                    "auth_logo" =>    "Auth_logo.png",
+                    "favicon" =>      null,
+                    "auth_logo" =>    null,
                     "company_name" => "ApexUnified",
                     "developed_by" => "Sheikh Abdullah",
                     "created_at" => now(),

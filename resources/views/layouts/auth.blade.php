@@ -9,16 +9,15 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>@yield('title')</title>
-    <link rel="shortcut icon" type="image/png" href="{{ asset('assets/images/logo/' . $setting->favicon) }}">
+    <link rel="shortcut icon" type="image/png" href="{{ !empty($setting->favicon) ? asset('assets/images/logo/' . $setting->favicon) : asset('assets/images/Favicon.png') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" type="image/png" href="{{ asset('assets/images/icon/favicon.ico') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/themify-icons.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/metisMenu.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/owl.carousel.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/slicknav.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/amcharPlugin.css') }}" type="text/css" media="all" />
+    {{-- <link rel="stylesheet" href="{{ asset('assets/css/amcharPlugin.css') }}" type="text/css" media="all" /> --}}
     <link rel="stylesheet" href="{{ asset('assets/css/typography.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/default-css.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}">

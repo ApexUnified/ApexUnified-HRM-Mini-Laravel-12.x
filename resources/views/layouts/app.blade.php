@@ -13,7 +13,7 @@ $user = \App\Models\User::find($id);
     <title>@yield('title')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="shortcut icon" type="image/png" href="{{ asset('assets/images/logo/' . $setting->favicon) }}">
+    <link rel="shortcut icon" type="image/png" href="{{ !empty($setting->favicon) ? asset('assets/images/logo/' . $setting->favicon) : asset('assets/images/Favicon.png') }}">
 
     <!-- Start datatable css  -->
     {{--

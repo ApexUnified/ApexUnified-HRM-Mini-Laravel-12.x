@@ -39,9 +39,6 @@
             padding: 20px;
             background: #f8f8f8;
         }
-        .logo img {
-            width: 150px; /* Adjust logo size */
-        }
         .content {
             padding: 20px;
             color: #333333;
@@ -67,7 +64,7 @@
         
         <!-- Logo Section -->
         <div class="logo">
-            <img src="{{ asset("assets/images/logo/" . $setting->system_logo) }}" alt="Company Logo">
+          <h1>{{$setting->company_name}}</h1>
         </div>
         
 

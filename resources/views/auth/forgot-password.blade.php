@@ -1,8 +1,13 @@
 @extends('layouts.auth')
-
+@use("App\Models\Setting")
 @section('title',"Forgot Password")
 
 @section('content')
+
+
+@php
+    $setting = Setting::first();
+@endphp
 
 <div class="login-area">
     <div class="container">
@@ -10,6 +15,12 @@
             <form method="POST" action="{{ route('password.email') }}">
                 @csrf
                 <div class="login-form-head">
+
+                    <a href="{{ route("login") }}">
+                        <img src="{{ !empty($setting->auth_logo) ? asset('assets/images/logo/' . $setting->auth_logo) : asset('assets/images/Auth_logo.png') }}" alt=""
+                    style="width: 100px;border-radius:2rem;" class="mb-3">
+                    </a>
+
                     <h4>Fotgot Password?</h4>
                     <p>Dont Worry Here You Can Reset Your Password</p>
                 </div>

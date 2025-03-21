@@ -143,7 +143,7 @@
 
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label>Mail To Email *</label>
+                                            <label>Attendance Report Receiver Email (HR Email) *</label>
                                             <input type="email" name="mail_to" class="form-control"
                                                 value="{{ $mail_setting->mail_to ?? old('mail_to') }}" required=""
                                                 placeholder="Mail To">
