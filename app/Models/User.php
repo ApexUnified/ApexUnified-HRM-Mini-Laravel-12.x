@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Jobs\SendPasswordForgotMailJob;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -34,6 +36,15 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+
+
+
+
+    public function sendPasswordResetNotification($token)
+    {
+        SendPasswordForgotMailJob::dispatch($this->email, $token);
+    }
 
     /**
      * Get the attributes that should be cast.

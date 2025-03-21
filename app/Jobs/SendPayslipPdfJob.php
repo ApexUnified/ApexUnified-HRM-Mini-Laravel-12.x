@@ -3,7 +3,6 @@
 namespace App\Jobs;
 
 use App\Mail\PayslipPDFSentMail;
-use App\Trait\CustomMailConfigTrait;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Facades\Log;
@@ -21,6 +20,7 @@ class SendPayslipPdfJob implements ShouldQueue
      */
     public function handle(): void
     {
+        Log::info("Path Of PDF In Payslip PDF Send JOB " . $this->path);
 
 
         if (!file_exists($this->path)) {
@@ -31,8 +31,8 @@ class SendPayslipPdfJob implements ShouldQueue
 
         Mail::to($this->email)->send(new PayslipPDFSentMail($this->path));
 
-        if (file_exists($this->path)) {
-            unlink($this->path);
-        }
+        // if (file_exists($this->path)) {
+        //     unlink($this->path);
+        // }
     }
 }

@@ -43,21 +43,10 @@ class MailSettingController extends Controller implements HasMiddleware
 
         $mail_setting = MailSetting::first();
         if (empty($mail_setting)) {
-            $create = MailSetting::create($validated_req);
+            MailSetting::create($validated_req);
         } else {
             $mail_setting->update($validated_req);
         }
-
-
-        dispatch(new QueueEnvRefresh("MAIL_MAILER",      $validated_req['mail_mailer']))->delay(now()->addSecond(4));
-        dispatch(new QueueEnvRefresh("MAIL_HOST",        $validated_req['mail_host']))->delay(now()->addSecond(4));
-        dispatch(new QueueEnvRefresh("MAIL_PORT",        $validated_req['mail_port']))->delay(now()->addSecond(4));
-        dispatch(new QueueEnvRefresh("MAIL_USERNAME",    $validated_req['mail_username']))->delay(now()->addSecond(4));
-        dispatch(new QueueEnvRefresh("MAIL_PASSWORD",    $validated_req['mail_password']))->delay(now()->addSecond(4));
-        dispatch(new QueueEnvRefresh("MAIL_ENCRYPTION",  $validated_req['mail_encryption']))->delay(now()->addSecond(4));
-        dispatch(new QueueEnvRefresh("MAIL_FROM_ADDRESS", $validated_req['mail_from']))->delay(now()->addSecond(4));
-        dispatch(new QueueEnvRefresh("MAIL_FROM_NAME",   $validated_req['mail_from_name']))->delay(now()->addSecond(4));
-
 
 
         Toastr()->success("Mail setting Setup Succesfully");

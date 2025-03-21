@@ -182,40 +182,16 @@ class PayslipController extends Controller implements HasMiddleware
             Log::info("Directory Already Exists");
         }
 
-
-        Log::info(
-            [
-                'Can Write to Public' => is_writable(public_path()),
-                'Can Write to Assets' => is_writable(public_path("assets")),
-                'Can Write to PDFs'   => is_writable(public_path("assets/pdfs")),
-            ]
-        );
-
-
-        $permisisonStatus = chmod($directory, 0777);
-
-        if ($permisisonStatus) {
-            Log::info("Permissions changed successfully!");
-        } else {
-            Log::info("Failed to change permissions!");
-        }
-
         $pdf = $request->file("pdf");
 
-        $newPDFName = "Payslip" . time() . substr(uniqid(), -2) . ".pdf";
+        $newPDFName = "Payslip_" . time() . substr(uniqid(), -2) . ".pdf";
 
         $filePath = $directory . "/" . $newPDFName;
 
         $pdf->move($directory, $newPDFName);
 
 
-        Log::info(
-            url($filePath)
-        );
-
-        SendPayslipPdfJob::dispatch($validated_req["email"], $filePath)->delay(now()->addSeconds(5));
-
-        // info(SendPayslipPdfJob::dispatch($validated_req["email"], $filePath));
+        SendPayslipPdfJob::dispatch($validated_req["email"], $filePath);
 
         return response()->json(["status" => true, "message" => "Payslip Has Been Succesfully Send On ( {$validated_req["email"]}  )"]);
     }

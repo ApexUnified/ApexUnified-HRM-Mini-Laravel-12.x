@@ -32,6 +32,8 @@
             font-size: 24px;
             font-weight: bold;
         }
+
+    
         .logo {
             text-align: center;
             padding: 20px;
@@ -57,6 +59,8 @@
             color: #666666;
         }
     </style>
+
+    @yield("css")
 </head>
 <body>
     <div class="container">
