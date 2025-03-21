@@ -36,7 +36,7 @@ class AppServiceProvider extends ServiceProvider
         $schedule->command(ZkTecoAutoTimeSet::class)->everyMinute();
         $schedule->command(AutoCheckoutMarker::class)->everySecond();
         $schedule->command(AutoAbsentMarker::class)->everyMinute();
-        $schedule->command(ClearPayslipPdfFiles::class)->everySecond();
+        $schedule->command(ClearPayslipPdfFiles::class)->dailyAt("23:00");
 
         if (env('APP_PROTOCOL') === "https") {
             URL::forceScheme('https');

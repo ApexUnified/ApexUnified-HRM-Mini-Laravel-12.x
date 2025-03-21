@@ -27,7 +27,6 @@ class ClearPayslipPdfFiles extends Command
     public function handle()
     {
         $path =  public_path("assets/pdfs");
-        info($path);
         if (File::exists($path)) {
             File::cleanDirectory($path);
             info("All files in '$path' have been deleted.");
