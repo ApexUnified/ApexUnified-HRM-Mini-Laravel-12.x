@@ -25,11 +25,20 @@ class SendPayslipPdfJob implements ShouldQueue
         // Changed Into URL From public_path Because On Laravel Cloud it wasnt wokring but now working with url
         Mail::to($this->email)->send(new PayslipPDFSentMail(url("assets/pdfs/$this->path")));
 
-        if (file_exists(public_path("assets/pdfs/$this->path"))) {
-            info("FILE REMOVED");
-            unlink(public_path("assets/pdfs/$this->path"));
+        if (config("app.env") == "local") {
+            if (file_exists(public_path("assets/pdfs/$this->path"))) {
+                info("FILE REMOVED");
+                unlink(public_path("assets/pdfs/$this->path"));
+            } else {
+                info("FILE NOT FOUND");
+            }
         } else {
-            info("FILE NOT FOUND");
+            if (file_exists(url("assets/pdfs/$this->path"))) {
+                info("FILE REMOVED");
+                unlink(url("assets/pdfs/$this->path"));
+            } else {
+                info("FILE NOT FOUND");
+            }
         }
     }
 }
