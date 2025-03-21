@@ -209,7 +209,7 @@ $user = \App\Models\User::find($id);
                             @can('Bonus View')
                             <li>
                                 <a href="javascript:void(0)" aria-expanded="true">
-                                    <i class="fa fa-bitcoin"></i>
+                                    <i class="fa-solid fa-money-bill-trend-up"></i>
                                     <span>Bonuses</span></a>
                                 <ul class="collapse">
 

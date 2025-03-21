@@ -374,7 +374,7 @@
                                     <div class="card permission-card">
                                         <div class="card-body">
                                             <div class="text-center mb-3">
-                                                <i class="fa-solid fa-money-bill-1-wave"></i>
+                                                <i class="fa-solid fa-money-bill-1-wave category-icon"></i>
                                                 <h4>Allowances Module</h4>
                                             </div>
 
@@ -416,7 +416,7 @@
                                     <div class="card permission-card">
                                         <div class="card-body">
                                             <div class="text-center mb-3">
-                                                <i class="fa fa-bitcoin category-icon"></i>
+                                                <i class="fa-solid fa-money-bill-trend-up category-icon"></i>
                                                 <h4>Bonuses Module</h4>
                                             </div>
 
@@ -530,7 +530,7 @@
                                     <div class="card permission-card">
                                         <div class="card-body">
                                             <div class="text-center mb-3">
-                                                <i class="fa fa-file-text-o category-icon"></i>
+                                                <i class="fa-solid fa-square-minus category-icon"></i>
                                                 <h4>Tax Deductions Module</h4>
                                             </div>
 
@@ -720,7 +720,7 @@
                                     <div class="card permission-card">
                                         <div class="card-body">
                                             <div class="text-center mb-3">
-                                                <i class="fa fa-clock-o category-icon"></i>
+                                                <i class="fa-solid fa-clock category-icon"></i>
                                                 <h4>Overtimes Module</h4>
                                             </div>
 
