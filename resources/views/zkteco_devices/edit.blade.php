@@ -12,7 +12,9 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-5">
                             <h2 class="display-5">Update ZkTeco Device</h2>
-                            <a href="{{ route('zkteco_device.index') }}" class="btn btn-primary">Back ZkTeco
+                            <a href="{{ route('zkteco_device.index') }}" class="btn btn-primary">
+                                <i class="fa-solid fa-backward fa-lg mx-1"></i>
+                                Back ZkTeco
                                 Devices</a>
                         </div>
 
@@ -63,7 +65,9 @@
 
 
 
-                            <button class="btn btn-primary" type="submit">Update ZkTeco Device</button>
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fa-solid fa-pen-to-square fa-lg mx-1"></i>
+                                Update ZkTeco Device</button>
                         </form>
 
                     </div>

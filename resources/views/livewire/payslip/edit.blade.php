@@ -5,7 +5,9 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-5">
                         <h2 class="display-5">Edit Payslip</h2>
-                        <a href="{{ route('payslip.index') }}" class="btn btn-primary">Back To Payslips</a>
+                        <a href="{{ route('payslip.index') }}" class="btn btn-primary">
+                            <i class="fa-solid fa-backward fa-lg mx-1"></i>
+                            Back To Payslips</a>
                     </div>
 
 
@@ -146,7 +148,9 @@
 
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <button class="btn btn-primary">Update Payslip</button>
+                                        <button class="btn btn-primary">
+                                            <i class="fa-solid fa-pen-to-square fa-lg mx-1"></i>
+                                            Update Payslip</button>
                                     </div>
                                 </div>
                             </form>

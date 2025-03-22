@@ -12,7 +12,9 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-5">
                             <h2 class="display-5">Edit Job Nature</h2>
-                            <a href="{{ route('jobnature.index') }}" class="btn btn-primary">Back To Job Natures</a>
+                            <a href="{{ route('jobnature.index') }}" class="btn btn-primary">
+                                <i class="fa-solid fa-backward fa-lg mx-1"></i>
+                                Back To Job Natures</a>
                         </div>
 
                         <form action="{{ route('jobnature.update', $jobNature->id) }}" method="POST">
@@ -55,7 +57,9 @@
 
 
 
-                            <button class="btn btn-primary" type="submit">Update Job Nature</button>
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fa-solid fa-pen-to-square fa-lg mx-1"></i>
+                                Update Job Nature</button>
                         </form>
 
                     </div>

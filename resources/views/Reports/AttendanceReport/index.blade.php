@@ -23,7 +23,7 @@
                         @csrf
                         <div class="d-flex justify-content-end">
                             <button type="submit" class="btn btn-primary"><i class="fa fa-filter" style="font-size: 1.2rem"></i>
-                                 Filter</button>
+                                 </button>
                         </div>
 
                         <div class="row">

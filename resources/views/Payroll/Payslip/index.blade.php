@@ -11,6 +11,11 @@
 $setting = Setting::first();
 @endphp
 
+
+
+
+
+
 <div class="main-content-inner">
     <div class="row">
         <div class="mt-5 col-lg-12">
@@ -19,7 +24,9 @@ $setting = Setting::first();
                     <div class="mb-5 d-flex justify-content-between align-items-center">
                         <h2 class="display-5">Payslips</h2>
                         @can('Payroll Create')
-                        <a href="{{ route('payslip.create') }}" class="btn btn-primary">Create Payslip</a>
+                        <a href="{{ route('payslip.create') }}" class="btn btn-primary">
+                            <i class="fas fa-plus-square fa-lg mx-1"></i>
+                            Create Payslip</a>
                         @endcan
                     </div>
 
@@ -133,6 +140,7 @@ $setting = Setting::first();
                                         <td>
                                             <button class="btn btn-primary dropdown-toggle" type="button"
                                                 data-toggle="dropdown" aria-expanded="false">
+                                                <i class="fa-solid fa-hexagon-nodes-bolt fa-lg mx-1"></i>
                                                 Action
                                             </button>
                                             <div class="dropdown-menu" x-placement="bottom-start"
@@ -141,14 +149,18 @@ $setting = Setting::first();
 
                                                @can("Payroll Invoice Generate")
                                                 <a class="dropdown-item"
-                                                href="{{ route('payslip.show', $payslip) }}">Generate Invoice</a>
+                                                href="{{ route('payslip.show', $payslip) }}">
+                                                <i class="fa-solid fa-receipt fa-lg mx-1"></i>
+                                                Generate Invoice</a>
                                                @endcan
 
 
 
                                                 @can('Payroll Edit')
                                                 <a class="dropdown-item"
-                                                    href="{{ route('payslip.edit', $payslip) }}">Edit</a>
+                                                    href="{{ route('payslip.edit', $payslip) }}">
+                                                    <i class="fa-solid fa-pen-to-square fa-lg mx-1"></i>
+                                                    Edit</a>
                                                 @endcan
 
                                                 @can('Payroll Delete')
@@ -156,7 +168,9 @@ $setting = Setting::first();
                                                     action="{{ route('payslip.destroy', $payslip) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button class="dropdown-item" type="submit">Delete</button>
+                                                    <button class="dropdown-item" type="submit">
+                                                        <i class="fa-solid fa-trash fa-lg mx-1"></i>
+                                                        Delete</button>
                                                 </form>
                                                 @endcan
 

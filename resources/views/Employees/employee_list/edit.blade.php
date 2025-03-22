@@ -32,7 +32,9 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-5">
                             <h2 class="display-5">Edit Employee</h2>
-                            <a href="{{ route('employee.index') }}" class="btn btn-primary">Back To Employees</a>
+                            <a href="{{ route('employee.index') }}" class="btn btn-primary">
+                                <i class="fa-solid fa-backward fa-lg mx-1"></i>
+                                Back To Employees</a>
                         </div>
 
                         <form action="{{ route('employee.update', $employee) }}" method="POST"  enctype="multipart/form-data">
@@ -590,7 +592,9 @@
                             </div>
                         </div>
 
-                            <button class="btn btn-primary" type="submit">Update Employee</button>
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fa-solid fa-pen-to-square fa-lg mx-1"></i>
+                                Update Employee</button>
                         </form>
 
                     </div>

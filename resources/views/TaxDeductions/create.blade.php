@@ -16,7 +16,9 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-5">
                             <h2 class="display-5">Create Tax Deduction</h2>
-                            <a href="{{ route('tax-deduction.index') }}" class="btn btn-primary">Back To Deductions</a>
+                            <a href="{{ route('tax-deduction.index') }}" class="btn btn-primary">
+                                <i class="fa-solid fa-backward fa-lg mx-1"></i>
+                                Back To Deductions</a>
                         </div>
 
                         <form action="{{ route('tax-deduction.store') }}" method="POST">
@@ -85,7 +87,9 @@
 
 
 
-                            <button class="btn btn-primary" type="submit">Create Tax Deduction</button>
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fas fa-plus-square fa-lg mx-1"></i>
+                                Create Tax Deduction</button>
                         </form>
 
                     </div>

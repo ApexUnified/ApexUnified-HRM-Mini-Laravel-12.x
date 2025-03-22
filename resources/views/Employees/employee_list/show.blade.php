@@ -149,7 +149,7 @@
             <div class="card-body">
             <div class="d-flex justify-content-between"> 
                 <h3 class="section-title">Full Information</h3>
-                <button type="button" id="print-btn" style="height:2.4rem;" class="btn btn-sm btn-primary"><i class="fa fa-print mx-1"></i>Print</button>    
+                <button type="button" id="print-btn" style="height:2.4rem;" class="btn btn-sm btn-primary"><i class="fa fa-print fa-lg mx-1"></i>Print</button>    
             </div>
     
                 <div class="info-grid">

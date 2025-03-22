@@ -12,7 +12,9 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-5">
                             <h2 class="display-5">Create Position</h2>
-                            <a href="{{ route('position.index') }}" class="btn btn-primary">Back To Positions</a>
+                            <a href="{{ route('position.index') }}" class="btn btn-primary">
+                                <i class="fa-solid fa-backward fa-lg mx-1"></i>
+                                Back To Positions</a>
                         </div>
 
                         <form action="{{ route('position.store') }}" method="POST">
@@ -80,7 +82,9 @@
 
 
 
-                            <button class="btn btn-primary" type="submit">Create Position</button>
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fas fa-plus-square fa-lg mx-1"></i>
+                                Create Position</button>
                         </form>
 
                     </div>

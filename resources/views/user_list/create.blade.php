@@ -11,7 +11,9 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-5">
                             <h2 class="display-5">Create User</h2>
-                            <a href="{{ route('user-list.index') }}" class="btn btn-primary">Back To Users</a>
+                            <a href="{{ route('user-list.index') }}" class="btn btn-primary">
+                                <i class="fa-solid fa-backward fa-lg mx-1"></i>
+                                Back To Users</a>
                         </div>
 
                         <form action="{{ route('user-list.store') }}" enctype="multipart/form-data" method="POST">
@@ -77,7 +79,9 @@
                                 @enderror
                             </div>
 
-                            <button class="btn btn-primary my-4" type="submit">Create User</button>
+                            <button class="btn btn-primary my-4" type="submit">
+                                <i class="fas fa-plus-square fa-lg mx-1"></i>
+                                Create User</button>
                         </form>
 
                     </div>

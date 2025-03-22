@@ -8,6 +8,10 @@
     @php
         $user_profile = !empty($user->profile) ? asset('assets/images/user-profile/' . $user->profile) : '';
     @endphp
+
+
+
+
     <div class="main-content-inner">
         <div class="row">
             <div class="col-lg-6 mt-5">
@@ -53,7 +57,9 @@
                                     </small>
                                 </div>
 
-                                <button class="btn btn-primary" type="submit">Save Changes</button>
+                                <button class="btn btn-primary" type="submit">
+                                    <i class="fa-solid fa-pen-to-square fa-lg mx-1"></i> 
+                                    Save Changes</button>
                             </form>
                         </div>
 
@@ -104,7 +110,10 @@
                                     </small>
                                 </div>
 
-                                <button class="btn btn-primary" type="submit">Save Changes</button>
+                                <button class="btn btn-primary" type="submit">
+                                    
+                                    <i class="fa-solid fa-pen-to-square fa-lg mx-1"></i> 
+                                    Save Changes</button>
                             </form>
                         </div>
 

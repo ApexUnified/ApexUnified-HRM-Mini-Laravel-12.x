@@ -50,7 +50,9 @@
                         <div class="d-flex justify-content-between align-items-center mb-5">
                             <h2 class="display-5">Permissions</h2>
                             @if (config('app.app_protocol') == 'http' && config('app.env') == 'local')
-                                <a class="btn btn-primary" href="{{ route('setting.permission.create') }}">Create
+                                <a class="btn btn-primary" href="{{ route('setting.permission.create') }}">
+                                    <i class="fas fa-plus-square fa-lg mx-1"></i> 
+                                    Create
                                     Permission</a>
                             @endif
                         </div>
@@ -871,7 +873,9 @@
 
                             <div class="row">
                                 <div class="col-md-4">
-                                    <button class="btn btn-primary my-4" type="submit">Save Changes</button>
+                                    <button class="btn btn-primary my-4" type="submit">
+                                        <i class="fa-solid fa-pen-to-square fa-lg mx-1"></i> 
+                                        Save Changes</button>
                                 </div>
                             </div>
 

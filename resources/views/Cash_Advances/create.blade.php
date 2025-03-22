@@ -16,7 +16,9 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-5">
                             <h2 class="display-5">Create Cash Advance</h2>
-                            <a href="{{ route('cash-advance.index') }}" class="btn btn-primary">Back To Cash Advances</a>
+                            <a href="{{ route('cash-advance.index') }}" class="btn btn-primary">
+                                <i class="fa-solid fa-backward fa-lg mx-1"></i>
+                                Back To Cash Advances</a>
                         </div>
 
                         <form action="{{ route('cash-advance.store') }}" method="POST">
@@ -102,7 +104,9 @@
                                 </div>
                             </div>
 
-                            <button class="btn btn-primary" type="submit">Create Cash Advance</button>
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fas fa-plus-square fa-lg mx-1"></i>
+                                Create Cash Advance</button>
                         </form>
 
                     </div>

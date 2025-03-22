@@ -25,7 +25,9 @@
                                 @enderror
                             </div>
 
-                            <button class="btn btn-primary" type="submit">Create Permission</button>
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fas fa-plus-square fa-lg mx-1"></i> 
+                                Create Permission</button>
                         </form>
 
                     </div>

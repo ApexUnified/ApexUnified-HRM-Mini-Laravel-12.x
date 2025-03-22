@@ -5,6 +5,8 @@
 @section('content')
 
 
+
+
     <div class="main-content-inner">
         <div class="row">
             <div class="col-lg-12 mt-5">
@@ -13,7 +15,9 @@
                         <div class="d-flex justify-content-between align-items-center mb-5">
                             <h2 class="display-5">Positions</h2>
                             @can('Position Create')
-                                <a href="{{ route('position.create') }}" class="btn btn-primary">Create Position</a>
+                                <a href="{{ route('position.create') }}" class="btn btn-primary">
+                                    <i class="fas fa-plus-square fa-lg mx-1"></i>
+                                    Create Position</a>
                             @endcan
                         </div>
                         <div class="single-table mt-5">
@@ -59,6 +63,7 @@
                                                 <td>
                                                     <button class="btn btn-primary dropdown-toggle" type="button"
                                                         data-toggle="dropdown" aria-expanded="false">
+                                                        <i class="fa-solid fa-hexagon-nodes-bolt fa-lg mx-1"></i>
                                                         Action
                                                     </button>
                                                     <div class="dropdown-menu" x-placement="bottom-start"
@@ -66,7 +71,9 @@
 
                                                         @can("Position Edit")
                                                         <a class="dropdown-item"
-                                                            href="{{ route('position.edit', $position) }}">Edit</a>
+                                                            href="{{ route('position.edit', $position) }}">
+                                                            <i class="fa-solid fa-pen-to-square fa-lg mx-1"></i> 
+                                                            Edit</a>
 
                                                         @endcan  
 
@@ -77,7 +84,9 @@
                                                             method="POST">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <button class="dropdown-item" type="submit">Delete</button>
+                                                            <button class="dropdown-item" type="submit">
+                                                                <i class="fa-solid fa-trash fa-lg mx-1"></i> 
+                                                                Delete</button>
                                                         </form>
                                                         @endcan
 

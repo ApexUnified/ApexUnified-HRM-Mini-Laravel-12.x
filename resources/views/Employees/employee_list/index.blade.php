@@ -11,6 +11,9 @@
         $setting = Setting::first();
 @endphp
 
+
+
+
     <div class="main-content-inner">
         <div class="row">
             <!-- table primary start -->
@@ -20,7 +23,9 @@
                         <div class="d-flex justify-content-between align-items-center mb-5">
                             <h2 class="display-5">Employees</h2>
                             @can('Employee Create')
-                                <a href="{{ route('employee.create') }}" class="btn btn-primary">Create Employee</a>
+                                <a href="{{ route('employee.create') }}" class="btn btn-primary">
+                                    <i class="fas fa-plus-square fa-lg mx-1"></i>
+                                    Create Employee</a>
                             @endcan
                         </div>
 
@@ -234,6 +239,7 @@
                                                     <td>
                                                         <button class="btn btn-primary dropdown-toggle" type="button"
                                                             data-toggle="dropdown" aria-expanded="false">
+                                                            <i class="fa-solid fa-hexagon-nodes-bolt fa-lg mx-1"></i>
                                                             Action
                                                         </button>
                                                         <div class="dropdown-menu" x-placement="bottom-start"
@@ -242,12 +248,16 @@
 
                                                             @can("Employee Show")
                                                             <a class="dropdown-item"
-                                                                href="{{ route('employee.show', $employee) }}">Show</a>
+                                                                href="{{ route('employee.show', $employee) }}">
+                                                                <i class="fa-solid fa-eye fa-lg mx-1"></i>
+                                                                Show</a>
                                                             @endcan
 
                                                             @can('Employee Edit')
                                                                 <a class="dropdown-item"
-                                                                    href="{{ route('employee.edit', $employee) }}">Edit</a>
+                                                                    href="{{ route('employee.edit', $employee) }}">
+                                                                    <i class="fa-solid fa-pen-to-square fa-lg mx-1"></i>
+                                                                    Edit</a>
                                                             @endcan
 
                                                           
@@ -258,7 +268,9 @@
                                                                     method="POST">
                                                                     @csrf
                                                                     @method('DELETE')
-                                                                    <button class="dropdown-item" type="submit">Delete</button>
+                                                                    <button class="dropdown-item" type="submit">
+                                                                        <i class="fa-solid fa-trash fa-lg mx-1"></i>
+                                                                        Delete</button>
                                                                 </form>
                                                             @endcan
                                                         </div>

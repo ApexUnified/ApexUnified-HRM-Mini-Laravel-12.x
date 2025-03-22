@@ -11,6 +11,11 @@
 $setting = Setting::first();
 @endphp
 
+
+
+
+
+
 <div class="main-content-inner">
     <div class="row">
         <div class="mt-5 col-lg-12">
@@ -19,7 +24,9 @@ $setting = Setting::first();
                     <div class="mb-5 d-flex justify-content-between align-items-center">
                         <h2 class="display-5">Overtimes</h2>
                         @can('Overtime Create')
-                        <a href="{{ route('overtime.create') }}" class="btn btn-primary">Create Overtime</a>
+                        <a href="{{ route('overtime.create') }}" class="btn btn-primary">
+                            <i class="fas fa-plus-square fa-lg mx-1"></i>
+                            Create Overtime</a>
                         @endcan
                     </div>
                     <div class="mt-5 single-table">
@@ -60,7 +67,7 @@ $setting = Setting::first();
                                         </td>
                                         <td>
                                             @if(!empty($overtime->employee->profile))
-                                            <img src="{{ asset(" assets/images/employee/profile/" .
+                                            <img src="{{ asset("assets/images/employee/profile/" .
                                                 $overtime->employee->profile ) }}"
                                             alt="" style="width:50px; height:50px; object-fit:cover;
                                             border-radius:3rem">
@@ -89,6 +96,7 @@ $setting = Setting::first();
                                         <td>
                                             <button class="btn btn-primary dropdown-toggle" type="button"
                                                 data-toggle="dropdown" aria-expanded="false">
+                                                <i class="fa-solid fa-hexagon-nodes-bolt fa-lg mx-1"></i>
                                                 Action
                                             </button>
                                             <div class="dropdown-menu" x-placement="bottom-start"
@@ -96,7 +104,9 @@ $setting = Setting::first();
 
                                                 @can('Overtime Edit')
                                                 <a class="dropdown-item"
-                                                    href="{{ route('overtime.edit', $overtime) }}">Edit</a>
+                                                    href="{{ route('overtime.edit', $overtime) }}">
+                                                    <i class="fa-solid fa-pen-to-square fa-lg mx-1"></i> 
+                                                    Edit</a>
                                                 @endcan
 
                                                 @can('Overtime Delete')
@@ -104,7 +114,9 @@ $setting = Setting::first();
                                                     action="{{ route('overtime.destroy', $overtime) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button class="dropdown-item" type="submit">Delete</button>
+                                                    <button class="dropdown-item" type="submit">
+                                                        <i class="fa-solid fa-trash fa-lg mx-1"></i> 
+                                                        Delete</button>
                                                 </form>
                                                 @endcan
 

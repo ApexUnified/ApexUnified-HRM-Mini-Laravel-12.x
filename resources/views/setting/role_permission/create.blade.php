@@ -11,7 +11,9 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-5">
                             <h2 class="display-5">Create Role</h2>
-                            <a href="{{ route('setting.roles') }}" class="btn btn-primary">Back To Roles</a>
+                            <a href="{{ route('setting.roles') }}" class="btn btn-primary">
+                                <i class="fa-solid fa-backward fa-lg mx-1"></i> 
+                                Back To Roles</a>
                         </div>
 
                         <form action="{{ route('setting.role.store') }}" method="POST" class="w-50">
@@ -26,7 +28,9 @@
                                 @enderror
                             </div>
 
-                            <button class="btn btn-primary" type="submit">Create Role</button>
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fas fa-plus-square fa-lg mx-1"></i> 
+                                Create Role</button>
                         </form>
 
                     </div>

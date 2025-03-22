@@ -11,7 +11,9 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-5">
                             <h2 class="display-5">Create Department</h2>
-                            <a href="{{ route('department.index') }}" class="btn btn-primary">Back To Departments</a>
+                            <a href="{{ route('department.index') }}" class="btn btn-primary">
+                                <i class="fa-solid fa-backward fa-lg mx-1"></i>
+                                Back To Departments</a>
                         </div>
 
                         <form action="{{ route('department.store') }}" method="POST">
@@ -49,7 +51,9 @@
                             </div>
 
 
-                            <button class="btn btn-primary" type="submit">Create Department</button>
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fas fa-plus-square fa-lg mx-1"></i>
+                                Create Department</button>
                         </form>
 
                     </div>

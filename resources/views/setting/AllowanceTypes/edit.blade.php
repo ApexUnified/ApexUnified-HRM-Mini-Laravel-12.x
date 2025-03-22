@@ -11,7 +11,9 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-5">
                             <h2 class="display-5">Edit Allowance Type</h2>
-                            <a href="{{ route('allowance-type.index') }}" class="btn btn-primary">Back To Allowance Types</a>
+                            <a href="{{ route('allowance-type.index') }}" class="btn btn-primary">
+                                <i class="fa-solid fa-backward fa-lg mx-1"></i> 
+                                Back To Allowance Types</a>
                         </div>
 
                         <form action="{{ route('allowance-type.update', $allowance_type->id) }}" method="POST">
@@ -33,7 +35,9 @@
 
 
 
-                            <button class="btn btn-primary" type="submit">Update Allowance Type</button>
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fa-solid fa-pen-to-square fa-lg mx-1"></i> 
+                                Update Allowance Type</button>
                         </form>
 
                     </div>

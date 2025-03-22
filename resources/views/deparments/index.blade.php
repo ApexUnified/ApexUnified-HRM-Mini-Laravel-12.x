@@ -4,6 +4,7 @@
 
 @section('content')
 
+
     <div class="main-content-inner">
         <div class="row">
             <!-- table primary start -->
@@ -13,7 +14,9 @@
                         <div class="d-flex justify-content-between align-items-center mb-5">
                             <h2 class="display-5">Departments</h2>
                             @can('Department Create')
-                                <a href="{{ route('department.create') }}" class="btn btn-primary">Create Department</a>
+                                <a href="{{ route('department.create') }}" class="btn btn-primary">
+                                    <i class="fas fa-plus-square fa-lg mx-1"></i>
+                                    Create Department</a>
                             @endcan
                         </div>
                         <div class="single-table mt-5">
@@ -59,13 +62,16 @@
                                                     <td>
                                                         <button class="btn btn-primary dropdown-toggle" type="button"
                                                             data-toggle="dropdown" aria-expanded="false">
+                                                            <i class="fa-solid fa-hexagon-nodes-bolt fa-lg mx-1"></i>
                                                             Action
                                                         </button>
                                                         <div class="dropdown-menu" x-placement="bottom-start"
                                                             style="position: absolute; transform:translate3d(15px, 43px, 0px); top: 0px; left: 0px; will-change: transform;">
                                                             @can('Department Edit')
                                                                 <a class="dropdown-item"
-                                                                    href="{{ route('department.edit', $department) }}">Edit</a>
+                                                                    href="{{ route('department.edit', $department) }}">
+                                                                    <i class="fa-solid fa-pen-to-square fa-lg mx-1"></i>
+                                                                    Edit</a>
                                                             @endcan
 
                                                             @can('Department Delete')
@@ -77,7 +83,9 @@
                                                                         @csrf
                                                                         @method('DELETE')
                                                                         <button class="dropdown-item"
-                                                                            type="submit">Delete</button>
+                                                                            type="submit">
+                                                                            <i class="fa-solid fa-trash fa-lg mx-1"></i>
+                                                                            Delete</button>
                                                                     </form>
                                                                 @endif
                                                             @endcan

@@ -16,7 +16,9 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-5">
                             <h2 class="display-5">Edit Loan</h2>
-                            <a href="{{ route('loan.index') }}" class="btn btn-primary">Back To Loans</a>
+                            <a href="{{ route('loan.index') }}" class="btn btn-primary">
+                                <i class="fa-solid fa-backward fa-lg mx-1"></i>
+                                Back To Loans</a>
                         </div>
 
                         <form action="{{ route('loan.update', $loan->id) }}" method="POST">
@@ -170,7 +172,9 @@
 
 
 
-                            <button class="btn btn-primary" type="submit">Update Loan</button>
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fa-solid fa-pen-to-square fa-lg mx-1"></i>
+                                Update Loan</button>
                         </form>
 
                     </div>

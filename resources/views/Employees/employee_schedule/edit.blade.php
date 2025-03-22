@@ -6,13 +6,14 @@
 
     <div class="main-content-inner">
         <div class="row">
-            <!-- table primary start -->
             <div class="col-lg-12 mt-5">
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-5">
                             <h2 class="display-5">Edit Employee Schedule</h2>
-                            <a href="{{ route('employee.index') }}" class="btn btn-primary">Back To Employee
+                            <a href="{{ route('employee.index') }}" class="btn btn-primary">
+                                <i class="fa-solid fa-backward fa-lg mx-1"></i> 
+                                Back To Employee
                                 Schedules</a>
                         </div>
 
@@ -37,7 +38,9 @@
                                 @enderror
                             </div>
 
-                            <button class="btn btn-primary" type="submit">Update Employee Schedule</button>
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fa-solid fa-pen-to-square fa-lg mx-1"></i>
+                                Update Employee Schedule</button>
                         </form>
 
                     </div>

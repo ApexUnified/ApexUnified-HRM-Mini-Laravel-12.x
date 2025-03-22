@@ -7,7 +7,9 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-5">
                             <h2 class="display-5">Create Payslip</h2>
-                            <a href="{{ route('payslip.index') }}" class="btn btn-primary">Back To Payslips</a>
+                            <a href="{{ route('payslip.index') }}" class="btn btn-primary">
+                                <i class="fa-solid fa-backward fa-lg mx-1"></i>
+                                Back To Payslips</a>
                         </div>
 
 
@@ -31,8 +33,12 @@
     
                             </div>
                             <div class="col-md-4 mt-4">
-                                <button class="btn btn-primary mt-2" type="submit"   @disabled($isDisabled ? true : false)  >Check Eligibilities</button>
-                                <button class="btn btn-danger mt-2" type="submit" wire:click='resetEverything'  >Reset Form</button>
+                                <button class="btn btn-primary mt-2" type="submit"   @disabled($isDisabled ? true : false)  >
+                                    <i class="fa-solid fa-check-to-slot fa-lg mx-1"></i>
+                                    Check Eligibilities</button>
+                                <button class="btn btn-danger mt-2" type="submit" wire:click='resetEverything'  >
+                                    <i class="fa-solid fa-rotate-left fa-lg mx-1"></i>
+                                    Reset Form</button>
                             </div>
                         </div>
                       </form>
@@ -124,7 +130,9 @@
                           <!-- Submit Button -->
                           <div class="row mt-3">
                               <div class="col-md-12 text-right">
-                                  <button class="btn btn-success" type="submit">Calculate Final Salary</button>
+                                  <button class="btn btn-success" type="submit">
+                                    <i class="fa-solid fa-calculator fa-lg mx-1"></i>
+                                    Calculate Final Salary</button>
                               </div>
                           </div>
                       </form>
@@ -134,7 +142,9 @@
                         <div class="card-body">
                            <div class="d-flex justify-content-between my-3">
                             <h4 class="mb-3">Payslip Summary</h4>
-                            <button class="btn btn-primary"wire:click="createPayslip">Create Payslip</button>
+                            <button class="btn btn-primary"wire:click="createPayslip"> 
+                                <i class="fas fa-plus-square fa-lg mx-1"></i> 
+                                Create Payslip</button>
                            </div>
                             <table class="table table-bordered">
                                 <tr class="bg-secondary text-light ">

@@ -16,7 +16,9 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-5">
                             <h2 class="display-5">Edit Cash Advance</h2>
-                            <a href="{{ route('cash-advance.index') }}" class="btn btn-primary">Back To Cash Advances</a>
+                            <a href="{{ route('cash-advance.index') }}" class="btn btn-primary">
+                                <i class="fa-solid fa-backward fa-lg mx-1"></i>
+                                Back To Cash Advances</a>
                         </div>
 
                         <form action="{{ route('cash-advance.update', $cash_advance->id) }}" method="POST">
@@ -140,7 +142,9 @@
                                 </div>
                             </div>
 
-                            <button class="btn btn-primary" type="submit">Update Cash Advance</button>
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fa-solid fa-pen-to-square fa-lg mx-1"></i>
+                                Update Cash Advance</button>
                         </form>
 
                     </div>

@@ -12,7 +12,9 @@
                     <div class="card-body">
                         <div class="mb-5 d-flex justify-content-between align-items-center">
                             <h2 class="display-5">Edit Holiday</h2>
-                            <a href="{{ route('holiday.index') }}" class="btn btn-primary">Back To Holidays</a>
+                            <a href="{{ route('holiday.index') }}" class="btn btn-primary">
+                                <i class="fa-solid fa-backward fa-lg mx-1"></i>
+                                Back To Holidays</a>
                         </div>
 
                         <form action="{{ route('holiday.update', $holiday->id) }}" method="POST">
@@ -51,7 +53,9 @@
 
 
 
-                            <button class="btn btn-primary" type="submit">Update Holiday</button>
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fa-solid fa-pen-to-square fa-lg mx-1"></i> 
+                                Update Holiday</button>
                         </form>
 
                     </div>

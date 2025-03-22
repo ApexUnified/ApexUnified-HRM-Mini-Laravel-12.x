@@ -8,6 +8,9 @@
         $setting = \App\Models\Setting::first();
     @endphp
 
+
+
+
     <div class="main-content-inner">
         <div class="row">
             <div class="col-lg-12 mt-5">
@@ -17,7 +20,9 @@
                             <h2 class="display-5">Deductions</h2>
 
                             @can("Deduction Create")
-                            <a href="{{ route('deduction.create') }}" class="btn btn-primary">Create Deduction</a>
+                            <a href="{{ route('deduction.create') }}" class="btn btn-primary">
+                                <i class="fas fa-plus-square fa-lg mx-1"></i>
+                                Create Deduction</a>
                             @endcan
 
                         </div>
@@ -66,6 +71,8 @@
                                                 <td>
                                                     <button class="btn btn-primary dropdown-toggle" type="button"
                                                         data-toggle="dropdown" aria-expanded="false">
+
+                                                        <i class="fa-solid fa-hexagon-nodes-bolt fa-lg mx-1"></i>
                                                         Action
                                                     </button>
                                                     <div class="dropdown-menu" x-placement="bottom-start"
@@ -73,7 +80,9 @@
 
                                                         @can("Deduction Edit")
                                                         <a class="dropdown-item"
-                                                            href="{{ route('deduction.edit', $deduction) }}">Edit</a>
+                                                            href="{{ route('deduction.edit', $deduction) }}">
+                                                            <i class="fa-solid fa-pen-to-square fa-lg mx-1"></i>
+                                                            Edit</a>
 
                                                         @endcan
 
@@ -84,7 +93,9 @@
                                                             method="POST">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <button class="dropdown-item" type="submit">Delete</button>
+                                                            <button class="dropdown-item" type="submit">
+                                                                <i class="fa-solid fa-trash fa-lg mx-1"></i>
+                                                                Delete</button>
                                                         </form>
                                                         @endcan
 

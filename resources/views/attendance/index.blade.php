@@ -4,6 +4,10 @@
 
 @section('content')
 
+
+
+
+
     <div class="main-content-inner">
         <div class="row">
             <!-- table primary start -->
@@ -13,7 +17,9 @@
                         <div class="d-flex justify-content-between align-items-center mb-5">
                             <h2 class="display-5">Attendances</h2>
                             @can('Attendance Create')
-                                <a href="{{ route('attendance.create') }}" class="btn btn-primary">Create Attendance</a>
+                                <a href="{{ route('attendance.create') }}" class="btn btn-primary">
+                                    <i class="fas fa-plus-square fa-lg mx-1"></i>
+                                    Create Attendance</a>
                             @endcan
                         </div>
 
@@ -26,27 +32,42 @@
 
 
 
-                        <div class="row">
-                            <div class="col-md-12 d-flex justify-content-center">
+                      <div class="row">
+                        <div class="col-md-12">
+                            <form action="{{ route('attendance.index') }}" method="GET">
 
-                                <form action="{{ route('attendance.index') }}" method="GET" class="d-flex">
-                                    <div class="d-flex align-items-center">
-                                        <label class="mr-2" style="font-size: 19px">From:</label>
-                                        <input type="text" id="min-date" name="from" value="{{ request()->from }}"
-                                            class="flatpickr-datepicker form-control mr-2" placeholder="yyyy-mm-dd">
-                                    </div>
-                                    <div class="d-flex align-items-center">
-                                        <label class="mr-2" style="font-size: 19px">To:</label>
-                                        <input type="text" id="max-date" name="to" value="{{ request()->to }}"
-                                            class="flatpickr-datepicker form-control mr-2" placeholder="yyyy-mm-dd">
-                                    </div>
-                                    <div class="d-flex align-items-center">
-                                        <button class="btn btn-primary">Search</button>
-                                    </div>
-                                </form>
 
-                            </div>
+                                <div class="d-flex justify-content-end">
+                                    <button class="btn btn-primary">
+                                        <i class="fa fa-filter" style="font-size: 1.2rem"></i>
+                                    </button>
+                                </div>
+
+
+                                <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="mr-2" style="font-size: 19px">From:</label>
+                                                <input type="text" id="min-date" name="from" value="{{ request()->from }}"
+                                                    class="flatpickr-datepicker form-control mr-2" placeholder="yyyy-mm-dd">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="mr-2" style="font-size: 19px">To:</label>
+                                                <input type="text" id="max-date" name="to" value="{{ request()->to }}"
+                                                    class="flatpickr-datepicker form-control mr-2" placeholder="yyyy-mm-dd">
+                                            </div>
+                                        </div>
+                                     
+                                </div>
+                                
+                             </form>
                         </div>
+                    </div>
+
+                        
 
                         <div class="single-table mt-5">
                             <div class="data-tables">
@@ -234,6 +255,7 @@
                                                     <td>
                                                         <button class="btn btn-primary dropdown-toggle" type="button"
                                                             data-toggle="dropdown" aria-expanded="false">
+                                                            <i class="fa-solid fa-hexagon-nodes-bolt fa-lg mx-1"></i>
                                                             Action
                                                         </button>
                                                         <div class="dropdown-menu" x-placement="bottom-start"
@@ -241,7 +263,9 @@
 
                                                             @can('Attendance Edit')
                                                                 <a class="dropdown-item"
-                                                                    href="{{ route('attendance.edit', $attendance->id) }}">Edit</a>
+                                                                    href="{{ route('attendance.edit', $attendance->id) }}">
+                                                                    <i class="fa-solid fa-pen-to-square fa-lg mx-1"></i>
+                                                                    Edit</a>
                                                             @endcan
 
                                                             @can('Attendance Delete')
@@ -250,7 +274,9 @@
                                                                     method="POST">
                                                                     @csrf
                                                                     @method('DELETE')
-                                                                    <button class="dropdown-item" type="submit">Delete</button>
+                                                                    <button class="dropdown-item" type="submit">
+                                                                        <i class="fa-solid fa-trash fa-lg mx-1"></i>
+                                                                        Delete</button>
                                                                 </form>
                                                             @endcan
                                                         </div>

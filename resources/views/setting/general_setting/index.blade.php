@@ -125,7 +125,9 @@
                                 </div>
 
                                 <div class="form-group mb-3">
-                                    <button class="btn btn-primary" type="submit">Save Changes</button>
+                                    <button class="btn btn-primary" type="submit">
+                                        <i class="fa-solid fa-pen-to-square fa-lg mx-1"></i> 
+                                        Save Changes</button>
                                 </div>
                             </form>
                         </div>

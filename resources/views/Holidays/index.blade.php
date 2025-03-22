@@ -5,6 +5,7 @@
 @section('content')
 
 
+
     <div class="main-content-inner">
         <div class="row">
             <div class="mt-5 col-lg-12">
@@ -13,7 +14,9 @@
                         <div class="mb-5 d-flex justify-content-between align-items-center">
                             <h2 class="display-5">Holidays</h2>
                             @can('Holiday Create')
-                                <a href="{{ route('holiday.create') }}" class="btn btn-primary">Create Holiday</a>
+                                <a href="{{ route('holiday.create') }}" class="btn btn-primary">
+                                    <i class="fas fa-plus-square fa-lg mx-1"></i> 
+                                    Create Holiday</a>
                             @endcan
                         </div>
                         <div class="mt-5 single-table">
@@ -58,6 +61,7 @@
                                                     <td>
                                                         <button class="btn btn-primary dropdown-toggle" type="button"
                                                             data-toggle="dropdown" aria-expanded="false">
+                                                            <i class="fa-solid fa-hexagon-nodes-bolt fa-lg mx-1"></i>
                                                             Action
                                                         </button>
                                                         <div class="dropdown-menu" x-placement="bottom-start"
@@ -65,7 +69,9 @@
 
                                                             @can('Holiday Edit')
                                                                 <a class="dropdown-item"
-                                                                    href="{{ route('holiday.edit', $holiday) }}">Edit</a>
+                                                                    href="{{ route('holiday.edit', $holiday) }}">
+                                                                    <i class="fa-solid fa-pen-to-square fa-lg mx-1"></i
+                                                                    Edit</a>
                                                             @endcan
 
                                                             @can('Holiday Delete')
@@ -74,7 +80,9 @@
                                                                     method="POST">
                                                                     @csrf
                                                                     @method('DELETE')
-                                                                    <button class="dropdown-item" type="submit">Delete</button>
+                                                                    <button class="dropdown-item" type="submit">
+                                                                        <i class="fa-solid fa-trash fa-lg mx-1"></i
+                                                                        Delete</button>
                                                                 </form>
                                                             @endcan
 

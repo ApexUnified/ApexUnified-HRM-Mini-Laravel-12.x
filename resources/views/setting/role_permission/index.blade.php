@@ -11,7 +11,9 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-5">
                             <h2 class="display-5">Roles</h2>
-                            <a href="{{ route('setting.role.create') }}" class="btn btn-primary">Create Role</a>
+                            <a href="{{ route('setting.role.create') }}" class="btn btn-primary">
+                                <i class="fas fa-plus-square fa-lg mx-1"></i> 
+                                Create Role</a>
                         </div>
                         <div class="single-table mt-5">
                             <div class="data-tables">
@@ -49,12 +51,15 @@
                                                 <td>
                                                     <button class="btn btn-primary dropdown-toggle" type="button"
                                                         data-toggle="dropdown" aria-expanded="false">
+                                                        <i class="fa-solid fa-hexagon-nodes-bolt fa-lg mx-1"></i> 
                                                         Action
                                                     </button>
                                                     <div class="dropdown-menu" x-placement="bottom-start"
                                                         style="position: absolute; transform:translate3d(15px, 43px, 0px); top: 0px; left: 0px; will-change: transform;">
                                                         <a class="dropdown-item"
-                                                            href="{{ route('setting.permission.view', $role) }}">Change
+                                                            href="{{ route('setting.permission.view', $role) }}">
+                                                            <i class="fa-solid fa-pen-to-square fa-lg mx-1"></i> 
+                                                            Change
                                                             Permissions</a>
 
                                                         @if ($role->id == 1 || $role->id == 2)
@@ -64,7 +69,9 @@
                                                                 method="POST">
                                                                 @csrf
                                                                 @method('DELETE')
-                                                                <button class="dropdown-item" type="submit">Delete</button>
+                                                                <button class="dropdown-item" type="submit">
+                                                                    <i class="fa-solid fa-trash fa-lg mx-1"></i> 
+                                                                    Delete</button>
                                                             </form>
                                                         @endif
 

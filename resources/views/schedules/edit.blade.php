@@ -62,7 +62,9 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-5">
                             <h2 class="display-5">Edit Schedule</h2>
-                            <a href="{{ route('schedule.index') }}" class="btn btn-primary">Back To Schedules</a>
+                            <a href="{{ route('schedule.index') }}" class="btn btn-primary">
+                                <i class="fa-solid fa-backward fa-lg mx-1"></i> 
+                                Back To Schedules</a>
                         </div>
 
                         <form action="{{ route('schedule.update', $schedule) }}" method="POST">
@@ -230,7 +232,9 @@
                             </div>
 
 
-                            <button class="btn btn-primary" type="submit">Update Schedule</button>
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fa-solid fa-pen-to-square fa-lg mx-1"></i>
+                                Update Schedule</button>
                         </form>
 
                     </div>

@@ -12,7 +12,9 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-5">
                             <h2 class="display-5">Edit Attendance</h2>
-                            <a href="{{ route('attendance.index') }}" class="btn btn-primary">Back To Attendance</a>
+                            <a href="{{ route('attendance.index') }}" class="btn btn-primary">
+                                <i class="fa-solid fa-backward fa-lg mx-1"></i>
+                                Back To Attendance</a>
                         </div>
 
                         <form action="{{ route('attendance.update', $attendance->id) }}" method="POST">
@@ -125,7 +127,9 @@
                           
 
 
-                            <button class="btn btn-primary" type="submit">Update Attendance</button>
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fa-solid fa-pen-to-square fa-lg mx-1"></i>
+                                Update Attendance</button>
                         </form>
 
                     </div>

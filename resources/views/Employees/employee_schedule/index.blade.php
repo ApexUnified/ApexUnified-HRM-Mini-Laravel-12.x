@@ -4,9 +4,9 @@
 
 @section('content')
 
+
     <div class="main-content-inner">
         <div class="row">
-            <!-- table primary start -->
             <div class="col-lg-12 mt-5">
                 <div class="card">
                     <div class="card-body">
@@ -47,12 +47,15 @@
                                                     <td>
                                                         <button class="btn btn-primary dropdown-toggle" type="button"
                                                             data-toggle="dropdown" aria-expanded="false">
+                                                            <i class="fa-solid fa-hexagon-nodes-bolt fa-lg mx-1"></i>
                                                             Action
                                                         </button>
                                                         <div class="dropdown-menu" x-placement="bottom-start"
                                                             style="position: absolute; transform:translate3d(15px, 43px, 0px); top: 0px; left: 0px; will-change: transform;">
                                                             <a class="dropdown-item"
-                                                                href="{{ route('employeeschedule.edit', $employee) }}">Edit</a>
+                                                                href="{{ route('employeeschedule.edit', $employee) }}">
+                                                                <i class="fa-solid fa-pen-to-square fa-lg mx-1"></i>
+                                                                Edit</a>
                                                         </div>
                                                     </td>
                                                 @endcan

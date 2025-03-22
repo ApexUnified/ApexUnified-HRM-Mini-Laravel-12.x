@@ -11,7 +11,9 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-5">
                             <h2 class="display-5">Create Position Level</h2>
-                            <a href="{{ route('position-level.index') }}" class="btn btn-primary">Back To Position Level</a>
+                            <a href="{{ route('position-level.index') }}" class="btn btn-primary">
+                                <i class="fa-solid fa-backward fa-lg mx-1"></i> 
+                                Back To Position Level</a>
                         </div>
 
                         <form action="{{ route('position-level.store') }}" method="POST">
@@ -33,7 +35,9 @@
 
 
 
-                            <button class="btn btn-primary" type="submit">Create Position Level</button>
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fas fa-plus-square fa-lg mx-1"></i> 
+                                Create Position Level</button>
                         </form>
 
                     </div>

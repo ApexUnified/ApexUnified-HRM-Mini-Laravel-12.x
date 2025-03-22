@@ -53,18 +53,20 @@ $setting = Setting::first();
                     <div class="mb-5 d-flex justify-content-between align-items-center">
                         <h2 class="display-5">Generate Payroll Invoice</h2>
                         
-                        <a href="{{ route('payslip.index') }}" class="btn btn-primary">Back To Payslips</a>
+                        <a href="{{ route('payslip.index') }}" class="btn btn-primary">
+                            <i class="fa-solid fa-backward fa-lg mx-1"></i> 
+                            Back To Payslips</a>
                       
                     </div>
 
                     <div class="d-flex justify-content-center">
                         <button class="btn btn-sm btn-primary" id="download-pdf">
-                            <i class="fa-solid fa-file-lines"></i>
+                            <i class="fa-solid fa-file-lines fa-xl mx-1"></i>
                             Download PDF
                         </button>
 
                         <button class="btn btn-sm btn-primary mx-3" id="send-mail">
-                            <i class="fa fa-envelope"></i>
+                            <i class="fa fa-envelope fa-xl mx-1"></i>
                             Send Mail
                         </button>
                     </div>

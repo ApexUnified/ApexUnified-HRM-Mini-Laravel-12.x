@@ -11,7 +11,9 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-5">
                             <h2 class="display-5">Edit Position</h2>
-                            <a href="{{ route('position.index') }}" class="btn btn-primary">Back To Positions</a>
+                            <a href="{{ route('position.index') }}" class="btn btn-primary">
+                                <i class="fa-solid fa-backward fa-lg mx-1"></i>
+                                Back To Positions</a>
                         </div>
 
                         <form action="{{ route('position.update', $position->id) }}" method="POST">
@@ -84,7 +86,9 @@
 
 
 
-                            <button class="btn btn-primary" type="submit">Update Position</button>
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fa-solid fa-pen-to-square fa-lg mx-1"></i>
+                                Update Position</button>
                         </form>
 
                     </div>

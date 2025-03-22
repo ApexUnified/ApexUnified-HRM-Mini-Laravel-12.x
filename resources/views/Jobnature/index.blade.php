@@ -4,6 +4,9 @@
 
 @section('content')
 
+
+
+
     <div class="main-content-inner">
         <div class="row">
             <div class="col-lg-12 mt-5">
@@ -12,7 +15,9 @@
                         <div class="d-flex justify-content-between align-items-center mb-5">
                             <h2 class="display-5">Job Nature</h2>
                             @can('Job Nature Create')
-                                <a href="{{ route('jobnature.create') }}" class="btn btn-primary">Create Job Nature</a>
+                                <a href="{{ route('jobnature.create') }}" class="btn btn-primary">
+                                    <i class="fas fa-plus-square fa-lg mx-1"></i> 
+                                    Create Job Nature</a>
                             @endcan
                         </div>
                         <div class="single-table mt-5">
@@ -57,6 +62,7 @@
                                                 <td>
                                                     <button class="btn btn-primary dropdown-toggle" type="button"
                                                         data-toggle="dropdown" aria-expanded="false">
+                                                        <i class="fa-solid fa-hexagon-nodes-bolt fa-lg mx-1"></i>
                                                         Action
                                                     </button>
                                                     <div class="dropdown-menu" x-placement="bottom-start"
@@ -64,7 +70,9 @@
 
                                                         @can("Job Nature Edit")
                                                         <a class="dropdown-item"
-                                                            href="{{ route('jobnature.edit', $jobNature) }}">Edit</a>
+                                                            href="{{ route('jobnature.edit', $jobNature) }}">
+                                                            <i class="fa-solid fa-pen-to-square fa-lg mx-1"></i>
+                                                            Edit</a>
                                                         @endcan
 
                                                         @can("Job Nature Delete")
@@ -73,7 +81,9 @@
                                                             method="POST">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <button class="dropdown-item" type="submit">Delete</button>
+                                                            <button class="dropdown-item" type="submit">
+                                                                <i class="fa-solid fa-trash fa-lg mx-1"></i>
+                                                                Delete</button>
                                                         </form>
                                                         @endcan
                                                     </div>

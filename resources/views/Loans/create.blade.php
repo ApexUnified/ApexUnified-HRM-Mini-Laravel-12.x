@@ -16,7 +16,9 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-5">
                             <h2 class="display-5">Create Loan</h2>
-                            <a href="{{ route('loan.index') }}" class="btn btn-primary">Back To Loans</a>
+                            <a href="{{ route('loan.index') }}" class="btn btn-primary">
+                                <i class="fa-solid fa-backward fa-lg mx-1"></i>
+                                Back To Loans</a>
                         </div>
 
                         <form action="{{ route('loan.store') }}" method="POST">
@@ -136,7 +138,9 @@
 
 
 
-                            <button class="btn btn-primary" type="submit">Create Loan</button>
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fas fa-plus-square fa-lg mx-1"></i>
+                                Create Loan</button>
                         </form>
 
                     </div>

@@ -16,7 +16,9 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-5">
                             <h2 class="display-5">Edit Deduction</h2>
-                            <a href="{{ route('deduction.index') }}" class="btn btn-primary">Back To Deductions</a>
+                            <a href="{{ route('deduction.index') }}" class="btn btn-primary">
+                                <i class="fa-solid fa-backward fa-lg mx-1"></i>
+                                Back To Deductions</a>
                         </div>
 
                         <form action="{{ route('deduction.update', $deduction->id) }}" method="POST">
@@ -73,7 +75,9 @@
 
 
 
-                            <button class="btn btn-primary" type="submit">Update Deduction</button>
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fa-solid fa-pen-to-square fa-lg mx-1"></i>
+                                Update Deduction</button>
                         </form>
 
                     </div>
