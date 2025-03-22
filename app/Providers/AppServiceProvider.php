@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Console\Commands\AttendanceReportMailSender;
 use App\Console\Commands\AutoAbsentMarker;
 use App\Console\Commands\AutoCheckoutMarker;
+use App\Console\Commands\AutoSatSunAttendanceMarker;
 use App\Console\Commands\ClearPayslipPdfFiles;
 use App\Console\Commands\PollZkDevice;
 use App\Console\Commands\ZkAttendances;
@@ -37,6 +38,7 @@ class AppServiceProvider extends ServiceProvider
         $schedule->command(AutoCheckoutMarker::class)->everySecond();
         $schedule->command(AutoAbsentMarker::class)->everyMinute();
         $schedule->command(ClearPayslipPdfFiles::class)->dailyAt("23:00");
+        $schedule->command(AutoSatSunAttendanceMarker::class)->days([6, 7])->at("9:00");
 
         if (env('APP_PROTOCOL') === "https") {
             URL::forceScheme('https');

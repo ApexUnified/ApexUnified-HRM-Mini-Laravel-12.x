@@ -128,6 +128,14 @@
                                                     <span class="badge badge-secondary p-2 rounded">
                                                             Holiday 
                                                     </span>
+                                                    @elseif ($attendance->attendance_checkin == "Saturday")
+                                                    <span class="badge badge-primary p-2 rounded">
+                                                        Saturday 
+                                                    </span>
+                                                    @elseif ($attendance->attendance_checkin == "Sunday")
+                                                    <span class="badge badge-primary p-2 rounded">
+                                                        Sunday 
+                                                    </span>
                                                     @else
                                                         {{ $attendance->FormatedTimes['checkin'] }}
                                                     @endif
@@ -144,6 +152,15 @@
                                                         <span class="badge badge-secondary p-2 rounded">
                                                              Holiday 
                                                         </span>
+
+                                                    @elseif ($attendance->attendance_checkout == "Saturday")
+                                                    <span class="badge badge-primary p-2 rounded">
+                                                        Saturday 
+                                                    </span>
+                                                    @elseif ($attendance->attendance_checkout == "Sunday")
+                                                    <span class="badge badge-primary p-2 rounded">
+                                                        Sunday 
+                                                    </span>
                                                     @else
                                                         {{ $attendance->FormatedTimes['checkout'] }}
                                                     @endif
@@ -160,6 +177,15 @@
                                                         <span class="badge badge-secondary p-2 rounded">
                                                                 Holiday 
                                                         </span>
+
+                                                    @elseif ($attendance->attendance_status == "Saturday")
+                                                    <span class="badge badge-primary p-2 rounded">
+                                                        Saturday 
+                                                    </span>
+                                                    @elseif ($attendance->attendance_status == "Sunday")
+                                                    <span class="badge badge-primary p-2 rounded">
+                                                        Sunday 
+                                                    </span>
                                                     @else
                                                         <span class="badge badge-danger p-1">
                                                             {{ $attendance->attendance_status }}</span>
@@ -188,6 +214,16 @@
                                                         <span class="badge badge-secondary p-2 rounded">
                                                                 Holiday 
                                                         </span>
+
+                                                    @elseif ($attendance->leave_type == "Saturday")
+                                                    <span class="badge badge-primary p-2 rounded">
+                                                        Saturday 
+                                                    </span>
+                                                    @elseif ($attendance->leave_type == "Sunday")
+                                                    <span class="badge badge-primary p-2 rounded">
+                                                        Sunday 
+                                                    </span>
+                                                        
                                                     @else
                                                         <span class="badge badge-success p-1"> Employee Is Present</span>
                                                     @endif

@@ -13,7 +13,12 @@ class EmployeeSeeder extends Seeder
      */
     public function run(): void
     {
-        for ($i = 0; $i <= 10; $i++) {
+        $employees = [];
+
+
+        // Employee::whereNot("id", 1)->delete();
+
+        for ($i = 0; $i <= 1000; $i++) {
             // Employee::create([
             //     "employee_id" => "EMP-" . rand(0000, 99999) . substr(uniqid(), -2),
             //     "employee_name" => "Demo Emp" . $i,
@@ -30,7 +35,7 @@ class EmployeeSeeder extends Seeder
 
 
 
-            Employee::create([
+            $employees[] = [
                 'employee_id' =>  "EMP-" . rand(0000, 9999) . substr(uniqid(), -2),
                 'parent_name' => "Device Created User",
                 'employee_dob' => now()->format("Y-m-d"),
@@ -40,8 +45,11 @@ class EmployeeSeeder extends Seeder
                 'device_id' => '["1"]',
                 'device_user_id' => rand(111, 999),
                 'employee_name' => $i . "rando",
-                'designation' => "No Designation Assigned"
-            ]);
+                'designation' => "No Designation Assigned",
+                'created_at' => now(),
+                'updated_at' => now(),
+            ];
         }
+        Employee::insert($employees);
     }
 }
