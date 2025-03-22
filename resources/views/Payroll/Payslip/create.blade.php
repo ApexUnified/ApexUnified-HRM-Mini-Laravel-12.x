@@ -40,8 +40,22 @@
 
     Livewire.on('payslip-error', function () {
      Swal.fire({
-         title: 'Payslip Created',
+         title: 'Error',
          text: 'Error Occured While Creating Payslip',
+         icon: 'error',
+         confirmButtonText: 'Okay',
+         willOpen: () => {
+            document.querySelectorAll('.swal2-container select').forEach(el => el.remove());
+        }
+     })
+    }); 
+    
+    
+    
+    Livewire.on('payslip-error-base-salary-not-set', function () {
+     Swal.fire({
+         title: 'Error',
+         text: 'Error Occured While Creating Payslip Because The Selected Employee Base Salary Not Found So Please Assign Salary To The Selected Employee',
          icon: 'error',
          confirmButtonText: 'Okay',
          willOpen: () => {

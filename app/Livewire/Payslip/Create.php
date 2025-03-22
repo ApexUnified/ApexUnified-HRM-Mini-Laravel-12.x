@@ -85,6 +85,7 @@ class Create extends Component
         // Salary Fetched
         $salary = $employee->salary;
 
+
         // From Salary Daily Salary Fetched
         $daily_salary = $salary / $total_days_in_month;
 
@@ -186,8 +187,6 @@ class Create extends Component
     public function calculateFinalSalary()
     {
 
-        // dd($this->net_salary);
-
         $this->validate([
             'allowances_arr.*' => 'sometimes|exists:allowances,id',
             'bonuses_arr.*' => 'sometimes|exists:bonuses,id',
@@ -288,6 +287,13 @@ class Create extends Component
         if (Payslip::where("employee_id", $this->employeeid)->whereMonth("created_at", $current_month)->exists()) {
             $this->dispatch("payslip-already-exists");
         } else {
+
+            if (empty($this->base_salary)) {
+                $this->dispatch('refresh-select-picker');
+                $this->dispatch("payslip-error-base-salary-not-set");
+                return;
+            }
+
             $create = Payslip::create([
                 'employee_id' => $this->employeeid,
                 'base_salary' => $this->base_salary,
