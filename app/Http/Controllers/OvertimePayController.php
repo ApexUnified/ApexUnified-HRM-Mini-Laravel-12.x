@@ -14,8 +14,8 @@ class OvertimePayController extends Controller implements HasMiddleware
     public static function middleware(): array
     {
         return [
-            new Middleware("permission:Setting View", ["only" => "index"]),
-            new Middleware("permission:Setting View", ["only" => "storeOrUpdate"]),
+            new Middleware("permission:Settings View", ["only" => "index"]),
+            new Middleware("permission:Settings View", ["only" => "storeOrUpdate"]),
         ];
     }
 

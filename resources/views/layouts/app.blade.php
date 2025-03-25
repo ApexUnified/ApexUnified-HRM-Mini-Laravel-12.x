@@ -48,6 +48,7 @@ $user = \App\Models\User::find($id);
 
 <body>
 
+     
     <!-- preloader area start -->
     <div id="preloader">
         <div class="typewriter">
@@ -638,11 +639,13 @@ $user = \App\Models\User::find($id);
 
     <script src="{{ asset('assets/js/flatTimepicker.js') }}"></script>
   
+   <!-- bootstrap 4 js -->
+   <script src="{{ asset('assets/js/popper.min.js') }}"></script>
+   <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
 
-    <!-- bootstrap 4 js -->
-    <script src="{{ asset('assets/js/popper.min.js') }}"></script>
-    <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('assets/js/bootstrap-select.min.js') }}"></script>
+  
+
+
 
 
 
@@ -705,7 +708,14 @@ $user = \App\Models\User::find($id);
     <script src="{{ asset('assets/js/plugins.js') }}"></script>
     <script src="{{ asset('assets/js/scripts.js') }}"></script>
 
+    <script src="{{ asset('assets/js/bootstrap-select.min.js') }}"></script>
 
+    <script>
+        $(document).ready(function(){
+            $("select").selectpicker("destroy").selectpicker();
+        });
+    </script>
+    
     @livewireScripts()
 
     @yield('js')
@@ -713,12 +723,14 @@ $user = \App\Models\User::find($id);
 </body>
 
 <script>
+    $(document).ready(function(){
     Livewire.on("refresh-select-picker", () => {
-     setTimeout(() => {
-         $("select").selectpicker("destroy").selectpicker();
-     }, 200);
+    setTimeout(() => {
+        $("select").selectpicker("destroy").selectpicker();
+        }, 300);
 
- });
+        });
+    });
  </script>
 
 </html>

@@ -108,7 +108,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="repayment_date" class="col-form-label">Repayment Date *</label>
-                                        <input type="text" name="repayment_date" class="form-control" id="repayment_date"
+                                        <input type="text" name="repayment_date" class="form-control flatpickr-datepicker" id="repayment_date"
                                             value="{{ old('repayment_date') }}">
                                         @error('repayment_date')
                                             <small class="text-danger">{{ $message }}</small>

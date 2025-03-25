@@ -37,11 +37,9 @@ use App\Models\CashAdvance;
 use App\Models\Currency;
 use App\Models\Deduction;
 use App\Models\JobNatureType;
+use App\Models\ZktecoDevice;
 use Illuminate\Support\Facades\Route;
-
-
-
-
+use Rats\Zkteco\Lib\ZKTeco;
 
 Route::get('/', function () {
     return redirect()->route('dashboard');
@@ -51,7 +49,42 @@ Route::middleware('auth')->group(function () {
 
     Route::controller(DashboardController::class)->group(function () {
         Route::get('/dashboard', 'index')->name('dashboard');
-        Route::get("/zk-check", "deviceCheck");
+
+
+        Route::get("/zk-check", function () {
+            $devices = ZktecoDevice::all();
+            // $employees = [];
+            $attendances = [];
+            $devicesTime = [];
+            if ($devices->isNotEmpty()) {
+                $timeout = 3;
+                foreach ($devices as $device) {
+                    $isConnected = false;
+                    $socket = stream_socket_client("tcp://{$device->ip_address}:{$device->port}", $errno, $errstr, $timeout);
+
+                    if ($socket) {
+                        fclose($socket);
+                        $isConnected = true;
+                    }
+
+
+                    if ($isConnected) {
+                        $zk = new ZKTeco($device->ip_address, $device->port);
+                        if ($zk->connect()) {
+                            set_time_limit(120);
+                            // $employees[] = $zk->getUser();
+                            $attendances[] = $zk->getAttendance();
+                            // $zk->clearAttendance();
+                            // $devicesTime[] = $zk->getTime();
+                        }
+                    }
+                }
+            }
+
+            // return $devicesTime;
+            // return $employees;
+            return $attendances;
+        });
     });
 
     Route::resource('department', DepartmentController::class)->except("show");

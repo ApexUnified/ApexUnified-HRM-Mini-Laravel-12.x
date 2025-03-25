@@ -13,10 +13,10 @@ class BranchController extends Controller implements HasMiddleware
     public static function middleware(): array
     {
         return [
-            new Middleware("permission:Setting View", ["only" => "index"]),
-            new Middleware("permission:Setting View", ["only" => "create", "store"]),
-            new Middleware("permission:Setting View", ["only" => "Edit", "update"]),
-            new Middleware("permission:Setting View", ["only" => "destroy", "deletebyselection"]),
+            new Middleware("permission:Settings View", ["only" => "index"]),
+            new Middleware("permission:Settings View", ["only" => "create", "store"]),
+            new Middleware("permission:Settings View", ["only" => "Edit", "update"]),
+            new Middleware("permission:Settings View", ["only" => "destroy", "deletebyselection"]),
         ];
     }
 

@@ -23,7 +23,7 @@ class AdvanceSalaryController extends Controller implements HasMiddleware
 
     public function index()
     {
-        $advance_salaries = AdvanceSalary::orderBy("created_at", "DESC")->get();
+        $advance_salaries = AdvanceSalary::latest()->get();
         return view("AdvanceSalaries.index", compact("advance_salaries"));
     }
 

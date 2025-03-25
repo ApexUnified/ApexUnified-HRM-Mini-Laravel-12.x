@@ -3,16 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Attendance;
+use App\Models\Branch;
 use App\Models\Department;
 use App\Models\Employee;
+use App\Models\Holiday;
 use App\Models\ZktecoDevice;
+use Carbon\Carbon;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use Rats\Zkteco\Lib\ZKTeco;
 
 class DashboardController extends Controller implements HasMiddleware
 {
-    public static function middleware() : array
+    public static function middleware(): array
     {
         return [
             new Middleware("permission:Dashboard View", ["only" => "index"])
@@ -24,36 +27,33 @@ class DashboardController extends Controller implements HasMiddleware
         $TotalAttendances = Attendance::count();
         $TotalDevices = ZktecoDevice::count();
         $TotalDepartments = Department::count();
+        $upcomingHoliday = $this->getUpcomingHoliday();
+        $branches = Branch::count();
 
-
-        return view('dashboard', compact("TotalEmployees", "TotalAttendances", "TotalDevices","TotalDepartments"));
+        return view('dashboard', compact(
+            "TotalEmployees",
+            "TotalAttendances",
+            "TotalDevices",
+            "TotalDepartments",
+            "upcomingHoliday",
+            "branches"
+        ));
     }
 
-    public function deviceCheck()
+
+
+    private function getUpcomingHoliday()
     {
 
-        $devices = ZktecoDevice::all();
-        // $employees = [];
-        $attendances = [];
-        $devicesTime = [];
-        if ($devices->isNotEmpty()) {
-            foreach ($devices as $device) {
+        $now = Carbon::now();
 
-                $zk = new ZKTeco($device->ip_address, $device->port);
-                if ($zk->connect()) {
-                    set_time_limit(120);
-                    // $employees[] = $zk->getUser();
-                    $attendances[] = $zk->getAttendance();
-                    // $zk->clearAttendance();
-                    // $devicesTime[] = $zk->getTime();
-                }
-
-
-            }
+        $upcomingHoliday = Holiday::whereDate("holiday_date", ">", $now)->first(["holiday_date", "holiday_name"]);
+        if (!empty($upcomingHoliday)) {
+            $parsedHolidayDate = Carbon::parse($upcomingHoliday->holiday_date);
+            $differenceFromHoliday = $parsedHolidayDate->diffForHumans($now);
+            return  $upcomingHoliday->holiday_name  . " Holiday "  . $differenceFromHoliday;
+        } else {
+            return "No Holiday Futher";
         }
-
-        // return $devicesTime;
-        // return $employees;
-        return $attendances;
     }
 }

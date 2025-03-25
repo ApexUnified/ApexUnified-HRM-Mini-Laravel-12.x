@@ -93,7 +93,7 @@ $setting = Setting::first();
                                         <th>Base Salary</th>
                                         <th>Net Salary</th>
                                         <th>Status</th>
-                                        <th>Pay Date</th>
+                                        <th>Payslip Creation Date</th>
 
                                         @if (auth()->user()->can('Payroll Delete') || auth()->user()->can('Payroll
                                         Edit') || auth()->user()->can("Payroll Invoice Generate"))

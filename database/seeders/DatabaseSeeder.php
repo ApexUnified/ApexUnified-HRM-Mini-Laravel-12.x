@@ -1,12 +1,9 @@
 <?php
 
 namespace Database\Seeders;
-
-use App\Models\Branch;
-use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Nette\Utils\Random;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -29,6 +26,9 @@ class DatabaseSeeder extends Seeder
             JobNatureTypeSeeder::class,
             PositionLevelSeeder::class
             // EmployeeSeeder::class
+            // PayslipSeeder::class
+            // CashAdvanceSeeder::class
+            // AdvanceSalarySeeder::class
         ]);
     }
 }

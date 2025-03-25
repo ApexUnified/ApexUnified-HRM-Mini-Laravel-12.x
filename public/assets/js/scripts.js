@@ -6,9 +6,6 @@
     Preloader
     ==================================*/
 
-    $(document).ready(function () {
-        $("select").selectpicker();
-    });
 
 
     var preloader = $('#preloader');

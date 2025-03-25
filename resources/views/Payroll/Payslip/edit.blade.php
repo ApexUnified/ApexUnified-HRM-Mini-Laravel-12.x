@@ -33,7 +33,7 @@
          willOpen: () => {
             document.querySelectorAll('.swal2-container select').forEach(el => el.remove());
         }
-     })
+     });
     });
 </script>
 

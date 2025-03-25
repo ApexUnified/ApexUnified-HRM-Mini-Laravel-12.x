@@ -23,7 +23,7 @@ class CashAdvanceController extends Controller implements HasMiddleware
 
     public function index()
     {
-        $cash_advances = CashAdvance::orderBy("created_at", "DESC")->get();
+        $cash_advances = CashAdvance::latest()->get();
         return view("Cash_Advances.index", compact("cash_advances"));
     }
 

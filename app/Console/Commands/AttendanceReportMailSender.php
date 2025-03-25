@@ -99,7 +99,10 @@ class AttendanceReportMailSender extends Command
             $attendance_checkin = null;
             $attendance_checkout = null;
 
-            if ($attendance->attendance_status == "Absent" || $attendance->attendance_status == "Holiday") {
+            if (
+                $attendance->attendance_status == "Absent" || $attendance->attendance_status == "Holiday"
+                || $attendance->attendance_status == "Saturday" || $attendance->attendance_status == "Sunday"
+            ) {
                 $attendance_checkin = $attendance->attendance_checkin;
                 $attendance_checkout = $attendance->attendance_checkout;
             } else {
