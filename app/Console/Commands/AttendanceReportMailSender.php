@@ -55,9 +55,9 @@ class AttendanceReportMailSender extends Command
 
         if ($current_time->isSameMinute($mail_sent_time)) {
             if (!$mail_sent_date) {
-                Log::info("Sending Mail ");
+                Log::infsso("Sending Mail ");
                 $yesterday = Carbon::yesterday()->format("Y-m-d");
-                $attendances = Attendance::where("attendance_date", $yesterday)->get();
+                $attendances = Attendance::whereDate("attendance_date", $yesterday)->get();
                 if ($attendances->isNotEmpty()) {
                     $this->sendMail($attendances, $mail_setting, $today);
 
