@@ -23,6 +23,8 @@ class DashboardController extends Controller implements HasMiddleware
     }
     public function index()
     {
+
+
         $TotalEmployees = Employee::count();
         $TotalAttendances = Attendance::count();
         $TotalDevices = ZktecoDevice::count();

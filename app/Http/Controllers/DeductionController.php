@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Deduction;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
@@ -20,10 +21,17 @@ class DeductionController extends Controller implements HasMiddleware
         ];
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $deductions = Deduction::orderBy("created_at", "DESC")->get();
-        return view("Deductions.index", compact("deductions"));
+        $deductions = Deduction::latest()->paginate(10);
+
+        $setting = Setting::first();
+
+        if ($request->ajax()) {
+            return view("Partials.Deduction.table_body", compact("deductions", "setting"))->render();
+        }
+
+        return view("Deductions.index", compact("deductions", "setting"));
     }
 
     public function create()

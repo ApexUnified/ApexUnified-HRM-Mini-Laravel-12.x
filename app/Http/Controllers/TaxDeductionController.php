@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Setting;
 use App\Models\TaxDeduction;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
@@ -20,10 +21,16 @@ class TaxDeductionController extends Controller implements HasMiddleware
         ];
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $taxDeductions = TaxDeduction::orderBy("created_at", "DESC")->get();
-        return view("TaxDeductions.index", compact("taxDeductions"));
+        $taxDeductions = TaxDeduction::latest()->paginate(10);
+        $setting = Setting::first();
+
+        if ($request->ajax()) {
+            return view("Partials.TaxDeduction.table_body", compact("setting", "taxDeductions"))->render();
+        }
+
+        return view("TaxDeductions.index", compact("taxDeductions", "setting"));
     }
 
 

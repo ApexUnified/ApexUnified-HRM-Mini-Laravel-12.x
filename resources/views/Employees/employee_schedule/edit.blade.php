@@ -11,8 +11,8 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-5">
                             <h2 class="display-5">Edit Employee Schedule</h2>
-                            <a href="{{ route('employee.index') }}" class="btn btn-primary">
-                                <i class="fa-solid fa-backward fa-lg mx-1"></i> 
+                            <a href="{{ route('employeeschedule.index') }}" class="btn btn-primary">
+                                <i class="fa-solid fa-backward fa-lg mx-1"></i>
                                 Back To Employee
                                 Schedules</a>
                         </div>

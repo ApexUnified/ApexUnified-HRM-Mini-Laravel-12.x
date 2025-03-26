@@ -8,6 +8,7 @@ use App\Models\Employee;
 use App\Models\JobNature;
 use App\Models\Position;
 use App\Models\Schedule;
+use App\Models\Setting;
 use App\Models\User;
 use App\Models\ZktecoDevice;
 use Flasher\Toastr\Laravel\Facade\Toastr;
@@ -65,14 +66,25 @@ class EmployeeController extends Controller implements HasMiddleware
 
 
 
-        $employees = $employees->get();
-        $departments = Department::all();
-        $positions = Position::all();
-        $devices = ZktecoDevice::all();
+
+
+
+        $employees = $employees->paginate(10);
 
         if ($request->hasAny(["department_id", "gender", "position_id", "marital_status", "device_id", "blood_group"]) && $employees->isEmpty()) {
             Toastr()->info("No Results Found From Your Given Search");
         }
+
+        if ($request->ajax()) {
+            $setting = Setting::first();
+            return view("Partials.Employees.table_body", compact("employees", "setting"))->render();
+        }
+
+        $departments = Department::all();
+        $positions = Position::all();
+        $devices = ZktecoDevice::all();
+
+
         return view("Employees.employee_list.index", compact("employees", "departments", "positions", "devices"));
     }
 

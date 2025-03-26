@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AdvanceSalary;
 use App\Models\Employee;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
@@ -21,10 +22,16 @@ class AdvanceSalaryController extends Controller implements HasMiddleware
         ];
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $advance_salaries = AdvanceSalary::latest()->get();
-        return view("AdvanceSalaries.index", compact("advance_salaries"));
+        $advance_salaries = AdvanceSalary::latest()->paginate(10);
+        $setting = Setting::first();
+
+        if ($request->ajax()) {
+            return view("Partials.AdvanceSalary.table_body", compact("advance_salaries", "setting"))->render();
+        }
+
+        return view("AdvanceSalaries.index", compact("advance_salaries", "setting"));
     }
 
 

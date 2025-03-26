@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CashAdvance;
 use App\Models\Employee;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
@@ -21,10 +22,17 @@ class CashAdvanceController extends Controller implements HasMiddleware
         ];
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $cash_advances = CashAdvance::latest()->get();
-        return view("Cash_Advances.index", compact("cash_advances"));
+        $cash_advances = CashAdvance::latest()->paginate(10);
+        $setting = Setting::first();
+
+
+        if ($request->ajax()) {
+            return view("Partials.CashAdvance.table_body", compact("cash_advances", "setting"))->render();
+        }
+
+        return view("Cash_Advances.index", compact("cash_advances", "setting"));
     }
 
 

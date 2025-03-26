@@ -41,6 +41,7 @@ class AutoAbsentMarker extends Command
                 $current_date = Carbon::now()->format("Y-m-d");
                 $holiday = Holiday::whereDate("holiday_date", $current_date)->first();
 
+                $batchSIZE = 1000;
                 $absentData = [];
                 $now = Carbon::now();
 
@@ -50,37 +51,44 @@ class AutoAbsentMarker extends Command
                     ->toArray();
 
 
-                $absent_employees = Employee::whereNotIn("id", $existing_attendance)->get();
+                $absent_employees = Employee::whereNotIn("id", $existing_attendance);
+                $absent_employees->chunk(1000, function ($employees) use (&$absentData, $current_date, $now, $holiday, $batchSIZE) {
+                    foreach ($employees as $employee) {
 
-
-                foreach ($absent_employees as $employee) {
-
-                    if (!empty($holiday)) {
-                        $absentData[] = [
-                            "employee_id" => $employee->id,
-                            "attendance_date" => $current_date,
-                            "attendance_status" => "Holiday",
-                            "attendance_checkin" => "Holiday",
-                            "attendance_checkout" => "Holiday",
-                            "leave_type" => "Holiday",
-                            "hours_worked" => 0,
-                            "created_at" => $now,
-                            "updated_at" => $now,
-                        ];
-                    } else {
-                        $absentData[] = [
-                            "employee_id" => $employee->id,
-                            "attendance_date" => $current_date,
-                            "attendance_status" => "Absent",
-                            "attendance_checkin" => "Absent",
-                            "attendance_checkout" => "Absent",
-                            "leave_type" => "Absent",
-                            "hours_worked" => 0,
-                            "created_at" => $now,
-                            "updated_at" => $now,
-                        ];
+                        if (!empty($holiday)) {
+                            $absentData[] = [
+                                "employee_id" => $employee->id,
+                                "attendance_date" => $current_date,
+                                "attendance_status" => "Holiday",
+                                "attendance_checkin" => "Holiday",
+                                "attendance_checkout" => "Holiday",
+                                "leave_type" => "Holiday",
+                                "hours_worked" => 0,
+                                "created_at" => $now,
+                                "updated_at" => $now,
+                            ];
+                        } else {
+                            $absentData[] = [
+                                "employee_id" => $employee->id,
+                                "attendance_date" => $current_date,
+                                "attendance_status" => "Absent",
+                                "attendance_checkin" => "Absent",
+                                "attendance_checkout" => "Absent",
+                                "leave_type" => "Absent",
+                                "hours_worked" => 0,
+                                "created_at" => $now,
+                                "updated_at" => $now,
+                            ];
+                        }
                     }
-                }
+
+                    if (count($absentData) >= $batchSIZE) {
+                        Attendance::insert($absentData);
+                        $absentData = [];
+                    }
+                });
+
+
 
 
                 if (isset($absentData) && count($absentData) > 0) {

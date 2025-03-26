@@ -29,9 +29,8 @@ class AutoSatSunAttendanceMarker extends Command
     public function handle()
     {
         $now = Carbon::now();
-        $employees = Employee::all();
 
-        $employees_count = $employees->count();
+        $employees_count = Employee::count();
         $attendances_count = Attendance::whereDate("attendance_date", $now)->count();
 
 
@@ -41,58 +40,60 @@ class AutoSatSunAttendanceMarker extends Command
             return;
         }
 
-        $sat_attendances = [];
-        $sun_attendances = [];
 
-        if ($now->isSaturday()) {
-            foreach ($employees as $employee) {
 
-                $sat_attendances[] =  [
-                    "employee_id" => $employee->id,
-                    "attendance_date" => $now->format("Y-m-d"),
-                    "attendance_status" => "Saturday",
-                    "attendance_checkin" => "Saturday",
-                    "attendance_checkout" => "Saturday",
-                    "leave_type" => "Saturday",
-                    "hours_worked" => 0,
-                    "created_at" => $now,
-                    "updated_at" => $now,
-                ];
+
+        Employee::chunk(1000, function ($employees) use ($now) {
+            $attendances = [];
+
+            if ($now->isSaturday()) {
+                foreach ($employees as $employee) {
+
+                    $attendances[] =  [
+                        "employee_id" => $employee->id,
+                        "attendance_date" => $now->format("Y-m-d"),
+                        "attendance_status" => "Saturday",
+                        "attendance_checkin" => "Saturday",
+                        "attendance_checkout" => "Saturday",
+                        "leave_type" => "Saturday",
+                        "hours_worked" => 0,
+                        "created_at" => $now,
+                        "updated_at" => $now,
+                    ];
+                }
+
+                info("Saturday Attendance Marked");
+            } elseif ($now->isSunday()) {
+
+                foreach ($employees as $employee) {
+
+                    $attendances = [
+                        "employee_id" => $employee->id,
+                        "attendance_date" => $now->format("Y-m-d"),
+                        "attendance_status" => "Sunday",
+                        "attendance_checkin" => "Sunday",
+                        "attendance_checkout" => "Sunday",
+                        "leave_type" => "Sunday",
+                        "hours_worked" => 0,
+                        "created_at" => $now,
+                        "updated_at" => $now,
+
+                    ];
+
+
+                    info("Sunday Attendance Marked");
+                }
+            } else {
+
+                info("No Given Day Found To Mark Attendance");
             }
 
-            info("Saturday Attendance Marked");
-        } elseif ($now->isSunday()) {
-
-            foreach ($employees as $employee) {
-
-                $sun_attendances = [
-                    "employee_id" => $employee->id,
-                    "attendance_date" => $now->format("Y-m-d"),
-                    "attendance_status" => "Sunday",
-                    "attendance_checkin" => "Sunday",
-                    "attendance_checkout" => "Sunday",
-                    "leave_type" => "Sunday",
-                    "hours_worked" => 0,
-                    "created_at" => $now,
-                    "updated_at" => $now,
-
-                ];
 
 
-                info("Sunday Attendance Marked");
+
+            if (isset($attendances) && count($attendances) > 0) {
+                Attendance::insert($attendances);
             }
-        } else {
-
-            info("No Given Day Found To Mark Attendance");
-        }
-
-
-
-
-        if (isset($sat_attendances) && count($sat_attendances) > 0) {
-            Attendance::insert($sat_attendances);
-        } elseif (isset($sun_attendances) && count($sun_attendances) > 0) {
-            Attendance::insert($sun_attendances);
-        }
+        });
     }
 }

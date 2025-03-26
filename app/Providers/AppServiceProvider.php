@@ -32,6 +32,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot(Schedule $schedule): void
     {
 
+        Paginator::useBootstrapFive();
+
         $schedule->command(PollZkDevice::class)->everyMinute();
         $schedule->command(ZkAttendances::class)->everySecond();
         $schedule->command(AttendanceReportMailSender::class)->everyMinute();

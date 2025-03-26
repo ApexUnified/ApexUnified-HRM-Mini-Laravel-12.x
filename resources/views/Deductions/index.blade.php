@@ -4,12 +4,6 @@
 
 @section('content')
 
-    @php
-        $setting = \App\Models\Setting::first();
-    @endphp
-
-
-
 
     <div class="main-content-inner">
         <div class="row">
@@ -19,97 +13,17 @@
                         <div class="d-flex justify-content-between align-items-center mb-5">
                             <h2 class="display-5">Deductions</h2>
 
-                            @can("Deduction Create")
-                            <a href="{{ route('deduction.create') }}" class="btn btn-primary">
-                                <i class="fas fa-plus-square fa-lg mx-1"></i>
-                                Create Deduction</a>
+                            @can('Deduction Create')
+                                <a href="{{ route('deduction.create') }}" class="btn btn-primary">
+                                    <i class="fas fa-plus-square fa-lg mx-1"></i>
+                                    Create Deduction</a>
                             @endcan
 
                         </div>
-                        <div class="single-table mt-5">
-                            <div class="data-tables">
-                                <table id="Deduction_Table" class="text-center">
-                                    <thead class="bg-light text-capitalize">
-                                        <tr>
-                                            <th class="no-print"></th>
-                                            <th class="no-print">
-                                                <label class="checkbox-container">
-                                                    <input type="checkbox" id="select_all">
-                                                    <div class="checkmark"></div>
-                                                </label>
-                                            </th>
-                                            <th>Deduction Type</th>
-                                            <th>Deduction Amount</th>
-                                            <th>Description</th>
-                                            <th>Date</th>
-
-                                            @if(auth()->user()->can("Deduction Edit") || auth()->user()->can("Deduction Delete"))
-                                            <th class="no-print">Action</th>
-                                            @endif
-
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($deductions as $deduction)
-                                            <tr>
-                                                <td></td>
-                                                <td>
-
-                                                    <label class="checkbox-container" style="margin-left: 0.5rem">
-                                                        <input type="checkbox" class="each_select"
-                                                            value="{{ $deduction->id }}">
-                                                        <div class="checkmark"></div>
-                                                    </label>
-                                                </td>
-
-                                                <td>{{ $deduction->deduction_type }}</td>
-                                                <td>{{ $setting->currency }} {{ $deduction->deduction_amount }}</td>
-                                                <td>{{ $deduction->description ?? 'No Description Given' }}</td>
-                                                <td>{{ $deduction->created_at->format('Y-M-d') }}</td>
-
-                                                @if(auth()->user()->can("Deduction Edit") || auth()->user()->can("Deduction Delete"))
-                                                <td>
-                                                    <button class="btn btn-primary dropdown-toggle" type="button"
-                                                        data-toggle="dropdown" aria-expanded="false">
-
-                                                        <i class="fa-solid fa-hexagon-nodes-bolt fa-lg mx-1"></i>
-                                                        Action
-                                                    </button>
-                                                    <div class="dropdown-menu" x-placement="bottom-start"
-                                                        style="position: absolute; transform:translate3d(15px, 43px, 0px); top: 0px; left: 0px; will-change: transform;">
-
-                                                        @can("Deduction Edit")
-                                                        <a class="dropdown-item"
-                                                            href="{{ route('deduction.edit', $deduction) }}">
-                                                            <i class="fa-solid fa-pen-to-square fa-lg mx-1"></i>
-                                                            Edit</a>
-
-                                                        @endcan
-
-
-                                                        @can("Deduction Delete")
-                                                        <form class="deduction-delete-form"
-                                                            action="{{ route('deduction.destroy', $deduction) }}"
-                                                            method="POST">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button class="dropdown-item" type="submit">
-                                                                <i class="fa-solid fa-trash fa-lg mx-1"></i>
-                                                                Delete</button>
-                                                        </form>
-                                                        @endcan
-
-                                                    </div>
-                                                </td>
-                                                @endif
-                                            </tr>
-                                        @endforeach
-
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                        @include('Partials.Deduction.table_body', [
+                            'deductions' => $deductions,
+                            'setting' => $setting,
+                        ])
                     </div>
                 </div>
             </div>
@@ -121,23 +35,60 @@
 
         <script>
             var deduction_delete_btn = @json(auth()->user()->can('Deduction Delete'));
-            $(document).on("click", ".deduction-delete-form", function(e) {
-                let form = this;
-                e.preventDefault();
-                Swal.fire({
-                    title: 'Confirmation',
-                    text: 'Do You Really Want To Delete This Deduction ? This Action Cannot Be Reversable',
-                    icon: 'info',
-                    showCancelButton: true,
-                    confirmButtonColor: "#435ebe",
-                    cancelButtonColor: "#d33",
-                    confirmButtonText: "Yes, Submit!",
-                    cancelButtonText: "Cancel",
-                    confirmButtonText: 'Okay'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        form.submit();
-                    }
+
+
+            $(document).ready(function() {
+
+
+
+                $(document).on('click', '#deduction-pagination-links a', function(e) {
+                    e.preventDefault();
+                    let pageUrl = $(this).attr("href");
+
+
+
+                    $.get(pageUrl, function(data) {
+                        let htmlData = $("<div>").html(data);
+                        let newRows = htmlData.find(".deduction-table-rows");
+                        let newPagination = $(htmlData).find("#deduction-pagination-links")
+                            .html();
+
+                        if (newRows.length > 0) {
+                            $("tbody").html(newRows);
+                        } else {
+                            console.log("No New Table Data");
+                        }
+
+
+                        if (newPagination) {
+                            $("#deduction-pagination-links").html(newPagination);
+                        } else {
+                            console.log("No New Pagination");
+                        }
+                    });
+
+
+                });
+
+
+                $(document).on("click", ".deduction-delete-form", function(e) {
+                    let form = this;
+                    e.preventDefault();
+                    Swal.fire({
+                        title: 'Confirmation',
+                        text: 'Do You Really Want To Delete This Deduction ? This Action Cannot Be Reversable',
+                        icon: 'info',
+                        showCancelButton: true,
+                        confirmButtonColor: "#435ebe",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "Yes, Submit!",
+                        cancelButtonText: "Cancel",
+                        confirmButtonText: 'Okay'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            form.submit();
+                        }
+                    });
                 });
             });
         </script>

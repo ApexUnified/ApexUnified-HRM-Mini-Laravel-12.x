@@ -47,7 +47,7 @@ class AttendanceReportMailSender extends Command
         $mail_sent_date = MailLog::whereDate('mail_sent', $today)->first();
 
         // Log::info([
-        //     'current Time' =>$current_time->format("H:i"),
+        //     'current Time' => $current_time->format("H:i"),
         //     'mail sender time' => $mail_sent_time->format("H:i"),
         //     'today' => $today->format("Y-m-d"),
 
@@ -55,23 +55,24 @@ class AttendanceReportMailSender extends Command
 
         if ($current_time->isSameMinute($mail_sent_time)) {
             if (!$mail_sent_date) {
-                Log::infsso("Sending Mail ");
-                $yesterday = Carbon::yesterday()->format("Y-m-d");
-                $attendances = Attendance::whereDate("attendance_date", $yesterday)->get();
-                if ($attendances->isNotEmpty()) {
-                    $this->sendMail($attendances, $mail_setting, $today);
+                // Log::info("Sending Mail ");
+                $yesterday = Carbon::yesterday();
+                $mailSent = $this->processAttendancesInChunks($yesterday, $mail_setting, $today);
 
-                    // Log::info("Yesterdays Attendances: " . $attendances);
 
+                if ($mailSent) {
+                    // Log::info("Attendance report sent successfully.");
                 } else {
-                    return;
+                    // Log::info("No attendance data available for yesterday.");
                 }
             }
         }
     }
 
-    private function sendMail($attendances, $mail_setting, $today)
+
+    private function processAttendancesInChunks($yesterday, $mail_setting, $today)
     {
+
         $reportDate = Carbon::yesterday()->format('Y_m_d');
         $fileName = 'attendance_report_' . $reportDate . '.csv';
         $directory = public_path("assets/report");
@@ -79,7 +80,10 @@ class AttendanceReportMailSender extends Command
             File::makeDirectory($directory, 0777, true);
         }
 
+
+
         $filePath = $directory . '/' . $fileName;
+
 
         $file = fopen($filePath, 'w');
 
@@ -93,6 +97,28 @@ class AttendanceReportMailSender extends Command
             'Status',
             'Leave Type',
         ]);
+
+        fclose($file);
+
+        $hasData = false;
+
+
+        Attendance::whereDate("attendance_date", $yesterday)
+            ->chunk(1000, function ($attendances) use ($filePath, &$hasData) {
+                $this->appendToCsv($attendances, $filePath);
+                $hasData = true;
+            });
+
+
+        if ($hasData) {
+            $this->sendMail($filePath, $mail_setting, $today);
+            // Log::info("Now Sending Mail To HR");
+        }
+    }
+
+    private function appendToCsv($attendances, $filePath)
+    {
+        $file = fopen($filePath, 'a'); // Append mode
 
         foreach ($attendances as $attendance) {
 
@@ -123,9 +149,14 @@ class AttendanceReportMailSender extends Command
             ]);
         }
         fclose($file);
+    }
 
+
+
+    private function sendMail($filePath, $mail_setting, $today)
+    {
         if (!file_exists($filePath)) {
-            // Log::error("Failed to generate attendance report file: " . $filePath);
+            Log::error("Failed to generate attendance report file: " . $filePath);
             return;
         }
 
@@ -141,6 +172,5 @@ class AttendanceReportMailSender extends Command
 
         MailLog::create(['mail_sent' => $today]);
         // Log::info("Mail sent successfully with the attendance report: " . $filePath);
-
     }
 }

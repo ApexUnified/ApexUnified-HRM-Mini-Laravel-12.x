@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Employee;
 use App\Models\Overtime;
 use App\Models\OvertimePay;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
@@ -22,11 +23,18 @@ class OvertimeController extends Controller implements HasMiddleware
         ];
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $overtimes = Overtime::latest()->get();
+        $overtimes = Overtime::latest()->paginate(10);
+        $setting = Setting::first();
 
-        return view("Overtimes.index", compact("overtimes"));
+
+
+        if ($request->ajax()) {
+            return view("Partials.Overtime.table_body", compact("overtimes", "setting"))->render();
+        }
+
+        return view("Overtimes.index", compact("overtimes", "setting"));
     }
 
     public function create()

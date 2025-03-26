@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Employee;
 use App\Models\Loan;
 use App\Models\LoanPayment;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
@@ -22,10 +23,16 @@ class LoanController extends Controller implements HasMiddleware
         ];
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $loans = Loan::orderBy("created_at", "DESC")->get();
-        return view("Loans.index", compact("loans"));
+        $loans = Loan::latest()->paginate(10);
+        $setting = Setting::first();
+
+        if ($request->ajax()) {
+            return view("Partials.Loan.table_body", compact("loans", "setting"))->render();
+        }
+
+        return view("Loans.index", compact("loans", "setting"));
     }
 
 

@@ -6,6 +6,7 @@ use App\Models\Allowance;
 use App\Models\AllowanceType;
 use App\Models\Department;
 use App\Models\Position;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
@@ -23,9 +24,14 @@ class AllowanceController extends Controller implements HasMiddleware
         ];
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $allowances = Allowance::all();
+        $allowances = Allowance::latest()->paginate(10);
+        $setting = Setting::first();
+        if ($request->ajax()) {
+            return view("Partials.Allowance.table_body", compact("allowances", "setting"))->render();
+        }
+
         return view("Allowance.index", compact("allowances"));
     }
 

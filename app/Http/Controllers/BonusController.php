@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bonus;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
@@ -20,10 +21,16 @@ class BonusController extends Controller implements HasMiddleware
         ];
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $bonuses = Bonus::orderBy("created_at", "DESC")->get();
-        return view("Bonuses.index", compact("bonuses"));
+        $bonuses = Bonus::latest()->paginate(10);
+
+        $setting = Setting::first();
+        if ($request->ajax()) {
+            return view("Partials.Bonus.table_body", compact("bonuses", "setting"))->render();
+        }
+
+        return view("Bonuses.index", compact("bonuses", "setting"));
     }
 
 

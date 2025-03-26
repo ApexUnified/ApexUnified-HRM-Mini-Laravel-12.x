@@ -51,10 +51,17 @@ class ReportController extends Controller implements HasMiddleware
 
 
 
-        $attendances = $attendances->get();
+        $attendances = $attendances->paginate(10);
+
         if ($request->hasAny(["from", "to"]) && $attendances->isEmpty()) {
             Toastr()->info("No Attendance Found ", [], "No Result Found");
         }
+
+        if ($request->ajax()) {
+            return view("Partials.Report.Attendance.table_body", compact("attendances"))->render();
+        }
+
+
 
         $employees = Employee::all();
         return view("Reports.AttendanceReport.index", compact("attendances", "employees"));
@@ -72,6 +79,7 @@ class ReportController extends Controller implements HasMiddleware
             "to" => "nullable|date|date_format:Y-m-d",
         ]);
 
+        $setting = Setting::first();
         // return $request->all();
         $loanPayments = LoanPayment::query()->latest();
 
@@ -89,13 +97,20 @@ class ReportController extends Controller implements HasMiddleware
         }
 
 
-        $loanPayments = $loanPayments->get();
+        $loanPayments = $loanPayments->paginate(10);
+
+
+
 
         if ($request->hasAny(["from", "to"]) && $loanPayments->isEmpty()) {
             Toastr()->info("No Loans Found", [], "No Result Found");
         }
 
+        if ($request->ajax()) {
+            return view("Partials.Report.LoanPayment.table_body", compact("loanPayments", "setting"))->render();
+        }
+
         $employees = Employee::all();
-        return view("Reports.LoanPayments.index", compact("loanPayments", "employees"));
+        return view("Reports.LoanPayments.index", compact("loanPayments", "employees", "setting"));
     }
 }

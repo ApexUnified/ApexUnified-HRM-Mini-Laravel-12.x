@@ -39,12 +39,19 @@ class AttendanceController extends Controller implements HasMiddleware
         }
 
 
-        $attendances = $attendances->get();
+        $attendances = $attendances->paginate(10);
+
+
 
 
         if ($request->hasAny(["from", "to"]) && $attendances->isEmpty()) {
             Toastr()->info("No Attendance Found", [], "No Results Found :(");
         }
+
+        if ($request->ajax()) {
+            return view("Partials.Attendances.table_body", compact("attendances"))->render();
+        }
+
 
         return view("attendance.index", compact("attendances"));
     }

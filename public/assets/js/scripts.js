@@ -354,6 +354,8 @@
         if ($('#attendance_report_table').length) {
             $('#attendance_report_table').DataTable({
                 responsive: true,
+                paging: false,
+                info: false,
                 dom: 'Bfrtip',
 
                 buttons: [
@@ -427,6 +429,8 @@
         if ($('#loan_payment_report_table').length) {
             $('#loan_payment_report_table').DataTable({
                 responsive: true,
+                paging: false,
+                info: false,
                 dom: 'Bfrtip',
 
                 buttons: [
@@ -591,6 +595,8 @@
         if ($('#Employee_table').length) {
             $('#Employee_table').DataTable({
                 responsive: true,
+                info: false,
+                paging: false,
                 columnDefs: [
                     { orderable: false, targets: [0, 1] }
                 ],
@@ -682,6 +688,8 @@
         if ($('#Employee_Schedule_table').length) {
             $('#Employee_Schedule_table').DataTable({
                 responsive: true,
+                paging: false,
+                info: false,
                 dom: 'Bfrtip',
                 buttons: [
                     {
@@ -1024,6 +1032,8 @@
         if ($('#Allowance_Table').length) {
             $('#Allowance_Table').DataTable({
                 responsive: true,
+                paging: false,
+                info: false,
                 columnDefs: [
                     { orderable: false, targets: [0, 1] }
                 ],
@@ -1286,6 +1296,8 @@
         if ($('#Bonus_Table').length) {
             $('#Bonus_Table').DataTable({
                 responsive: true,
+                paging: false,
+                info: false,
                 columnDefs: [
                     { orderable: false, targets: [0, 1] }
                 ],
@@ -1377,6 +1389,8 @@
         if ($('#Loan_Table').length) {
             $('#Loan_Table').DataTable({
                 responsive: true,
+                paging: false,
+                info: false,
                 columnDefs: [
                     { orderable: false, targets: [0, 1] }
                 ],
@@ -1468,6 +1482,8 @@
         if ($('#Deduction_Table').length) {
             $('#Deduction_Table').DataTable({
                 responsive: true,
+                paging: false,
+                info: false,
                 columnDefs: [
                     { orderable: false, targets: [0, 1] }
                 ],
@@ -1559,6 +1575,8 @@
         if ($('#TaxDeduction_Table').length) {
             $('#TaxDeduction_Table').DataTable({
                 responsive: true,
+                paging: false,
+                info: false,
                 columnDefs: [
                     { orderable: false, targets: [0, 1] }
                 ],
@@ -1651,6 +1669,8 @@
         if ($('#CashAdvance_Table').length) {
             $('#CashAdvance_Table').DataTable({
                 responsive: true,
+                paging: false,
+                info: false,
                 columnDefs: [
                     { orderable: false, targets: [0, 1] }
                 ],
@@ -1741,6 +1761,8 @@
         if ($('#AdvanceSalary_Table').length) {
             $('#AdvanceSalary_Table').DataTable({
                 responsive: true,
+                paging: false,
+                info: false,
                 columnDefs: [
                     { orderable: false, targets: [0, 1] }
                 ],
@@ -2018,6 +2040,8 @@
         if ($('#overtime_table').length) {
             $('#overtime_table').DataTable({
                 responsive: true,
+                paging: false,
+                info: false,
                 columnDefs: [
                     { orderable: false, targets: [0, 1] }
                 ],
@@ -2116,6 +2140,8 @@
         if ($('#attendance_table').length) {
             $('#attendance_table').DataTable({
                 responsive: true,
+                info: false,
+                paging: false,
                 columnDefs: [
                     { orderable: false, targets: [0, 1] }
                 ],
