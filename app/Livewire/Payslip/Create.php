@@ -91,7 +91,7 @@ class Create extends Component
 
         // From Overtime The Pay Of Overtime Overs Fetched And Calculated
         $overtimePay = OvertimePay::first();
-        $this_month_overtime_pay = !empty($this_month_overtimes) ?  $this_month_overtimes * $overtimePay->overtime_pay : null;
+        $this_month_overtime_pay = !empty($this_month_overtimes) ?  $this_month_overtimes * $overtimePay->overtime_pay : 0;
 
 
 
